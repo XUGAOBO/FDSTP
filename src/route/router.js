@@ -3,12 +3,6 @@ const Index = resolve => {
         resolve(require('../pages/index/index.vue'))
     }, 'index')
 }
-// example
-const Example = resolve => {
-    require.ensure([], () => {
-        resolve(require('../pages/example/example.vue'))
-    }, 'example')
-}
 
 
 export default [{
@@ -18,14 +12,6 @@ export default [{
         },
         path: '/',
         component: Index
-    },
-    {
-        name: 'example',
-        meta: {
-            title: 'example'
-        },
-        path: '/example',
-        component: Example
     },
     {
         path: '*',
