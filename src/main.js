@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import routes from './route/router';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import 'Utils/adaptive';
 
 // 样式入口
@@ -17,6 +19,8 @@ if ('addEventListener' in document) {
         false
     );
 }
+
+Vue.use(ElementUI);
 
 [VueRouter].forEach(plugin => Vue.use(plugin));
 
