@@ -13,7 +13,11 @@
         />
         <Table />
          -->
-        <TestTable :columns="columns">
+        <TestTable :columns="columns" :dataSource="dataSource">
+            <p slot="name" slot-scope="props">
+                <span>hello world</span>
+                <span>{{props.data.name}}</span>
+            </p>
             <p slot="operate">
                 <el-table-column fixed="right" label="操作" width="100">
                     <template slot-scope="scope">
@@ -58,7 +62,8 @@
                 }, {
                     prop: 'name',
                     label: '姓名',
-                    width: 180
+                    width: 180,
+                    render: true
                 }, {
                     prop: 'province',
                     label: '省份',
