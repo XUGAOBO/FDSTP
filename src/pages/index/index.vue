@@ -11,11 +11,9 @@
             :isAppendTo="isAppendTo"
             @get-content="getContent"
         />
-        <Table />
-         -->
+        -->
         <TestTable :columns="columns" :dataSource="dataSource">
             <p slot="name" slot-scope="props">
-                <span>hello world</span>
                 <span>{{props.data.name}}</span>
             </p>
             <p slot="operate">
@@ -62,7 +60,7 @@
                 }, {
                     prop: 'name',
                     label: '姓名',
-                    width: 180,
+                    width: 250,
                     render: true
                 }, {
                     prop: 'province',
@@ -75,7 +73,7 @@
                 }, {
                     prop: 'address',
                     label: '住址',
-                    width: 180
+                    width: 250
                 }, {
                     prop: 'zip',
                     label: '邮编',
