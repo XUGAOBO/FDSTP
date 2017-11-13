@@ -185,8 +185,9 @@ const routerList = [{
 
 
 function getRouter(data) {
-    let tempData = [];
-    tempData = data.map((item) => {
+    let tempData = [],
+    children = [];
+    children = data.map((item) => {
         return {
             name: item.routeName,
             meta: {
@@ -202,7 +203,8 @@ function getRouter(data) {
             title: 'index'
         },
         path: '/',
-        component: Index
+        component: Index,
+        children: children
     })
     tempData.push({
         path: '*',
