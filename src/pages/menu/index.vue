@@ -1,6 +1,6 @@
 <template>
-    <div class="menu">
-        <el-menu @open="handleOpen" @close="handleClose" :default-openeds="openeds" :router="isRouter">
+    <div class="page-menu">
+        <el-menu @open="handleOpen" @close="handleClose" :default-openeds="openeds" :router="isRouter" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
             <el-submenu index="1">
                 <span slot="title">车队车辆信息管理</span>
                 <el-menu-item index="team-info" :route="route">车队信息</el-menu-item>

@@ -1,0 +1,48 @@
+@charset "utf-8";
+.page-header {
+    height: 100%;
+    .func-bar {
+        float: right;
+        height: 100%;
+    }
+    .setting {
+        cursor: pointer;
+        padding: 0 12px;
+        display: inline-block;
+        -webkit-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s;
+        height: 100%;
+        position: relative;
+        &-avatar {
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 18px;
+            display: inline-block;
+            margin: 18px 8px 20px 0;
+            vertical-align: middle;
+            >img {
+                width: 100%;
+                height: 100%;
+                display: block;
+                border-radius: 100%;
+            }
+        }
+        &:hover {
+            background-color: #e6f7ff;
+        }
+    }
+    .clearfix:before,
+    .clearfix:after {
+        content:"";
+        display:table;
+    }
+    .clearfix:after {
+        clear:both;
+        overflow:hidden;
+    }
+    .clearfix {
+        zoom:1; /* IE < 8 */
+    }
+}
