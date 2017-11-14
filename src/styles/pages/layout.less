@@ -1,0 +1,40 @@
+@charset "utf-8";
+.layout {
+    height: 100%;
+    // 导航
+    .nav {
+        float: left;
+        width: 200px;
+        height: 100%;
+    }
+    // 头
+    .header {
+        height: 64px;
+        line-height: 64px;
+    }
+    .container {
+        position: relative;
+        margin: 0 0 0 200px;
+        height: 100%;
+    }
+    // 内容
+    .content {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .clearfix:before,
+    .clearfix:after {
+        content:"";
+        display:table;
+    }
+    .clearfix:after {
+        clear:both;
+        overflow:hidden;
+    }
+    .clearfix {
+        zoom:1; /* IE < 8 */
+    }
+}

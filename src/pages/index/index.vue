@@ -1,44 +1,16 @@
 <template>
     <div class="home">
-        <!--
-        <Editor 
-            id="test1"
-            :content="content"
-            serverUrl="" 
-            imageUrl="" 
-            imageAccess="" 
-            height=500
-            :isAppendTo="isAppendTo"
-            @get-content="getContent"
-        />
-        -->
-        <TestTable :columns="columns" :dataSource="dataSource">
-            <p slot="name" slot-scope="props">
-                <span>{{props.data.name}}</span>
-            </p>
-            <p slot="operate">
-                <el-table-column fixed="right" label="操作" width="100">
-                    <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button type="text" size="small">编辑</el-button>
-                    </template>
-                </el-table-column>
-            </p>
-        </TestTable>
-        <div class="nav">
-            <!--
-            <PageMenu />
-            -->
-        </div>
-        <div class="container">
-            <div class="header"></div>
-            <div class="content">
+        <Layout>
+            <PageMenu slot="nav" />
+            <header slot="header" />
+            <div slot="content">
                 <router-view></router-view>
             </div>
-        </div>
+        </Layout>
     </div>
 </template>
 <script>
+    import Layout from '../layout/index';
     import Editor from 'Components/editor/index';
     import PageMenu from '../menu/index';
     import TestTable from 'Components/table/index';
@@ -46,7 +18,8 @@
         components: {
             Editor,
             PageMenu,
-            TestTable
+            TestTable,
+            Layout
         },
         data() {
             return {
