@@ -4,6 +4,7 @@
         />
         <TestTable :columns="columns" :dataSource="dataSource">
             <p slot="name" slot-scope="props">
+                <span>hello world</span>
                 <span>{{props.data.name}}</span>
             </p>
             <p slot="operate">

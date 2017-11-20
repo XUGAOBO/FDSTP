@@ -1,7 +1,12 @@
 <template>
     <div class="layout clearfix">
         <nav class="nav">
-            <slot name="nav"></slot>
+            <div class="img">
+                <slot name="img"></slot>
+            </div>
+            <div class="menu">
+                <slot name="nav"></slot>
+            </div>
         </nav>
         <div class="container">
             <header class="header">

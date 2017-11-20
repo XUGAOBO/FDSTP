@@ -2,7 +2,8 @@
     <div class="home">
         <Layout>
             <PageMenu slot="nav" />
-            <PageHeader slot="header">   
+            <img src="../../assets/images/avatar.jpg" slot="img" />
+            <PageHeader slot="header">
             </PageHeader>
             <div slot="content">
                 <router-view></router-view>
