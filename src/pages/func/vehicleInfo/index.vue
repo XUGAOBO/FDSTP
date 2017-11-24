@@ -14,7 +14,7 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="{}" @close="closeDialog" :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="{}" @closeDialog="closeDialog" :visible="visible" slot="form-modal" />
     </operation>
 </template>
 <script>
@@ -91,14 +91,6 @@
                 dataSource: [{
                     date: '1008611'
                 }]
-            }
-        },
-        mounted() {
-            console.error('bbbbb');
-        },
-        watch: {
-            visible(val) {
-                console.error('val', val);
             }
         }
     }

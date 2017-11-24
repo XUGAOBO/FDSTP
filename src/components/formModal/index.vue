@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="收货地址" :visible.sync="visible">
+    <el-dialog title="收货地址" :visible.sync="visible" :before-close="close">
         <el-form :model="form" ref="form">
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -46,14 +46,6 @@
             confirm: function () {
                 this.$emit('closeDialog');
             }
-        },
-        watch: {
-            visible(val) {
-                console.error('val', val);
-            }
-        },
-        mounted () {
-            console.error('cccccc');
         }
     }
 
