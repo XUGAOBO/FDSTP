@@ -3,7 +3,7 @@
 @marginDistance: 15px;
 @paddingDistance: 15px;
 .func {
-    padding: 0 @paddingDistance;
+    margin: 0 @marginDistance;
     box-sizing: border-box;
     height: 100%;
     position: relative;
@@ -14,11 +14,14 @@
     }
     &-content {
         position: absolute;
+        left: 0;
+        right: 0;
         top: 0;
-        bottom: @operateHeight;
-        margin-top: @operateHeight;
+        bottom: 0;
+        padding-top: @operateHeight;
         height: 100%;
         width: 100%;
+        box-sizing: border-box;
     }
     &-wrapper {
         height: 100%;
