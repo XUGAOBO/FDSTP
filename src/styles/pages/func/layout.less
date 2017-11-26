@@ -3,15 +3,27 @@
 @marginDistance: 15px;
 @paddingDistance: 15px;
 .func {
+    padding: 0 @paddingDistance;
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
     &-operate {
         height: @operateHeight;
         line-height: @operateHeight;
-        margin: 0 @marginDistance;
         float: right;
     }
     &-content {
-        padding: 0 @paddingDistance;
-        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        bottom: @operateHeight;
+        margin-top: @operateHeight;
+        height: 100%;
+        width: 100%;
+    }
+    &-wrapper {
+        height: 100%;
+        width: 100%;
+        overflow-y: auto;
     }
     .clearfix:before,
     .clearfix:after {

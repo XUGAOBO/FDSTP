@@ -4,7 +4,9 @@
             <slot name="operate"></slot>
         </div>
         <div class="func-content">
-            <slot name="content"></slot>
+            <div class="func-wrapper">
+                <slot name="content"></slot>
+            </div>
         </div>
         <slot name="form-modal"></slot>
     </div>

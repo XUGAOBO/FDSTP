@@ -96,9 +96,13 @@
                 label: '押车员微信号',
                 width: 180
             }];
-            this.dataSource = [{
-                date: '1008611'
-            }];
+            let tempData = [];
+            for (let i = 0; i < 200; i++) {
+                tempData.push({
+                    date: '1008611'
+                });
+            }
+            this.dataSource = tempData;
         }
     }
 
