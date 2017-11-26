@@ -1,5 +1,9 @@
 <template>
-    <operation>
+    <Layout>
+        <div slot="operate">
+            <el-button @click="createRecord" size="small">新增</el-button>
+            <el-button @click="exportTable" size="small">导出</el-button>
+        </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <p slot="name" slot-scope="props">
                 <span>hello world</span>
@@ -15,11 +19,11 @@
             </p>
         </TableInfo>
         <FormModal :dataSource="{}" @closeDialog="closeDialog" :visible="visible" slot="form-modal" />
-    </operation>
+    </Layout>
 </template>
 <script>
     import TableInfo from 'Components/table/index';
-    import Operation from '../operation/index';
+    import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
     export default {
@@ -27,71 +31,74 @@
         components: {
             TableInfo,
             FormModal,
-            Operation
+            Layout
         },
-        data() {
-            return {
-                columns: [{
-                    prop: 'date',
-                    label: '车队编号',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '车号',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '挂车车号',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '车辆类型',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '吨位',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '驾驶员1',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '驾驶员1手机号码',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '驾驶员1微信号',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '驾驶员2',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '驾驶员2手机号码',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '驾驶员2微信号',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '押车员',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '押车员手机号码',
-                    width: 180
-                }, {
-                    prop: 'date',
-                    label: '押车员微信号',
-                    width: 180
-                }],
-                dataSource: [{
-                    date: '1008611'
-                }]
+        watch: {
+            visible(val) {
+                console.error('visible', val);
             }
+        },
+        mounted() {
+            this.columns = [{
+                prop: 'date',
+                label: '车队编号',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '车号',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '挂车车号',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '车辆类型',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '吨位',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '驾驶员1',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '驾驶员1手机号码',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '驾驶员1微信号',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '驾驶员2',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '驾驶员2手机号码',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '驾驶员2微信号',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '押车员',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '押车员手机号码',
+                width: 180
+            }, {
+                prop: 'date',
+                label: '押车员微信号',
+                width: 180
+            }];
+            this.dataSource = [{
+                date: '1008611'
+            }];
         }
     }
 

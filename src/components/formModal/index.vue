@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="收货地址" :visible.sync="visible" :before-close="close">
+    <el-dialog :title="title" :visible.sync="visible" :before-close="close">
         <el-form :model="form" ref="form">
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -11,11 +11,15 @@
 <script>
     export default {
         props: {
-            visible: {
+            title: { // 表单的标题
+                type: String,
+                default: ''
+            },
+            visible: { // 表单展示与隐藏的状态
                 type: Boolean,
                 default: false
             },
-            dataSource: {
+            dataSource: { // 表单的数据源
                 type: Object,
                 default () {
                     return {}

@@ -1,0 +1,28 @@
+@charset "utf-8";
+@operateHeight: 50px;
+@marginDistance: 15px;
+@paddingDistance: 15px;
+.func {
+    &-operate {
+        height: @operateHeight;
+        line-height: @operateHeight;
+        margin: 0 @marginDistance;
+        float: right;
+    }
+    &-content {
+        padding: 0 @paddingDistance;
+        box-sizing: border-box;
+    }
+    .clearfix:before,
+    .clearfix:after {
+        content:"";
+        display:table;
+    }
+    .clearfix:after {
+        clear:both;
+        overflow:hidden;
+    }
+    .clearfix {
+        zoom:1; /* IE < 8 */
+    }
+}

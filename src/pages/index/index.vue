@@ -1,9 +1,7 @@
 <template>
     <div class="home">
         <Layout>
-            <!--
             <PageMenu slot="nav" />
-            -->
             <img src="../../assets/images/avatar.jpg" slot="img" />
             <PageHeader slot="header">
             </PageHeader>
