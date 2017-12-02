@@ -18,7 +18,7 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="{}" @closeDialog="closeDialog" :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="formData" @closeDialog="closeDialog" :visible="visible" slot="form-modal" />
     </Layout>
 </template>
 <script>
@@ -32,6 +32,67 @@
             TableInfo,
             FormModal,
             Layout
+        },
+        data() {
+            return {
+                formData: [{
+                    key: 'no',
+                    name: '车队编号',
+                    type: 'input'
+                }, {
+                    key: 'carNo',
+                    name: '车号',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '挂车车号',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '车辆类型',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '吨位',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '驾驶员1',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '驾驶员1手机号码',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '驾驶员1微信号',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '驾驶员2',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '驾驶员2手机号码',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '驾驶员2微信号',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '押车员',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '押车员手机号码',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '押车员微信号',
+                    type: 'input'
+                }]
+            }
         },
         watch: {
             visible(val) {

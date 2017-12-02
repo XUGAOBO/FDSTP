@@ -1,6 +1,13 @@
 <template>
     <el-dialog :title="title" :visible.sync="visible" :before-close="close">
-        <el-form :model="form" ref="form">
+        <el-form :model="form" ref="form" label-width="80px">
+            <el-form-item v-for="(item, index) in dataSource" :key="index" :label="item.name">
+                <!-- 单行文本 -->
+                <el-input v-model="form[item.key]" v-if="item.type === 'input'"></el-input>
+                <!-- 下拉框 -->
+                <el-select v-model="form[item.key]" placeholder="" v-if="item.type === 'select'">
+                </el-select>
+            </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
@@ -20,15 +27,15 @@
                 default: false
             },
             dataSource: { // 表单的数据源
-                type: Object,
+                type: Array,
                 default () {
-                    return {}
+                    return []
                 }
             }
         },
         data() {
             return {
-                form: this.dataSource
+                form: {}
             }
         },
         computed: {
@@ -42,6 +49,10 @@
             }
         },
         methods: {
+            // 获取组件
+            getComponent(data) {
+                console.error('data', data);
+            },
             // 取消
             close: function () {
                 this.$emit('closeDialog');
@@ -50,6 +61,12 @@
             confirm: function () {
                 this.$emit('closeDialog');
             }
+        },
+        mounted() {
+            this.form = this.dataSource.reduce(function (po, item) {
+                po[item.key] = '';
+                return po;
+            }, {});
         }
     }
 
