@@ -1,6 +1,5 @@
 <template>
     <div class="layout clearfix">
-        <!--
         <nav class="nav">
             <div class="img">
                 <slot name="img"></slot>
@@ -9,7 +8,6 @@
                 <slot name="nav"></slot>
             </div>
         </nav>
-        -->
         <div class="container">
             <header class="header">
                 <slot name="header"></slot>

@@ -1,8 +1,10 @@
 <template>
-    <div>
-        <Editor id="test1" :content="content" serverUrl="" imageUrl="" imageAccess="" height=500 :isAppendTo="isAppendTo" @get-content="getContent"
-        />
-        <TestTable :columns="columns" :dataSource="dataSource">
+    <Layout>
+        <div slot="operate">
+            <el-button @click="createRecord" size="small">新增</el-button>
+            <el-button @click="exportTable" size="small">导出</el-button>
+        </div>
+        <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <p slot="name" slot-scope="props">
                 <span>hello world</span>
                 <span>{{props.data.name}}</span>
@@ -10,93 +12,102 @@
             <p slot="operate">
                 <el-table-column fixed="right" label="操作" width="100">
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button type="text" size="small">编辑</el-button>
+                        <el-button @click="updateRecord(scope.row)" type="text" size="small">修改</el-button>
+                        <el-button @click="deleteRecord(scope.row, TABLE_NAME)" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </p>
-        </TestTable>
-    </div>
+        </TableInfo>
+        <FormModal :dataSource="formData" @closeDialog="closeDialog" :visible="visible" slot="form-modal" />
+    </Layout>
 </template>
 <script>
-    import Editor from 'Components/editor/index';
-    import TestTable from 'Components/table/index';
+    import TableInfo from 'Components/table/index';
+    import Layout from '../layout/index';
+    import mixin from '../mixins/tableMixins';
+    import FormModal from 'Components/formModal/index';
+    import {
+        tableSelect
+    } from '../../../api/table';
+    const TABLE_NAME = 'motorcade';
     export default {
+        mixins: [mixin],
         components: {
-            TestTable,
-            Editor
+            TableInfo,
+            FormModal,
+            Layout
         },
         data() {
             return {
-                visible: false,
-                content: 'aaaaaa',
-                isAppendTo: false,
-                columns: [{
-                    prop: 'date',
-                    label: '日期',
-                    width: 180
+                TABLE_NAME,
+                formData: [{
+                    key: 'no',
+                    name: '车队编号',
+                    type: 'input'
                 }, {
-                    prop: 'name',
-                    label: '姓名',
-                    width: 250,
-                    render: true
+                    key: 'carNo',
+                    name: '车号',
+                    type: 'input'
                 }, {
-                    prop: 'province',
-                    label: '省份',
-                    width: 180
+                    key: 'date',
+                    name: '挂车车号',
+                    type: 'input'
                 }, {
-                    prop: 'city',
-                    label: '城市',
-                    width: 180
+                    key: 'date',
+                    name: '车辆类型',
+                    type: 'input'
                 }, {
-                    prop: 'address',
-                    label: '住址',
-                    width: 250
+                    key: 'date',
+                    name: '吨位',
+                    type: 'input'
                 }, {
-                    prop: 'zip',
-                    label: '邮编',
-                    width: 180
-                }],
-                dataSource: [{
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
+                    key: 'date',
+                    name: '驾驶员1',
+                    type: 'input'
                 }, {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
+                    key: 'date',
+                    name: '驾驶员1手机号码',
+                    type: 'input'
                 }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
+                    key: 'date',
+                    name: '驾驶员1微信号',
+                    type: 'input'
                 }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
+                    key: 'date',
+                    name: '驾驶员2',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '驾驶员2手机号码',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '驾驶员2微信号',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '押车员',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '押车员手机号码',
+                    type: 'input'
+                }, {
+                    key: 'date',
+                    name: '押车员微信号',
+                    type: 'input'
                 }]
             }
         },
-        methods: {
-            getContent(data) {},
-            click() {
-                this.isAppendTo = true;
-                this.content = 'bbbbbbbbbb'
-            },
-            handleClick(row) {
-                console.log(row);
-            }
+        mounted() {
+            tableSelect(TABLE_NAME)
+                .then(res => {
+                    this.columns = this.adapterColumns(res.headList);
+                    this.dataSource = res.contentList;
+                })
+                .catch(err => {
+                    console.log(err)
+                });
         }
     }
 

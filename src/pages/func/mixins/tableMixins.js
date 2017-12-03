@@ -1,12 +1,25 @@
+import {
+    deleteTableRow
+} from '../../../api/table';
 export default {
-    data () {
+    data() {
         return {
-            visible: false,  // form表单展示与隐藏状态  true 展示  false 隐藏
-            columns: [],  // 表格列表
+            visible: false, // form表单展示与隐藏状态  true 展示  false 隐藏
+            columns: [], // 表格列表
             dataSource: [] // 表格数据列表
         }
     },
     methods: {
+        // 适配表格列
+        adapterColumns(data) {
+            return data.map((item) => {
+                return {
+                    prop: item.headId,
+                    label: item.headName,
+                    width: item.length * 10
+                }
+            });
+        },
         // 添加表格记录
         createRecord() {
             console.log('create---');
@@ -18,8 +31,12 @@ export default {
             this.visible = true;
         },
         // 删除表格记录
-        deleteRecord(data) {
-            console.log('delete---');
+        deleteRecord(row, name) {
+            deleteTableRow(row.id, name)
+                .then(res => {})
+                .catch(err => {
+                    console.log(err)
+                });
         },
         // 导出表格
         exportTable() {

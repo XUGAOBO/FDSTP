@@ -1,14 +1,16 @@
 <template>
     <el-dialog :title="title" :visible.sync="visible" :before-close="close">
-        <el-form :model="form" ref="form" label-width="80px">
-            <el-form-item v-for="(item, index) in dataSource" :key="index" :label="item.name">
-                <!-- 单行文本 -->
-                <el-input v-model="form[item.key]" v-if="item.type === 'input'"></el-input>
-                <!-- 下拉框 -->
-                <el-select v-model="form[item.key]" placeholder="" v-if="item.type === 'select'">
-                </el-select>
-            </el-form-item>
-        </el-form>
+        <div class="form-modal">
+            <el-form :model="form" ref="form" label-width="80px">
+                <el-form-item v-for="(item, index) in dataSource" :key="index" :label="item.name">
+                    <!-- 单行文本 -->
+                    <el-input v-model="form[item.key]" v-if="item.type === 'input'"></el-input>
+                    <!-- 下拉框 -->
+                    <el-select v-model="form[item.key]" placeholder="" v-if="item.type === 'select'">
+                    </el-select>
+                </el-form-item>
+            </el-form>
+        </div>
         <span slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
             <el-button type="primary" @click="confirm">确 定</el-button>
