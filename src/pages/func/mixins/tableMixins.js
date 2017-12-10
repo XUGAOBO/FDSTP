@@ -28,14 +28,14 @@ export default {
         // 查询表格
         queryTable(tableName) {
             tableSelect(tableName)
-            .then(res => {
-                this.columns = this.adapterColumns(res.headList);
-                this.formData = this.adapterForm(res.headList);
-                this.dataSource = res.contentList;
-            })
-            .catch(err => {
-                console.log(err)
-            });
+                .then(res => {
+                    this.columns = this.adapterColumns(res.headList);
+                    this.formData = this.adapterForm(res.headList);
+                    this.dataSource = res.contentList;
+                })
+                .catch(err => {
+                    console.log(err)
+                });
         },
         // 获取确认框状态
         getPopoverStatus(id) {
@@ -83,11 +83,11 @@ export default {
         // 删除表格记录
         deleteRecord(row, name) {
             this.clearPopoverStatus();
-            deleteTableRow(row.id, name)
+            this.queryRepeat(deleteTableRow(row.id, name)
                 .then(res => {})
                 .catch(err => {
                     console.log(err)
-                });
+                }));
         },
         // 导出表格
         exportTable() {
@@ -98,26 +98,39 @@ export default {
             this.visible = false;
         },
         insertRecord(data, tableName) {
-            insertTableRow(data, tableName)
-            .then(res => {})
-            .catch(err => {
-                console.log(err)
-            });
+            return insertTableRow(data, tableName)
+                .then(res => {})
+                .catch(err => {
+                    console.log(err)
+                });
         },
         // 确认提交信息
         confirm(data, tableName) {
             this.visible = false;
             if (Object.keys(this.initValue).length > 0) { // 更新数据
                 deleteTableRow(this.initValue.id, tableName)
-                .then(res => {
-                    this.insertRecord(data, tableName);
-                })
-                .catch(err => {
-                    console.log(err)
-                });
+                    .then(res => {
+                        this.queryRepeat(this.insertRecord(data, tableName));
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    });
                 return;
             }
-            this.insertRecord(data, tableName);
+            this.queryRepeat(this.insertRecord(data, tableName))
+        },
+        // 操作后再次查询表格
+        queryRepeat(func) {
+            this.syncMethod(() => (func))
+                .then(res => {
+                    this.queryTable(this.tableName);
+                })
+        },
+        // 同步请求操作方法
+        syncMethod(func) {
+            return new Promise((resolve, reject) => {
+                resolve(func())
+            })
         }
     }
 }
