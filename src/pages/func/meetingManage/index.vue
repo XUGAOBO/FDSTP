@@ -25,7 +25,7 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
     </Layout>
 </template>
 <script>
@@ -33,9 +33,6 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
-    import {
-        tableSelect
-    } from '../../../api/table';
     const TABLE_NAME = 'meeting';
     export default {
         mixins: [mixin],
@@ -49,16 +46,8 @@
                 TABLE_NAME
             }
         },
-        mounted() {
-            tableSelect(TABLE_NAME)
-                .then(res => {
-                    this.columns = this.adapterColumns(res.headList);
-                    this.formData = this.adapterForm(res.headList);
-                    this.dataSource = res.contentList;
-                })
-                .catch(err => {
-                    console.log(err)
-                });
+        mounted () {
+            this.tableName = TABLE_NAME;
         }
     }
 

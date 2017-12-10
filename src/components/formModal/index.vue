@@ -37,6 +37,12 @@
             tableName: {
                 type: String,
                 default: ''
+            },
+            initValue: {
+                type: Object,
+                default () {
+                    return {};
+                }
             }
         },
         data() {
@@ -68,11 +74,20 @@
                 this.$emit('confirm', this.form, this.tableName);
             }
         },
-        mounted() {
-            this.form = this.dataSource.reduce(function (po, item) {
-                po[item.key] = '';
-                return po;
-            }, {});
+        watch: {
+            dataSource(val) {
+                this.form = this.dataSource.reduce(function (po, item) {
+                    po[item.key] = '';
+                    return po;
+                }, {});
+            },
+            initValue(val) {
+                if (this.visible && this.initValue) {
+                    for (let key of Object.keys(this.form)) {
+                        this.form[key] = this.initValue[key];
+                    }
+                }
+            }
         }
     }
 

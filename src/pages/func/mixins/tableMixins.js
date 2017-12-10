@@ -1,6 +1,7 @@
 import {
     insertTableRow,
-    deleteTableRow
+    deleteTableRow,
+    tableSelect
 } from '../../../api/table';
 const formType = {
     text: 'input'
@@ -8,14 +9,34 @@ const formType = {
 export default {
     data() {
         return {
+            tableName: '', // 表名
             visible: false, // form表单展示与隐藏状态  true 展示  false 隐藏
             columns: [], // 表格列表
             dataSource: [], // 表格数据列表
             formData: [], // 表单数据
+            initValue: {}, // 更新表格时的
             popoverValue: '' // 确认框状态
         }
     },
+    mounted() {
+        this.$nextTick(() => {
+            this.tableName && this.queryTable(this.tableName);
+        })
+
+    },
     methods: {
+        // 查询表格
+        queryTable(tableName) {
+            tableSelect(tableName)
+            .then(res => {
+                this.columns = this.adapterColumns(res.headList);
+                this.formData = this.adapterForm(res.headList);
+                this.dataSource = res.contentList;
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        },
         // 获取确认框状态
         getPopoverStatus(id) {
             return this.popoverValue === id;
@@ -36,13 +57,14 @@ export default {
         },
         // 适配表单数据格式
         adapterForm(data) {
-            return data.filter((item) => (item.visible)).map((item) => {
+            // TODO 展示单词有错误 需要后台修改
+            return data.filter((item) => (item.visiable)).map((item) => {
                 return {
                     key: item.headId,
                     name: item.headName,
                     type: formType[item.editorType]
                 }
-            });
+            })
         },
         // 添加表格记录
         createRecord() {
@@ -51,7 +73,7 @@ export default {
         },
         // 更新表格记录
         updateRecord(data) {
-            console.log('update---');
+            this.initValue = data;
             this.visible = true;
         },
         // 询问是否要删除此记录
@@ -75,15 +97,27 @@ export default {
         closeDialog() {
             this.visible = false;
         },
+        insertRecord(data, tableName) {
+            insertTableRow(data, tableName)
+            .then(res => {})
+            .catch(err => {
+                console.log(err)
+            });
+        },
         // 确认提交信息
         confirm(data, tableName) {
             this.visible = false;
-            console.error('data', data);
-            insertTableRow(data, tableName)
-                .then(res => {})
+            if (Object.keys(this.initValue).length > 0) { // 更新数据
+                deleteTableRow(this.initValue.id, tableName)
+                .then(res => {
+                    this.insertRecord(data, tableName);
+                })
                 .catch(err => {
                     console.log(err)
                 });
+                return;
+            }
+            this.insertRecord(data, tableName);
         }
     }
 }

@@ -25,7 +25,7 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" @closeDialog="closeDialog" @confirm="confirm" :visible="visible" :tableName="TABLE_NAME"
+        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :visible="visible" :tableName="TABLE_NAME"
             slot="form-modal" />
     </Layout>
 </template>
@@ -34,9 +34,6 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
-    import {
-        tableSelect
-    } from '../../../api/table';
     const TABLE_NAME = 'motorcade';
     export default {
         mixins: [mixin],
@@ -51,16 +48,8 @@
                 visible2: false
             }
         },
-        mounted() {
-            tableSelect(TABLE_NAME)
-                .then(res => {
-                    this.columns = this.adapterColumns(res.headList);
-                    this.formData = this.adapterForm(res.headList);
-                    this.dataSource = res.contentList;
-                })
-                .catch(err => {
-                    console.log(err)
-                });
+        mounted () {
+            this.tableName = TABLE_NAME;
         }
     }
 
