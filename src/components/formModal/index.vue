@@ -33,6 +33,10 @@
                 default () {
                     return []
                 }
+            },
+            tableName: {
+                type: String,
+                default: ''
             }
         },
         data() {
@@ -61,7 +65,7 @@
             },
             // 确定
             confirm: function () {
-                this.$emit('closeDialog');
+                this.$emit('confirm', this.form, this.tableName);
             }
         },
         mounted() {

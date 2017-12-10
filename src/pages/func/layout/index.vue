@@ -15,6 +15,13 @@
     import mixin from '../mixins/tableMixins';
     export default {
         mixins: [mixin],
+        data() {
+            return {
+                visible: false
+            }
+        },
+        methods: {
+        },
         mounted() {}
     }
 

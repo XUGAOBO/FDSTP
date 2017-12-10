@@ -10,15 +10,23 @@
                 <span>{{props.data.name}}</span>
             </p>
             <p slot="operate">
-                <el-table-column fixed="right" label="操作" width="100">
+                <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
+                        <el-popover ref="popover" placement="top" width="160" :value="getPopoverStatus(scope.row.id)">
+                            <p>您确定删除吗？</p>
+                            <div style="text-align: right; margin: 0">
+                                <el-button size="mini" type="text" @click="clearPopoverStatus">取消</el-button>
+                                <el-button type="primary" size="mini" @click="deleteRecord(scope.row, TABLE_NAME)">确定</el-button>
+                            </div>
+                        </el-popover>
                         <el-button @click="updateRecord(scope.row)" type="text" size="small">修改</el-button>
-                        <el-button @click="deleteRecord(scope.row, TABLE_NAME)" type="text" size="small">删除</el-button>
+                        <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>删除</el-button>
                     </template>
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" @closeDialog="closeDialog" :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="formData" @closeDialog="closeDialog" @confirm="confirm" :visible="visible" :tableName="TABLE_NAME"
+            slot="form-modal" />
     </Layout>
 </template>
 <script>
@@ -40,69 +48,14 @@
         data() {
             return {
                 TABLE_NAME,
-                formData: [{
-                    key: 'no',
-                    name: '车队编号',
-                    type: 'input'
-                }, {
-                    key: 'carNo',
-                    name: '车号',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '挂车车号',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '车辆类型',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '吨位',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '驾驶员1',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '驾驶员1手机号码',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '驾驶员1微信号',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '驾驶员2',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '驾驶员2手机号码',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '驾驶员2微信号',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '押车员',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '押车员手机号码',
-                    type: 'input'
-                }, {
-                    key: 'date',
-                    name: '押车员微信号',
-                    type: 'input'
-                }]
+                visible2: false
             }
         },
         mounted() {
             tableSelect(TABLE_NAME)
                 .then(res => {
                     this.columns = this.adapterColumns(res.headList);
+                    this.formData = this.adapterForm(res.headList);
                     this.dataSource = res.contentList;
                 })
                 .catch(err => {
