@@ -12,8 +12,15 @@
             <p slot="operate">
                 <el-table-column fixed="right" label="操作" width="100">
                     <template slot-scope="scope">
+                        <el-popover ref="popover" placement="top" width="160" :value="getPopoverStatus(scope.row.id)">
+                            <p>您确定删除吗？</p>
+                            <div style="text-align: right; margin: 0">
+                                <el-button size="mini" type="text" @click="clearPopoverStatus">取消</el-button>
+                                <el-button type="primary" size="mini" @click="deleteRecord(scope.row, TABLE_NAME)">确定</el-button>
+                            </div>
+                        </el-popover>
                         <el-button @click="updateRecord(scope.row)" type="text" size="small">修改</el-button>
-                        <el-button @click="deleteRecord(scope.row, TABLE_NAME)" type="text" size="small">删除</el-button>
+                        <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>删除</el-button>
                     </template>
                 </el-table-column>
             </p>
