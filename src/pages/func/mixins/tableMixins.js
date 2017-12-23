@@ -34,6 +34,7 @@ export default {
                     this.columns = this.adapterColumns(res.headList);
                     this.formData = this.adapterForm(res.headList);
                     this.dataSource = res.contentList;
+                    console.error('this.columns', this.columns);
                 })
                 .catch(err => {
                     console.log(err)
@@ -53,7 +54,8 @@ export default {
                 return {
                     prop: item.headId,
                     label: item.headName,
-                    width: item.width * 10
+                    width: item.width * 10,
+                    minWidth: 0
                 }
             });
         },
