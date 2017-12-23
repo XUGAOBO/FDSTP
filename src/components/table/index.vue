@@ -6,7 +6,8 @@
                     <p v-if="item.render">
                         <slot :data="scope.row" :name="item.prop"></slot>
                     </p>
-                    <span v-if="!item.render">{{ scope.row[item.prop] }}</span>
+                    <span v-else-if="!item.render">{{ scope.row[item.prop]}}</span>
+                    <span v-else></span>
                 </template>
             </el-table-column>
             <slot name="operate"></slot>

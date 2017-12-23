@@ -19,6 +19,7 @@
                                 <el-button type="primary" size="mini" @click="deleteRecord(scope.row, TABLE_NAME)">确定</el-button>
                             </div>
                         </el-popover>
+                        <el-button @click="addQuestion(scope.row)" type="text" size="small">出题</el-button>
                         <el-button @click="updateRecord(scope.row)" type="text" size="small">修改</el-button>
                         <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>删除</el-button>
                     </template>

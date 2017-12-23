@@ -5,10 +5,6 @@
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
-            <p slot="name" slot-scope="props">
-                <span>hello world</span>
-                <span>{{props.data.name}}</span>
-            </p>
             <p slot="operate">
                 <el-table-column fixed="right" label="操作" width="100">
                     <template slot-scope="scope">
@@ -25,7 +21,7 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
     </Layout>
 </template>
 <script>

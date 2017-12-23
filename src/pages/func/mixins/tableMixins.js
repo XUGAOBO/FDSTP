@@ -51,12 +51,16 @@ export default {
         // 适配表格列
         adapterColumns(data) {
             return data.map((item) => {
-                return {
+                let tempPo = {
                     prop: item.headId,
                     label: item.headName,
                     width: item.width * 10,
                     minWidth: 0
+                };
+                if (item.headId === 'photo') { // 需要图片展示
+                    tempPo.render = true;
                 }
+                return tempPo;
             });
         },
         // 适配表单数据格式
@@ -116,6 +120,7 @@ export default {
                 this.queryRepeat(updateTableRow(data, tableName));
                 return;
             }
+            console.error('tableName', tableName);
             this.queryRepeat(this.insertRecord(data, tableName))
         },
         // 操作后再次查询表格
@@ -130,6 +135,10 @@ export default {
             return new Promise((resolve, reject) => {
                 resolve(func())
             })
+        },
+        // 出题
+        addQuestion() {
+
         }
     }
 }

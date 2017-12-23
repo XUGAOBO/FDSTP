@@ -56,6 +56,7 @@
             // 添加操作员
             addOperator() {
                 this.visible = true;
+                this.inputValue = '';
             },
             confirm() {
                 if (!this.inputValue) {
