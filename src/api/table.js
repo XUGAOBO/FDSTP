@@ -15,3 +15,8 @@ export const insertTableRow = (map, tableName) => {
 export const deleteTableRow = (id, tableName) => {
     return http.post(`a/corp/base/deleteTableRow/${tableName}?id=${id}`)
 }
+
+// 更新表格
+export const updateTableRow = (map, tableName) => {
+    return http.post(`a/corp/base/updateTableRow/${tableName}`, map)
+}

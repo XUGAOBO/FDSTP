@@ -1,7 +1,8 @@
 import {
     insertTableRow,
     deleteTableRow,
-    tableSelect
+    tableSelect,
+    updateTableRow
 } from '../../../api/table';
 const formType = {
     text: 'input'
@@ -15,7 +16,8 @@ export default {
             dataSource: [], // 表格数据列表
             formData: [], // 表单数据
             initValue: {}, // 更新表格时的
-            popoverValue: '' // 确认框状态
+            popoverValue: '', // 确认框状态
+            recordId: '' // 当前操作的行记录id
         }
     },
     mounted() {
@@ -57,8 +59,7 @@ export default {
         },
         // 适配表单数据格式
         adapterForm(data) {
-            // TODO 展示单词有错误 需要后台修改
-            return data.filter((item) => (item.visiable)).map((item) => {
+            return data.filter((item) => (item.visible)).map((item) => {
                 return {
                     key: item.headId,
                     name: item.headName,
@@ -68,12 +69,13 @@ export default {
         },
         // 添加表格记录
         createRecord() {
-            console.log('create---');
             this.visible = true;
+            this.initValue = {}; // 在新增时,清空数据
         },
         // 更新表格记录
         updateRecord(data) {
             this.initValue = data;
+            this.recordId = data.id;
             this.visible = true;
         },
         // 询问是否要删除此记录
@@ -108,13 +110,8 @@ export default {
         confirm(data, tableName) {
             this.visible = false;
             if (Object.keys(this.initValue).length > 0) { // 更新数据
-                deleteTableRow(this.initValue.id, tableName)
-                    .then(res => {
-                        this.queryRepeat(this.insertRecord(data, tableName));
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    });
+                data.id = this.recordId;
+                this.queryRepeat(updateTableRow(data, tableName));
                 return;
             }
             this.queryRepeat(this.insertRecord(data, tableName))
