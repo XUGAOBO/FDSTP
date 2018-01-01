@@ -1,8 +1,6 @@
 <template>
-    <div>
-        <script :id="id" name="content" type="text/plain" style="overflow-x: hidden">
-        </script>
-    </div>
+    <script :id="id" name="content" type="text/plain" style="overflow-x: hidden">
+    </script>
 </template>
 <script>
     export default {

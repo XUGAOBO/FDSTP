@@ -40,6 +40,8 @@
         queryOperator,
         insertOperator
     } from '../../api/operator';
+    import cache from 'Utils/cache';
+    import { SESSION_KEY } from 'Utils/constants';
     export default {
         data() {
             return {
@@ -80,9 +82,15 @@
                     this.options = res;
                     if (res.length > 0) {
                         this.value = res[0].operator;
+                        cache.session.set(SESSION_KEY.OPERATOR, this.value);
                     }
                 })
             }
+        },
+        watch: {
+          value(val) {
+              cache.session.set(SESSION_KEY.OPERATOR, val);
+          }
         },
         mounted() {
             this.queryOperate()

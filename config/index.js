@@ -8,7 +8,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubStatic: 'static',
     assetsSubDirectory: '',
-    assetsPublicPath: '//static1.jd.id/m-flight/',
+    assetsPublicPath: '//47.92.112.44:8080/fdstp/pc/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -28,7 +28,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubStatic: 'static',
     assetsSubDirectory: '',
-    assetsPublicPath: '//static1.jd.id/m-flight/',
+    assetsPublicPath: '//47.92.112.44:8080/fdstp/pc/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -52,8 +52,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/fdstp': {
-        // target: 'http://47.92.112.44:8080',
-        target: 'http://192.168.1.133:8080',
+        target: 'http://47.92.112.44:8080',
+        // target: 'http://192.168.1.133:8080',
         changeOrigin: true
         // pathRewrite: {
         //   '^/api': '/api'

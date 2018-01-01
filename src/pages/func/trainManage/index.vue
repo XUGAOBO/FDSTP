@@ -5,12 +5,16 @@
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
-            <p slot="name" slot-scope="props">
-                <span>hello world</span>
-                <span>{{props.data.name}}</span>
+            <p slot="content" slot-scope="props">
+                <el-button type="text" @click="contentVisible = true">点击查看内容</el-button>
+                <el-dialog title="详细内容" :visible.sync="contentVisible" width="60%" top='50px'>
+                    <div class="detail-content__size">
+                        <Editor id="trainManage" :content="props.data.content" serverUrl="" :readonly="true" imageUrl="" imageAccess="" />
+                    </div>
+                </el-dialog>
             </p>
             <p slot="operate">
-                <el-table-column label="操作" width="100">
+                <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
                         <el-popover ref="popover" placement="top" width="160" :value="getPopoverStatus(scope.row.id)">
                             <p>您确定删除吗？</p>
@@ -26,7 +30,8 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME"
+            :visible="visible" slot="form-modal" />
     </Layout>
 </template>
 <script>
@@ -34,20 +39,23 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
+    import Editor from 'Components/editor/index';
     const TABLE_NAME = 'training';
     export default {
         mixins: [mixin],
         components: {
             TableInfo,
             FormModal,
+            Editor,
             Layout
         },
         data() {
             return {
+                contentVisible: false, // 详细内容展示状态
                 TABLE_NAME
             }
         },
-        mounted () {
+        mounted() {
             this.tableName = TABLE_NAME;
         }
     }

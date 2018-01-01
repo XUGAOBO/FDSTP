@@ -4,7 +4,7 @@
             <el-form :model="form" ref="form" label-width="80px">
                 <el-form-item v-for="(item, index) in dataSource" :key="index" :label="item.name">
                     <!-- 单行文本 -->
-                    <el-input v-model="form[item.key]" v-if="item.type === 'input'"></el-input>
+                    <el-input v-model="form[item.key]" v-if="item.type === 'input'" :disabled="item.disabled"></el-input>
                     <!-- 下拉框 -->
                     <el-select v-model="form[item.key]" placeholder="" v-if="item.type === 'select'">
                     </el-select>
@@ -18,6 +18,8 @@
     </el-dialog>
 </template>
 <script>
+import cache from 'Utils/cache';
+import { SESSION_KEY } from 'Utils/constants';
     export default {
         props: {
             title: { // 表单的标题
@@ -82,10 +84,17 @@
                 }, {});
             },
             initValue(val) {
-                if (this.visible && this.initValue) {
-                    for (let key of Object.keys(this.form)) {
+                if (this.visible) {
+                  if (Object.keys(this.initValue).length > 0) { // 代表更新
+                      for (let key of Object.keys(this.form)) {
                         this.form[key] = this.initValue[key];
                     }
+                  } else { // 代表新增
+                        if (this.form.hasOwnProperty('operator')) { // 如果有操作员字段
+                            this.form['operator'] = cache.get(SESSION_KEY.OPERATOR)
+                        }
+                        console.error('this.form', this.form);
+                  }
                 }
             }
         }

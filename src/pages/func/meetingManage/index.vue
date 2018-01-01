@@ -5,9 +5,13 @@
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
-            <p slot="name" slot-scope="props">
-                <span>hello world</span>
-                <span>{{props.data.name}}</span>
+            <p slot="content" slot-scope="props">
+                <el-button type="text" @click="contentVisible = true">点击查看内容</el-button>
+                <el-dialog title="详细内容" :visible.sync="contentVisible" width="60%" top='50px'>
+                    <div class="detail-content__size">
+                        <Editor id="trainManage" :content="props.data.content" serverUrl="" :readonly="true" imageUrl="" imageAccess="" />
+                    </div>
+                </el-dialog>
             </p>
             <p slot="operate">
                 <el-table-column label="操作" width="100">
@@ -33,17 +37,20 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
+    import Editor from 'Components/editor/index';
     const TABLE_NAME = 'meeting';
     export default {
         mixins: [mixin],
         components: {
             TableInfo,
             FormModal,
-            Layout
+            Layout,
+            Editor
         },
         data() {
             return {
-                TABLE_NAME
+                TABLE_NAME,
+                contentVisible: false
             }
         },
         mounted () {

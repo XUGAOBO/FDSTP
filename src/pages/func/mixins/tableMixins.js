@@ -34,7 +34,6 @@ export default {
                     this.columns = this.adapterColumns(res.headList);
                     this.formData = this.adapterForm(res.headList);
                     this.dataSource = res.contentList;
-                    console.error('this.columns', this.columns);
                 })
                 .catch(err => {
                     console.log(err)
@@ -57,7 +56,7 @@ export default {
                     width: item.width * 10,
                     minWidth: 0
                 };
-                if (item.headId === 'photo') { // 需要图片展示
+                if (item.headId === 'photo' || item.headId === 'content') { // photo 需要图片展示  content 内容展示
                     tempPo.render = true;
                 }
                 return tempPo;
@@ -66,11 +65,15 @@ export default {
         // 适配表单数据格式
         adapterForm(data) {
             return data.filter((item) => (item.visible)).map((item) => {
-                return {
+                let po = {
                     key: item.headId,
                     name: item.headName,
                     type: formType[item.editorType]
                 }
+                if (item.headId === 'operator') { // 操作员不可编辑
+                    po.disabled = true;
+                }
+                return po;
             })
         },
         // 添加表格记录
