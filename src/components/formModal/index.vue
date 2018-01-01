@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" :visible.sync="visible" :before-close="close" top='50px'>
+    <el-dialog :title="title" :visible.sync="visible" :before-close="close" top='50px' width="40%">
         <div class="form-modal">
             <el-form :model="form" ref="form" label-width="100px" size="mini">
                 <el-form-item v-for="(item, index) in data" :key="index" :label="item.name">
