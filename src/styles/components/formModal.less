@@ -1,13 +1,37 @@
+@avatar-size: 150px;
 .form-modal {
     height: 400px;
     overflow-y: auto;
     overflow-x: hidden;
     .el-form .el-form-item .el-form-item__content {
         .el-input {
-            width: 350px;
+            width: 200px;
         }
         .el-select {
-            width: 350px;
+            width: 200px;
         }
     }
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+      }
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: @avatar-size;
+        height: @avatar-size;
+        line-height: @avatar-size;
+        text-align: center;
+      }
+      .avatar {
+        width: @avatar-size;
+        height: @avatar-size;
+        display: block;
+      }
 }

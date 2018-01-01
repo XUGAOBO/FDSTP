@@ -20,3 +20,8 @@ export const deleteTableRow = (id, tableName) => {
 export const updateTableRow = (map, tableName) => {
     return http.post(`a/corp/base/updateTableRow/${tableName}`, map)
 }
+
+// 图片上传(规则校验模块)
+export const upload = (params) => {
+    return http.post('a/corp/check/addCheckPoint', params)
+}

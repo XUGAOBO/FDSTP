@@ -54,10 +54,8 @@
         },
         methods: {
             handleOpen(key, keyPath) {
-                console.log('aaa', key, keyPath);
             },
             handleClose(key, keyPath) {
-                console.log('cc', key, keyPath);
             }
         }
     }

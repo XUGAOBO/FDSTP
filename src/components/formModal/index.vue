@@ -4,18 +4,26 @@
             <el-form :model="form" ref="form" label-width="100px" size="mini">
                 <el-form-item v-for="(item, index) in data" :key="index" :label="item.name">
                     <!-- 单行文本 -->
-                    <el-input v-model="form[item.key]" v-if="item.type === 'input'" :disabled="item.disabled"></el-input>
+                    <el-input v-model="form[item.key]" v-if="item.type === EDITOR_TYPE['text']" :disabled="item.disabled"></el-input>
                     <!-- 下拉框 -->
-                    <el-select v-model="form[item.key]" placeholder="请选择" v-if="item.type === 'select'">
+                    <el-select v-model="form[item.key]" placeholder="请选择" v-if="item.type === EDITOR_TYPE['select']">
                         <el-option v-for="(item, index) in item.enum" :key="index" :label="item.value" :value="item.value">
                         </el-option>
                     </el-select>
+                    <!-- 上传图片 -->
+                    <el-upload class="avatar-uploader" ref="upload"
+                        :on-preview="handlePreview"
+                        :before-upload="beforeUpload"
+                        v-if="item.type === EDITOR_TYPE['photo'] " action="/"
+                        :file-list="fileList" :auto-upload="false" :multiple="false">
+                         <i class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
                 </el-form-item>
             </el-form>
         </div>
         <span slot="footer" class="dialog-footer">
             <el-button @click="close">取 消</el-button>
-            <el-button type="primary" @click="confirm">确 定</el-button>
+            <el-button type="primary" @click="confirm">提 交</el-button>
         </span>
     </el-dialog>
 </template>
@@ -23,7 +31,8 @@
     import cache from 'Utils/cache';
     import {
         SESSION_KEY,
-        COMMON_EUM
+        COMMON_EUM,
+        EDITOR_TYPE
     } from 'Utils/constants';
     export default {
         props: {
@@ -56,7 +65,9 @@
             return {
                 form: {},
                 COMMON_EUM,
-                data: []
+                EDITOR_TYPE,
+                data: [],
+                fileList: [] // 图片列表
             }
         },
         computed: {
@@ -81,6 +92,15 @@
             // 确定
             confirm: function () {
                 this.$emit('confirm', this.form, this.tableName);
+            },
+            beforeUpload(file) {
+                this.fileList = [file];
+                console.error('file', file);
+            },
+            // 图片上传
+            handlePreview(file) {
+                this.fileList = [file];
+                console.error('aaaa', this.fileList);
             }
         },
         watch: {
@@ -105,6 +125,9 @@
                         }
                     }
                 }
+            },
+            fileList(val) {
+                console.error('val', val)
             }
         }
     }

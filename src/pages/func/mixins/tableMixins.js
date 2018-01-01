@@ -4,10 +4,7 @@ import {
     tableSelect,
     updateTableRow
 } from '../../../api/table';
-const formType = {
-    text: 'input', // 单行文本
-    select: 'select' // 下拉框
-};
+import { EDITOR_TYPE } from 'Utils/constants';
 export default {
     data() {
         return {
@@ -69,7 +66,7 @@ export default {
                 let po = {
                     key: item.headId,
                     name: item.headName,
-                    type: formType[item.editorType],
+                    type: EDITOR_TYPE[item.editorType],
                     enum: this.getEnum(item.selectValue)
                 }
                 if (item.headId === 'operator') { // 操作员不可编辑
@@ -137,7 +134,6 @@ export default {
                 this.queryRepeat(updateTableRow(data, tableName));
                 return;
             }
-            console.error('tableName', tableName);
             this.queryRepeat(this.insertRecord(data, tableName))
         },
         // 操作后再次查询表格
@@ -152,10 +148,6 @@ export default {
             return new Promise((resolve, reject) => {
                 resolve(func())
             })
-        },
-        // 出题
-        addQuestion() {
-
         }
     }
 }

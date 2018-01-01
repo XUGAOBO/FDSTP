@@ -49,4 +49,28 @@
     .el-dialog__wrapper {
         overflow: hidden;
     }
+    .topic-title {
+        .el-dialog__title {
+            display: inline-block;
+        }
+        .topic-title__btn {
+            display: inline-block;
+            float: right;
+            margin-right: 50px;
+        }
+    } 
+    .topic-content {
+        .el-carousel__item {
+            h3 {
+                color: @topicColor;
+                font-size: @fontSize18;
+                opacity: 0.75;
+                margin: 0;
+            }
+        }
+        .topic-add {
+            border-top: 1px dashed #d9d9d9;
+            height: 300px;
+        }
+    }
 }

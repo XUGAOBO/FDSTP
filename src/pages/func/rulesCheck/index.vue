@@ -7,7 +7,7 @@
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <img slot="photo" slot-scope="props" :src="props.data.photo" />
             <p slot="operate">
-                <el-table-column fixed="right" label="操作" width="100">
+                <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
                         <el-popover ref="popover" placement="top" width="160" :value="getPopoverStatus(scope.row.id)">
                             <p>您确定删除吗？</p>
@@ -16,13 +16,13 @@
                                 <el-button type="primary" size="mini" @click="deleteRecord(scope.row, TABLE_NAME)">确定</el-button>
                             </div>
                         </el-popover>
-                        <el-button @click="updateRecord(scope.row)" type="text" size="small">修改</el-button>
                         <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>删除</el-button>
                     </template>
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="ruleCheck" :tableName="TABLE_NAME"
+            :visible="visible" slot="form-modal" />
     </Layout>
 </template>
 <script>
@@ -30,6 +30,9 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
+    import {
+        upload
+    } from '../../../api/table';
     const TABLE_NAME = 'checkrule';
     export default {
         mixins: [mixin],
@@ -43,10 +46,21 @@
                 TABLE_NAME
             }
         },
-        mounted () {
+        mounted() {
             this.tableName = TABLE_NAME;
+        },
+        methods: {
+            // 校验规则维护
+            ruleCheck(data, tableName) {
+                this.visible = false;
+                console.error('data', data);
+                this.queryRepeat(upload(data)
+                    .then(res => {})
+                    .catch(err => {
+                        console.log(err)
+                    }))
+            }
         }
     }
 
 </script>
-
