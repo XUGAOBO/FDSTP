@@ -5,7 +5,8 @@ import {
     updateTableRow
 } from '../../../api/table';
 const formType = {
-    text: 'input'
+    text: 'input', // 单行文本
+    select: 'select' // 下拉框
 };
 export default {
     data() {
@@ -68,12 +69,25 @@ export default {
                 let po = {
                     key: item.headId,
                     name: item.headName,
-                    type: formType[item.editorType]
+                    type: formType[item.editorType],
+                    enum: this.getEnum(item.selectValue)
                 }
                 if (item.headId === 'operator') { // 操作员不可编辑
                     po.disabled = true;
                 }
                 return po;
+            })
+        },
+        // 获取枚举值
+        getEnum(data) {
+            if (!data) {
+                return;
+            }
+            return (data.split(';') || []).map(item => {
+                return {
+                    key: item.split(':')[0],
+                    value: item.split(':')[1]
+                }
             })
         },
         // 添加表格记录

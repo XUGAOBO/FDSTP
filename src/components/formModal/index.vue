@@ -1,12 +1,14 @@
 <template>
-    <el-dialog :title="title" :visible.sync="visible" :before-close="close">
+    <el-dialog :title="title" :visible.sync="visible" :before-close="close" top='50px'>
         <div class="form-modal">
-            <el-form :model="form" ref="form" label-width="80px">
-                <el-form-item v-for="(item, index) in dataSource" :key="index" :label="item.name">
+            <el-form :model="form" ref="form" label-width="100px" size="mini">
+                <el-form-item v-for="(item, index) in data" :key="index" :label="item.name">
                     <!-- 单行文本 -->
                     <el-input v-model="form[item.key]" v-if="item.type === 'input'" :disabled="item.disabled"></el-input>
                     <!-- 下拉框 -->
-                    <el-select v-model="form[item.key]" placeholder="" v-if="item.type === 'select'">
+                    <el-select v-model="form[item.key]" placeholder="请选择" v-if="item.type === 'select'">
+                        <el-option v-for="(item, index) in item.enum" :key="index" :label="item.value" :value="item.value">
+                        </el-option>
                     </el-select>
                 </el-form-item>
             </el-form>
@@ -18,8 +20,11 @@
     </el-dialog>
 </template>
 <script>
-import cache from 'Utils/cache';
-import { SESSION_KEY } from 'Utils/constants';
+    import cache from 'Utils/cache';
+    import {
+        SESSION_KEY,
+        COMMON_EUM
+    } from 'Utils/constants';
     export default {
         props: {
             title: { // 表单的标题
@@ -49,7 +54,9 @@ import { SESSION_KEY } from 'Utils/constants';
         },
         data() {
             return {
-                form: {}
+                form: {},
+                COMMON_EUM,
+                data: []
             }
         },
         computed: {
@@ -82,19 +89,21 @@ import { SESSION_KEY } from 'Utils/constants';
                     po[item.key] = '';
                     return po;
                 }, {});
+                this.data = this.dataSource.filter(item => {
+                    return [COMMON_EUM.ID, COMMON_EUM.CREATEDATE].indexOf(item.key) === -1 // 隐藏id和创建时间
+                })
             },
             initValue(val) {
                 if (this.visible) {
-                  if (Object.keys(this.initValue).length > 0) { // 代表更新
-                      for (let key of Object.keys(this.form)) {
-                        this.form[key] = this.initValue[key];
-                    }
-                  } else { // 代表新增
-                        if (this.form.hasOwnProperty('operator')) { // 如果有操作员字段
-                            this.form['operator'] = cache.get(SESSION_KEY.OPERATOR)
+                    if (Object.keys(this.initValue).length > 0) { // 代表更新
+                        for (let key of Object.keys(this.form)) {
+                            this.form[key] = this.initValue[key];
                         }
-                        console.error('this.form', this.form);
-                  }
+                    } else { // 代表新增
+                        if (this.form.hasOwnProperty(COMMON_EUM.OPERATOR)) { // 如果有操作员字段
+                            this.form[COMMON_EUM.OPERATOR] = cache.get(SESSION_KEY.OPERATOR)
+                        }
+                    }
                 }
             }
         }
