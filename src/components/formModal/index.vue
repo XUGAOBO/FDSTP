@@ -1,7 +1,7 @@
 <template>
-    <el-dialog :title="title" :visible.sync="visible" :before-close="close" top='50px' width="40%">
+    <el-dialog :title="title" :visible.sync="visible" :before-close="close" top='50px'>
         <div class="form-modal">
-            <el-form :model="form" ref="form" label-width="100px" size="mini">
+            <el-form :model="form" ref="form" label-width="100px" size="mini" :inline="true">
                 <el-form-item v-for="(item, index) in data" :key="index" :label="item.name">
                     <!-- 单行文本 -->
                     <el-input v-model="form[item.key]" v-if="item.type === EDITOR_TYPE['text']" :disabled="item.disabled"></el-input>
@@ -15,8 +15,8 @@
                         action="/" :file-list="fileList" :auto-upload="false" :multiple="false">
                         <i class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
-                    <div v-if="item.type === EDITOR_TYPE['textArea']">
-                        <Editor :id="`editor${index}`" :propKey="item.key" :content="form[item.key]" height=300 :isAppendTo="true" @get-content="getContent"
+                    <div v-if="item.type === EDITOR_TYPE['textArea']" class="form-modal__editor">
+                        <Editor :id="`editor${index}`" :propKey="item.key" :content="form[item.key]" height=180 :isAppendTo="true" @get-content="getContent"
                         />
                     </div>
                 </el-form-item>

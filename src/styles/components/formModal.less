@@ -1,6 +1,6 @@
 @avatar-size: 150px;
 .form-modal {
-    height: 400px;
+    min-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
     .el-form .el-form-item .el-form-item__content {
@@ -33,5 +33,11 @@
         width: @avatar-size;
         height: @avatar-size;
         display: block;
+      }
+      .form-modal__editor {
+          display: inline-block;
+          width: 500px;
+          border-right: 1px solid #d4d4d4;
+          border-radius: 2px;
       }
 }
