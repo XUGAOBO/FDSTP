@@ -1,14 +1,15 @@
 @avatar-size: 150px;
+@componentWidth: 250px;
 .form-modal {
     min-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
     .el-form .el-form-item .el-form-item__content {
         .el-input {
-            width: 200px;
+            width: @componentWidth;
         }
         .el-select {
-            width: 200px;
+            width: @componentWidth;
         }
     }
     .avatar-uploader .el-upload {
@@ -36,7 +37,7 @@
       }
       .form-modal__editor {
           display: inline-block;
-          width: 500px;
+          width: 600px;
           border-right: 1px solid #d4d4d4;
           border-radius: 2px;
       }
