@@ -145,7 +145,7 @@
             },
             // 获取富文本内容
             getContent() {
-                this.editor && this.$emit('get-content', this.editor.getContent(), this.key)
+                this.editor && this.$emit('get-content', this.editor.getContent(), this.propKey)
             },
             // 获得带格式的纯文本
             getPlainTxt() {
@@ -181,13 +181,13 @@
                     this.editor.setHeight(height);
                 }
             }
-        },
-        watch: {
-            content(val, oldVal) {
-                if (val !== oldVal) {
-                    this.setContent(val, this.isAppendTo);
-                }
-            }
         }
+        // watch: {
+        //     content(val, oldVal) {
+        //         if (val !== oldVal) {
+        //             this.setContent(val, this.isAppendTo);
+        //         }
+        //     }
+        // }
     }
 </script>
