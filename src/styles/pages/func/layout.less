@@ -61,16 +61,27 @@
     } 
     .topic-content {
         .el-carousel__item {
-            h3 {
-                color: @topicColor;
-                font-size: @fontSize18;
-                opacity: 0.75;
-                margin: 0;
+            background-color: @carousel;
+            .topic-carousel {
+                margin: 0 60px;
+                h3 {
+                    color: @topicColor;
+                    font-size: @fontSize18;
+                    opacity: 0.75;
+                    margin: 0;
+                }
             }
+            
         }
         .topic-add {
             border-top: 1px dashed #d9d9d9;
-            height: 300px;
+            height: 320px;
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+        .topic-submit__btn {
+            width: 80px;
+            margin: 0 auto;
         }
     }
 }

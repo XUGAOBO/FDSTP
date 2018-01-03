@@ -18,6 +18,9 @@
                         :file-list="fileList" :auto-upload="false" :multiple="false">
                          <i class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
+                    <div v-if="item.type === EDITOR_TYPE['textArea']">
+                        <Editor :id="`editor${index}`" :content="form[item.key]" height=500 :isAppendTo="true" @get-content="getContent(item.key)" />
+                    </div>
                 </el-form-item>
             </el-form>
         </div>
@@ -29,12 +32,16 @@
 </template>
 <script>
     import cache from 'Utils/cache';
+    import Editor from '../editor';
     import {
         SESSION_KEY,
         COMMON_EUM,
         EDITOR_TYPE
     } from 'Utils/constants';
     export default {
+        components: {
+            Editor
+        },
         props: {
             title: { // 表单的标题
                 type: String,
@@ -101,6 +108,10 @@
             handlePreview(file) {
                 this.fileList = [file];
                 console.error('aaaa', this.fileList);
+            },
+            // 获取富文本
+            getContent(key, data) {
+                console.error('key, data', key, data);
             }
         },
         watch: {

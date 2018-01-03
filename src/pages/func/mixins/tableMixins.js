@@ -72,6 +72,9 @@ export default {
                 if (item.headId === 'operator') { // 操作员不可编辑
                     po.disabled = true;
                 }
+                if (item.headId === 'content') {
+                    po.type = 'textArea';
+                }
                 return po;
             })
         },

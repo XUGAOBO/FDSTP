@@ -14,5 +14,6 @@ export const COMMON_EUM = { // 通用字段
 export const EDITOR_TYPE = { // 编辑格式
     text: 'input', // 单行文本
     select: 'select', // 下拉框
-    photo: 'photo' // 图片
+    photo: 'photo', // 图片
+    textArea: 'textArea' // 富文本
 }
