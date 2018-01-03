@@ -11,15 +11,13 @@
                         </el-option>
                     </el-select>
                     <!-- 上传图片 -->
-                    <el-upload class="avatar-uploader" ref="upload"
-                        :on-preview="handlePreview"
-                        :before-upload="beforeUpload"
-                        v-if="item.type === EDITOR_TYPE['photo'] " action="/"
-                        :file-list="fileList" :auto-upload="false" :multiple="false">
-                         <i class="el-icon-plus avatar-uploader-icon"></i>
+                    <el-upload class="avatar-uploader" ref="upload" :on-preview="handlePreview" :before-upload="beforeUpload" v-if="item.type === EDITOR_TYPE['photo'] "
+                        action="/" :file-list="fileList" :auto-upload="false" :multiple="false">
+                        <i class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                     <div v-if="item.type === EDITOR_TYPE['textArea']">
-                        <Editor :id="`editor${index}`" :content="form[item.key]" height=500 :isAppendTo="true" @get-content="getContent(item.key)" />
+                        <Editor :id="`editor${index}`" :propKey="item.key" :content="form[item.key]" height=300 :isAppendTo="true" @get-content="getContent"
+                        />
                     </div>
                 </el-form-item>
             </el-form>
@@ -110,8 +108,10 @@
                 console.error('aaaa', this.fileList);
             },
             // 获取富文本
-            getContent(key, data) {
-                console.error('key, data', key, data);
+            getContent(data, key) {
+                if (key) {
+                    this.form[key] = data;
+                }
             }
         },
         watch: {

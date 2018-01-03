@@ -86,6 +86,10 @@
                         'square': '' //'■ 小方块'
                     }
                }
+            },
+            propKey: {
+                type: String,
+                default: ''
             }
         },
         data() {
@@ -130,7 +134,7 @@
                     this.editor.addListener('contentChange', () => {
                         this.getContent();
                     });
-                    this.setContent(this.content, this.isAppendTo);
+                    this.setContent(this.content);
                 })
             },
             // 写入内容｜追加内容
@@ -141,7 +145,7 @@
             },
             // 获取富文本内容
             getContent() {
-                this.editor && this.$emit('get-content', this.editor.getContent())
+                this.editor && this.$emit('get-content', this.editor.getContent(), this.key)
             },
             // 获得带格式的纯文本
             getPlainTxt() {

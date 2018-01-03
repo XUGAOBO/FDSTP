@@ -1,5 +1,6 @@
 <template>
     <div class="page-header">
+        <span class="page-title">道路运输企业主体责任落实平台</span>
         <div class="func-bar clearfix">
             <span>
                 <el-select v-model="value" placeholder="请选择">
