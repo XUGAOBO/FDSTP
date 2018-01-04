@@ -1,5 +1,6 @@
 @charset "utf-8";
-@height: 64px;
+@headerHeight: 64px;
+@footerHeight: 20px;
 .layout {
     height: 100%;
     // 导航
@@ -11,7 +12,7 @@
         position: relative;
     }
     .img {
-        height: @height;
+        height: @headerHeight;
     }
     // 菜单
     .menu {
@@ -29,8 +30,8 @@
     }
     // 头
     .header {
-        height: @height;
-        line-height: @height;
+        height: @headerHeight;
+        line-height: @headerHeight;
         box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
     }
     .container {
@@ -41,11 +42,20 @@
     // 内容
     .content {
         position: absolute;
-        top: @height;
+        top: @headerHeight;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: @footerHeight;
         overflow-y: hidden;
+    }
+    .footer {
+        height: @footerHeight;
+        line-height: @footerHeight;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow-y: hidden; 
     }
     .clearfix:before,
     .clearfix:after {

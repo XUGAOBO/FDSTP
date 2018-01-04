@@ -15,11 +15,18 @@
                     <i class="el-icon-circle-plus-outline"></i>
                 </span>
             </span>
-            <span class="setting">
-                <span class="setting-avatar">
+            <el-dropdown trigger="click">
+                <span class="setting">
+                    <span class="setting-avatar">
                         <img src="../../assets/images/avatar.jpg" />
                     </span> admin
-            </span>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>修改密码</el-dropdown-item>
+                    <el-dropdown-item>退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+
             <el-dialog title="添加操作员" :visible.sync="visible" :before-close="close">
                 <div>
                     <el-form ref="form" label-width="100px">
@@ -42,7 +49,9 @@
         insertOperator
     } from '../../api/operator';
     import cache from 'Utils/cache';
-    import { SESSION_KEY } from 'Utils/constants';
+    import {
+        SESSION_KEY
+    } from 'Utils/constants';
     export default {
         data() {
             return {
@@ -89,12 +98,13 @@
             }
         },
         watch: {
-          value(val) {
-              cache.session.set(SESSION_KEY.OPERATOR, val);
-          }
+            value(val) {
+                cache.session.set(SESSION_KEY.OPERATOR, val);
+            }
         },
         mounted() {
             this.queryOperate()
         }
     }
+
 </script>

@@ -15,6 +15,9 @@
             <section class="content">
                 <slot name="content"></slot>
             </section>
+            <footer class="footer">
+                <slot name="footer"></slot>
+            </footer>
         </div>
     </div>
 </template>
