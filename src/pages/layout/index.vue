@@ -13,7 +13,9 @@
                 <slot name="header"></slot>
             </header>
             <section class="content">
-                <slot name="content"></slot>
+                <slot name="content">
+                    <img src="../../assets/images/bg.png" slot="img" />
+                </slot>
             </section>
             <footer class="footer">
                 <slot name="footer"></slot>
