@@ -15,18 +15,19 @@
                     <i class="el-icon-circle-plus-outline"></i>
                 </span>
             </span>
-            <el-dropdown trigger="click">
-                <span class="setting">
-                    <span class="setting-avatar">
-                        <img src="../../assets/images/avatar.jpg" />
-                    </span> admin
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>修改密码</el-dropdown-item>
-                    <el-dropdown-item>退出登录</el-dropdown-item>
-                </el-dropdown-menu>
-            </el-dropdown>
-
+            <span class="setting">
+                <el-dropdown trigger="click" @command="handleCommand">
+                    <span class="setting-info">
+                        <span class="setting-avatar">
+                            <img src="../../assets/images/avatar.jpg" />
+                        </span> admin
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="1">修改密码</el-dropdown-item>
+                        <el-dropdown-item command="2">退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </span>
             <el-dialog title="添加操作员" :visible.sync="visible" :before-close="close">
                 <div>
                     <el-form ref="form" label-width="100px">
@@ -95,6 +96,9 @@
                         cache.session.set(SESSION_KEY.OPERATOR, this.value);
                     }
                 })
+            },
+            handleCommand(e) {
+                console.error('e', e);
             }
         },
         watch: {
