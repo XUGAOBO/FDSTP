@@ -48,7 +48,7 @@ module.exports = {
     host: 'http://localhost:',
     port: 8080, // 与后端服务端口保持一致
     autoOpenBrowser: true,
-    assetsSubStatic: 'ueditor',
+    assetsSubStatic: 'static',
     assetsSubDirectory: '',
     assetsPublicPath: '/',
     proxyTable: {
