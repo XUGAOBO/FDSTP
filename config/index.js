@@ -1,14 +1,15 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
+var serverPath = '//47.92.112.44:8080/fdstp/pc/';
 
 module.exports = {
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubStatic: 'static',
+    // assetsSubStatic: serverPath + 'static/',
     assetsSubDirectory: '',
-    assetsPublicPath: '//47.92.112.44:8080/fdstp/pc/',
+    assetsPublicPath: serverPath,
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -26,9 +27,9 @@ module.exports = {
     env: require('./release.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubStatic: 'static',
+    // assetsSubStatic: serverPath + 'static/',
     assetsSubDirectory: '',
-    assetsPublicPath: '//47.92.112.44:8080/fdstp/pc/',
+    assetsPublicPath: serverPath,
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -47,7 +48,7 @@ module.exports = {
     host: 'http://localhost:',
     port: 8080, // 与后端服务端口保持一致
     autoOpenBrowser: true,
-    assetsSubStatic: 'static',
+    assetsSubStatic: 'ueditor',
     assetsSubDirectory: '',
     assetsPublicPath: '/',
     proxyTable: {
