@@ -126,14 +126,11 @@
             },
             initValue(val) {
                 if (this.visible) {
-                    if (Object.keys(this.initValue).length > 0) { // 代表更新
-                        for (let key of Object.keys(this.form)) {
-                            this.form[key] = this.initValue[key];
-                        }
-                    } else { // 代表新增
-                        if (this.form.hasOwnProperty(COMMON_EUM.OPERATOR)) { // 如果有操作员字段
-                            this.form[COMMON_EUM.OPERATOR] = cache.get(SESSION_KEY.OPERATOR)
-                        }
+                    for (let key of Object.keys(this.form)) {
+                        this.form[key] = this.initValue[key];
+                    }
+                    if (Object.keys(val).length === 0 && this.form.hasOwnProperty(COMMON_EUM.OPERATOR)) { // 如果为新增 且有操作员字段
+                        this.form[COMMON_EUM.OPERATOR] = cache.get(SESSION_KEY.OPERATOR)
                     }
                 }
             },
