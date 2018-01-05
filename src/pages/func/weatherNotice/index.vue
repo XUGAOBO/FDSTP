@@ -14,7 +14,7 @@
                 </el-dialog>
             </p>
             <p slot="operate">
-                <el-table-column fixed="right" label="操作" width="100">
+                <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
                         <el-popover ref="popover" placement="top" width="160" :value="getPopoverStatus(scope.row.id)">
                             <p>您确定删除吗？</p>
