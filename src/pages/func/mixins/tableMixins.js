@@ -2,7 +2,8 @@ import {
     insertTableRow,
     deleteTableRow,
     tableSelect,
-    updateTableRow
+    updateTableRow,
+    queryRacingTeam
 } from '../../../api/table';
 import { EDITOR_TYPE } from 'Utils/constants';
 export default {
@@ -15,7 +16,8 @@ export default {
             formData: [], // 表单数据
             initValue: {}, // 更新表格时的
             popoverValue: '', // 确认框状态
-            recordId: '' // 当前操作的行记录id
+            recordId: '', // 当前操作的行记录id
+            motorcadeList: [] //  车队列表
         }
     },
     mounted() {
@@ -150,6 +152,13 @@ export default {
         syncMethod(func) {
             return new Promise((resolve, reject) => {
                 resolve(func())
+            })
+        },
+        // 获取车队列表
+        getRacingTeam() {
+            queryRacingTeam()
+            .then(res => {
+                this.motorcadeList = res.contentList;
             })
         }
     }

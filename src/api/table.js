@@ -25,3 +25,13 @@ export const updateTableRow = (map, tableName) => {
 export const upload = (params) => {
     return http.post('a/corp/check/addCheckPoint', params)
 }
+
+// 获取车队列表
+export const queryRacingTeam = () => {
+    return http.post('a/corp/base/selectTableContent?table=motorcade');
+}
+
+// 下发车队
+export const dispatch = (id, list) => {
+    return http.post(`a/corp/training/sendWeatherNotice/${id}`, list);
+}

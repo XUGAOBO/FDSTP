@@ -16,14 +16,7 @@
             <p slot="operate">
                 <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
-                        <el-popover ref="popover" placement="top" width="160" :value="getPopoverStatus(scope.row.id)">
-                            <p>您确定删除吗？</p>
-                            <div style="text-align: right; margin: 0">
-                                <el-button size="mini" type="text" @click="clearPopoverStatus">取消</el-button>
-                                <el-button type="primary" size="mini" @click="deleteRecord(scope.row, TABLE_NAME)">确定</el-button>
-                            </div>
-                        </el-popover>
-                        <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>下发</el-button>
+                        <Motorcade :dataSource="motorcadeList" :row="scope.row" />
                     </template>
                 </el-table-column>
             </p>
@@ -37,6 +30,7 @@
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
     import Editor from 'Components/editor/index';
+    import Motorcade from 'Components/motorcade/index';
     const TABLE_NAME = 'weather';
     export default {
         mixins: [mixin],
@@ -44,7 +38,8 @@
             TableInfo,
             FormModal,
             Layout,
-            Editor
+            Editor,
+            Motorcade
         },
         data() {
             return {
@@ -54,6 +49,7 @@
         },
         mounted () {
             this.tableName = TABLE_NAME;
+            this.getRacingTeam();
         }
     }
 
