@@ -1,6 +1,9 @@
 <template>
     <div class="page-header">
-        <span class="page-title">道路运输企业主体责任落实平台</span>
+        <span class="page-title">道路运输企业主体责任落实平台 
+            <span class="page-sign__tip" @click="officialCertification" v-if="!officalStatus">未官方认证(官方认证)</span>
+        <span class="page-sign__tip" v-else>官方认证(已认证)</span>
+        </span>
         <div class="func-bar clearfix">
             <span>
                 <el-select v-model="value" placeholder="请选择">
@@ -21,12 +24,12 @@
                         <span class="setting-avatar">
                             <img src="../../assets/images/avatar.jpg" />
                         </span> admin
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="1">修改密码</el-dropdown-item>
-                        <el-dropdown-item command="2">退出登录</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="1">修改密码</el-dropdown-item>
+                <el-dropdown-item command="2">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+            </el-dropdown>
             </span>
             <el-dialog title="添加操作员" :visible.sync="visible" :before-close="close">
                 <div>
@@ -41,6 +44,30 @@
                     <el-button type="primary" @click="confirm">确 定</el-button>
                 </span>
             </el-dialog>
+            <el-dialog title="道路运输企业实名制认证" :visible.sync="dialogVisbile" :before-close="close">
+                <div>
+                    <el-form ref="officalForm" label-width="100px">
+                        <el-form-item label="道路运输经营许可证号">
+                            <el-input v-model="officalForm['roadLicense']"></el-input>
+                            <input type="file" :value="officalForm['roadLicensePic']" />
+                        </el-form-item>
+                        <el-form-item label="工商执照号码">
+                            <el-input v-model="officalForm['businessLicense']"></el-input>
+                            <input type="file" :value="officalForm['businessLicensePic']" />
+                        </el-form-item>
+                        <el-form-item label="法人代表">
+                            <el-input v-model="officalForm['legalPerson']"></el-input>
+                        </el-form-item>
+                        <el-form-item label="联系电话">
+                            <el-input v-model="officalForm['phone']"></el-input>
+                        </el-form-item>
+                    </el-form>
+                </div>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="close">取 消</el-button>
+                    <el-button type="primary" @click="confirmOffical">确 定</el-button>
+                </span>
+            </el-dialog>
         </div>
     </div>
 </template>
@@ -49,6 +76,10 @@
         queryOperator,
         insertOperator
     } from '../../api/operator';
+    import {
+        officalConfirm,
+        officalConfirmStatus
+    } from '../../api/user';
     import cache from 'Utils/cache';
     import {
         SESSION_KEY
@@ -59,12 +90,23 @@
                 options: [],
                 value: '',
                 visible: false,
-                inputValue: '' // 操作员姓名
+                inputValue: '', // 操作员姓名
+                dialogVisbile: false,
+                officalStatus: false, // 是否认证
+                officalForm: {
+                    roadLicense: '',
+                    businessLicense: '',
+                    roadLicensePic: '',
+                    businessLicensePic: '',
+                    legalPerson: '',
+                    phone: ''
+                }
             }
         },
         methods: {
             close: function () {
                 this.visible = false;
+                this.dialogVisbile = false;
             },
             // 添加操作员
             addOperator() {
@@ -99,6 +141,17 @@
             },
             handleCommand(e) {
                 console.error('e', e);
+            },
+            // 官方认证
+            officialCertification() {
+                this.dialogVisbile = true;
+            },
+            // 提交官方认证
+            confirmOffical() {
+                officalConfirm(this.officalForm)
+                .then(res => {
+                    
+                })
             }
         },
         watch: {
@@ -107,7 +160,11 @@
             }
         },
         mounted() {
-            this.queryOperate()
+            this.queryOperate();
+            officalConfirmStatus()
+                .then(res => {
+                    this.officalStatus = res;
+                })
         }
     }
 

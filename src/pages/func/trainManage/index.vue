@@ -9,7 +9,7 @@
                 <el-button type="text" @click="contentVisible = true">点击查看内容</el-button>
                 <el-dialog title="详细内容" :visible.sync="contentVisible" width="60%" top='50px'>
                     <div class="detail-content__size">
-                        <Editor id="trainManage" :content="props.data.content" serverUrl="" :readonly="true" imageUrl="" imageAccess="" />
+                        <Editor id="trainManage" :content="props.data.content" :readonly="true" />
                     </div>
                 </el-dialog>
             </p>
