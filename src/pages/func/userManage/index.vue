@@ -5,12 +5,12 @@
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <p slot="operate">
-                <el-table-column fixed="right" label="操作" width="150">
+                <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
-                        <el-popover ref="popover" placement="top" width="160" :value="getResetStatus(scope.row.id)">
+                        <el-popover ref="popover" placement="top" width="160" :value="getPopoverStatus(scope.row.id)">
                             <p>您确定要重置 <span style="color: #f10215">{{scope.row.name}}</span> 的密码？</p>
                             <div style="text-align: right; margin: 0">
-                                <el-button size="mini" type="text" @click="popoverValueStatus = false">取消</el-button>
+                                <el-button size="mini" type="text" @click="clearPopoverStatus">取消</el-button>
                                 <el-button type="primary" size="mini" @click="resetPassword(scope.row.id)">确定</el-button>
                             </div>
                         </el-popover>
@@ -48,28 +48,21 @@
             this.tableName = TABLE_NAME;
         },
         methods: {
-            showPopover(id) {
-                this.popoverValueStatus = id;
-            },
-            getResetStatus(id) {
-                return this.popoverValueStatus === id;
-            },
             // 重置密码
             resetPassword(id) {
+                this.clearPopoverStatus();
                 resetPass(id)
                     .then(res => {
                         this.$message({
                             message: '重置密码成功~',
                             type: 'success'
                         });
-                        this.popoverValueStatus = '';
                     })
                     .catch(err => {
                         this.$message({
                             message: '重置密码失败~',
                             type: 'warning'
                         });
-                        this.popoverValueStatus = '';
                     })
             }
         }
