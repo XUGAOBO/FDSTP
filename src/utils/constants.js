@@ -15,5 +15,7 @@ export const EDITOR_TYPE = { // 编辑格式
     text: 'input', // 单行文本
     select: 'select', // 下拉框
     photo: 'photo', // 图片
-    textArea: 'textArea' // 富文本
+    textArea: 'textArea', // 富文本
+    showDate: 'showDate', // 时间选择框
+    number: 'number' // 数量
 }

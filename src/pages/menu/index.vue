@@ -32,7 +32,9 @@
                 <span slot="title">系统设置</span>
                 <el-menu-item index="user-manage">用户管理</el-menu-item>
                 <el-menu-item index="offical-certification">官方认证</el-menu-item>
+                <!--
                 <el-menu-item index="func-maintain">功能权限维护</el-menu-item>
+                -->
                 <el-menu-item index="log-query">登录日志查询</el-menu-item>
             </el-submenu>
             <!--

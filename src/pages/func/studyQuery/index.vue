@@ -1,19 +1,18 @@
 <template>
     <Layout>
         <div slot="operate">
-            <el-button @click="createRecord" size="small">新增</el-button>
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <p slot="operate">
                 <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
-                        <el-popover ref="popover" placement="top">
+                        <el-dialog title="学习情况" :visible.sync="dialogVisible" top='50px'>
                             <TableInfo :columns="signColumns" :dataSource="signDataSource">
-                                <img slot="sign" slot-scope="props" :src="props.data.sign" width="150"/>
+                                <img slot="sign" slot-scope="props" :src="props.data.sign" width="150" />
                             </TableInfo>
-                        </el-popover>
-                        <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>签到表</el-button>
+                        </el-dialog>
+                        <el-button @click="showPopover(scope.row.id)" type="text" size="small">签到表</el-button>
                     </template>
                 </el-table-column>
             </p>
@@ -37,7 +36,8 @@
         },
         data() {
             return {
-                TABLE_NAME
+                TABLE_NAME,
+                dialogVisible: false
             }
         },
         mounted() {
@@ -45,6 +45,7 @@
         },
         methods: {
             showPopover(id) {
+                this.dialogVisible = true;
                 this.querySignTable(id);
             }
         }

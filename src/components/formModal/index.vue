@@ -15,6 +15,12 @@
                         action="/" :file-list="fileList" :auto-upload="false" :multiple="false">
                         <i class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
+                    <!-- 时间选择框 -->
+                    <el-date-picker v-model="form[item.key]" type="date" placeholder="请选择日期" v-if="item.type === EDITOR_TYPE['showDate']">
+                    </el-date-picker>
+                    <!-- 计数器 -->
+                    <el-input-number v-model="form[item.key]" controls-position="right" v-if="item.type === EDITOR_TYPE['number']"></el-input-number>
+                    <!-- 富文本 -->
                     <div v-if="item.type === EDITOR_TYPE['textArea']" class="form-modal__editor">
                         <Editor :id="`editor${index}`" :propKey="item.key" :content="form[item.key]" height=180 :isAppendTo="true" @get-content="getContent"
                         />

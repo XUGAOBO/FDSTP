@@ -7,6 +7,7 @@ import {
     querySign,
     queryletter
 } from '../../../api/table';
+import { format } from 'Utils/date';
 import { EDITOR_TYPE } from 'Utils/constants';
 export default {
     data() {
@@ -60,7 +61,7 @@ export default {
                     width: item.width * 10,
                     minWidth: 0
                 };
-                if (item.headId === 'photo' || item.headId === 'content' || item.headId === 'sign') { // photo 需要图片展示  content 内容展示 sign 签字
+                if (item.headId === 'photo' || item.headId === 'content' || item.headId === 'sign' || item.headId === 'endDate') { // photo 需要图片展示  content 内容展示 sign 签字
                     tempPo.render = true;
                 }
                 return tempPo;
@@ -135,6 +136,9 @@ export default {
         // 确认提交信息
         confirm(data, tableName) {
             this.visible = false;
+            if (data['endDate']) {
+                data.endDate = format(new Date(data.endDate).getTime(), 'YYYY-MM-DD HH:mm:ss');
+            }
             if (Object.keys(this.initValue).length > 0) { // 更新数据
                 data.id = this.recordId;
                 this.queryRepeat(updateTableRow(data, tableName));

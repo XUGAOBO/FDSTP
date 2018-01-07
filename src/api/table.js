@@ -1,8 +1,11 @@
 //  此文件存放接口请求
 import http from 'Utils/request'
-
+const USER_MANAGE = 'userManage';
 // 查询表格数据
 export const tableSelect = (params) => {
+    if (params === USER_MANAGE) {
+        return http.get('fdstp/user/userManage')
+    }
     return http.post(`a/corp/base/selectTableContent?table=${params}`)
 }
 
@@ -18,6 +21,9 @@ export const deleteTableRow = (id, tableName) => {
 
 // 更新表格
 export const updateTableRow = (map, tableName) => {
+    if (tableName === USER_MANAGE) {
+        return http.post('fdstp/user/changeUser', map)
+    }
     return http.post(`a/corp/base/updateTableRow/${tableName}`, map)
 }
 
