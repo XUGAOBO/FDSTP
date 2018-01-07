@@ -5,7 +5,14 @@
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
-            <img slot="photo" slot-scope="props" :src="props.data.photo" />
+            <template slot="photo" slot-scope="props">
+                <el-popover ref="popover1" placement="top" width="450">
+                    <div>
+                        <img :src="props.data.photo" />
+                    </div>
+                </el-popover>
+                <img :src="props.data.photo" v-popover:popover1 />
+            </template>
             <p slot="operate">
                 <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
