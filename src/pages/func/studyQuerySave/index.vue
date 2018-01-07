@@ -19,8 +19,7 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME"
-            :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
     </Layout>
 </template>
 <script>
@@ -41,7 +40,7 @@
                 TABLE_NAME
             }
         },
-        mounted() {
+        mounted () {
             this.tableName = TABLE_NAME;
         }
     }

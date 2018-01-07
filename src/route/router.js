@@ -111,6 +111,13 @@ const EnterpriseList = resolve => {
     }, 'enterprise-list')
 }
 
+// 安全会议学习
+const StudyQuerySave = resolve => {
+    require.ensure([], () => {
+        resolve(require('../pages/func/studyQuerySave/index.vue'))
+    }, 'study-query-save')
+}
+
 const Index = resolve => {
     require.ensure([], () => {
         resolve(require('../pages/index/index.vue'))
@@ -138,7 +145,11 @@ const routerList = [{
     routeName: 'weather-notice',
     component: WeatherNotice
 }, {
-    title: '学习记录查询',
+    title: '安全会议',
+    routeName: 'study-query-save',
+    component: StudyQuerySave
+},{
+    title: '教育培训',
     routeName: 'study-query',
     component: StudyQuery
 }, {

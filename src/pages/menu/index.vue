@@ -20,7 +20,8 @@
             </el-submenu>
             <el-submenu index="3">
                 <span slot="title">学习统计</span>
-                <el-menu-item index="study-query">学习记录查询</el-menu-item>
+                <el-menu-item index="study-query-save">安全会议</el-menu-item>
+                <el-menu-item index="study-query">教育培训</el-menu-item>
             </el-submenu>
             <el-submenu index="5">
                 <span slot="title">责任状签订</span>
@@ -34,11 +35,13 @@
                 <el-menu-item index="func-maintain">功能权限维护</el-menu-item>
                 <el-menu-item index="log-query">登录日志查询</el-menu-item>
             </el-submenu>
+            <!--
             <el-submenu index="7">
                 <span slot="title">系统设置</span>
                 <el-menu-item index="learn-query">学习情况查询</el-menu-item>
                 <el-menu-item index="enterprise-list">企业列表</el-menu-item>
             </el-submenu>
+            -->
         </el-menu>
     </div>
 </template>
