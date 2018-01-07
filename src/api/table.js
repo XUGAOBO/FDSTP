@@ -35,3 +35,13 @@ export const queryRacingTeam = () => {
 export const dispatch = (id, list) => {
     return http.post(`a/corp/training/sendWeatherNotice/${id}`, list);
 }
+
+// 查询签到表
+export const querySign = (id) => {
+    return http.get(`a/corp/base/linkDetailContent?id=${id}`);
+}
+
+// 查询责任状
+export const queryletter = (id) => {
+    return http.get(`a/corp/base/letterDetailContent?id=${id}`);
+}

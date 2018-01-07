@@ -3,7 +3,9 @@ import {
     deleteTableRow,
     tableSelect,
     updateTableRow,
-    queryRacingTeam
+    queryRacingTeam,
+    querySign,
+    queryletter
 } from '../../../api/table';
 import { EDITOR_TYPE } from 'Utils/constants';
 export default {
@@ -17,7 +19,9 @@ export default {
             initValue: {}, // 更新表格时的
             popoverValue: '', // 确认框状态
             recordId: '', // 当前操作的行记录id
-            motorcadeList: [] //  车队列表
+            motorcadeList: [], //  车队列表
+            signColumns: [], // 签到表格
+            signDataSource: [] // 签到数据
         }
     },
     mounted() {
@@ -56,7 +60,7 @@ export default {
                     width: item.width * 10,
                     minWidth: 0
                 };
-                if (item.headId === 'photo' || item.headId === 'content') { // photo 需要图片展示  content 内容展示
+                if (item.headId === 'photo' || item.headId === 'content' || item.headId === 'sign') { // photo 需要图片展示  content 内容展示 sign 签字
                     tempPo.render = true;
                 }
                 return tempPo;
@@ -156,6 +160,22 @@ export default {
             queryRacingTeam()
             .then(res => {
                 this.motorcadeList = res.contentList;
+            })
+        },
+        // 查询签到表
+        querySignTable(id) {
+            querySign(id)
+            .then(res => {
+                this.signColumns = this.adapterColumns(res.headList);
+                this.signDataSource = res.contentList;
+            })
+        },
+        // 查询责任状
+        queryLetterTable(id) {
+            queryletter(id)
+            .then(res => {
+                this.signColumns = this.adapterColumns(res.headList);
+                this.signDataSource = res.contentList;
             })
         }
     }

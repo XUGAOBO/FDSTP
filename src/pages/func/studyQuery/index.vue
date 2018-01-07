@@ -6,13 +6,12 @@
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <p slot="operate">
-                <el-table-column fixed="right" label="操作" width="100">
+                <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
                         <el-popover ref="popover" placement="top">
-                            <div>
-                                <TableInfo :columns="columns" :dataSource="dataSource">
-                                </TableInfo>
-                            </div>
+                            <TableInfo :columns="signColumns" :dataSource="signDataSource">
+                                <img slot="sign" slot-scope="props" :src="props.data.sign" width="150"/>
+                            </TableInfo>
                         </el-popover>
                         <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>签到表</el-button>
                     </template>
@@ -28,7 +27,7 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
-    const TABLE_NAME = 'truck';
+    const TABLE_NAME = 'trainingRecord';
     export default {
         mixins: [mixin],
         components: {
@@ -43,6 +42,11 @@
         },
         mounted() {
             this.tableName = TABLE_NAME;
+        },
+        methods: {
+            showPopover(id) {
+                this.querySignTable(id);
+            }
         }
     }
 
