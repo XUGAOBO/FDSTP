@@ -76,6 +76,20 @@ const UserManage = resolve => {
     }, 'user-manage')
 }
 
+// 登录
+const UserLogin = resolve => {
+    require.ensure([], () => {
+        resolve(require('../pages/login/index.vue'))
+    }, 'login')
+}
+
+// 注册
+const UserRegister = resolve => {
+    require.ensure([], () => {
+        resolve(require('../pages/register/index.vue'))
+    }, 'register')
+}
+
 // 官方认证
 const OfficalCertification = resolve => {
     require.ensure([], () => {
@@ -216,6 +230,22 @@ function getRouter(data) {
         path: '/',
         component: Index,
         children: children
+    })
+    tempData.unshift({
+        name: 'login',
+        meta: {
+            title: 'login'
+        },
+        path: '/login',
+        component: UserLogin
+    })
+    tempData.unshift({
+        name: 'register',
+        meta: {
+            title: 'index'
+        },
+        path: '/register',
+        component: UserRegister
     })
     tempData.push({
         path: '*',
