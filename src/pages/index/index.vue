@@ -23,23 +23,11 @@
     import Layout from '../layout/index';
     import PageMenu from '../menu/index';
     import PageHeader from '../header/index';
-    import {
-        login
-    } from '../../api/login';
     export default {
         components: {
             PageMenu,
             Layout,
             PageHeader
-        },
-        mounted() {
-            login()
-                .then(res => {
-                    console.log('登录成功');
-                })
-                .catch(err => {
-                    console.log(err)
-                })
         }
     }
 

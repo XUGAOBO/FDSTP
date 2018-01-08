@@ -31,6 +31,20 @@
             </el-dropdown-menu>
             </el-dropdown>
             </span>
+            <el-dialog title="修改密码" :visible.sync="changepassword">
+                <el-form :model="password">
+                    <el-form-item label="旧密码">
+                        <el-input v-model="password.lastPassword" auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="新密码">
+                        <el-input v-model="password.newPassword" auto-complete="off"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="changepassword = false">取 消</el-button>
+                    <el-button type="primary" @click="modifyPwd">确 定</el-button>
+                </div>
+                </el-dialog>
             <el-dialog title="添加操作员" :visible.sync="visible" :before-close="close">
                 <div>
                     <el-form ref="form" label-width="100px">
@@ -77,6 +91,10 @@
         insertOperator
     } from '../../api/operator';
     import {
+        modifyPwdRequest,
+        logoutRequest
+    } from '../../api/login';
+    import {
         officalConfirm,
         officalConfirmStatus
     } from '../../api/user';
@@ -91,6 +109,8 @@
                 value: '',
                 visible: false,
                 inputValue: '', // 操作员姓名
+                password: {},
+                changepassword: false,
                 dialogVisbile: false,
                 officalStatus: false, // 是否认证
                 officalForm: {
@@ -130,6 +150,27 @@
                     this.queryOperate()
                 })
             },
+            modifyPwd () {
+                if (!this.password.lastPassword) {
+                    alert('请输入旧密码');
+                    return;
+                } else if (!this.password.newPassword) {
+                    alert('请输入新密码');
+                    return;
+                }
+                const param = `?oldPassword=${this.password.lastPassword}&newPassword=${this.password.newPassword}`;
+                return modifyPwdRequest(param).then(res => {
+                    if (res.code === 1) {
+                        this.$message({
+                            message: '修改密码成功',
+                            type: 'success'
+                        });
+                        this.changepassword = false;
+                    } else {
+                        this.$message.error(res.content);
+                    }
+                });
+            },
             queryOperate() {
                 queryOperator().then(res => {
                     this.options = res;
@@ -140,6 +181,28 @@
                 })
             },
             handleCommand(e) {
+                if (e === '1') {
+                    this.changepassword = true
+                } else if (e === '2') {
+                    this.$confirm('退出登录将无法进行操作，确定退出?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        logoutRequest().then(d => {
+                            console.log(d);
+                        }).catch(() => {
+                            this.$message.error('退出失败，请重试');
+                        });
+                        this.$message({
+                            type: 'success',
+                            message: '退出成功!'
+                        });
+                    }).catch(() => {
+                        console.log();
+                    });
+                }
+                // console.error('e', e);
                 console.error('e', e);
             },
             // 官方认证
@@ -149,9 +212,8 @@
             // 提交官方认证
             confirmOffical() {
                 officalConfirm(this.officalForm)
-                    .then(res => {
-
-                    })
+                .then(res => {
+                })
             }
         },
         watch: {
