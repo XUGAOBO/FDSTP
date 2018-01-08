@@ -149,9 +149,9 @@
             // 提交官方认证
             confirmOffical() {
                 officalConfirm(this.officalForm)
-                .then(res => {
-                    
-                })
+                    .then(res => {
+
+                    })
             }
         },
         watch: {
