@@ -82,7 +82,7 @@ export default {
     width: 460px;
     position: absolute;
     left: 50%;
-    margin-left: -480px;
+    margin-left: -290px;
     top: 50%;
     margin-top: -173px;
     padding: 30px 50px;
