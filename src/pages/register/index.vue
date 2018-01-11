@@ -1,8 +1,8 @@
 <template>
     <article class="register">
       <h1>注册</h1>
-      <section>
-        <el-form  label-position="right" :model="formData" status-icon :rules="rules" size="medium" ref="form" label-width="200px" class="demo-ruleForm">
+      <section class="register-content">
+        <el-form  label-position="right" :model="formData" status-icon :rules="rules" size="medium" ref="form" label-width="100px" class="demo-ruleForm">
           <el-form-item label="用户名" prop="username">
             <el-input v-model="formData.username"></el-input>
           </el-form-item>
@@ -26,16 +26,17 @@
           <el-form-item label="手机号" prop="phone">
             <el-input v-model.number="formData.phone"></el-input>
           </el-form-item>
-          <el-form-item label="公司">
+          <el-form-item label="地区">
             <el-cascader
+              :style="{width: '500px'}"
               :options="areaData"
               v-model="selectedOptions"
               @change="changeArea">
             </el-cascader>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="signup('formData')">提交</el-button>
-            <el-button @click="resetForm('formData')">重置</el-button>
+            <el-button :style="{width: '200px', marginRight: '50px'}" type="primary" @click="signup('formData')">提交</el-button>
+            <el-button :style="{width: '200px'}" @click="resetForm('formData')">重置</el-button>
           </el-form-item>
         </el-form>
       </section>
@@ -141,7 +142,7 @@ export default {
   methods: {
     signup () {
       const { username, name, pass, email, mobile, phone } = this.formData;
-      const areaInfo = this.selectedOptions.join('');
+      const areaInfo = this.selectedOptions[this.selectedOptions.length - 1];
       const sendData = {
         loginName: username,
         name,
@@ -193,3 +194,19 @@ export default {
   }
 }
 </script>
+<style>
+.register {
+  position: relative;
+}
+.register h1 {
+  font-size: 30px;
+  text-align: center;
+  padding: 20px 0;
+}
+.register-content {
+  width: 600px;
+  position: absolute;
+  left: 50%;
+  margin-left: -300px;
+} 
+</style>
