@@ -211,6 +211,7 @@
             },
             // 提交官方认证
             confirmOffical() {
+                console.error('this.officalForm', this.officalConfirm);
                 officalConfirm(this.officalForm)
                 .then(res => {
                 })
