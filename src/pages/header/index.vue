@@ -44,7 +44,7 @@
                     <el-button @click="changepassword = false">取 消</el-button>
                     <el-button type="primary" @click="modifyPwd">确 定</el-button>
                 </div>
-                </el-dialog>
+            </el-dialog>
             <el-dialog title="添加操作员" :visible.sync="visible" :before-close="close">
                 <div>
                     <el-form ref="form" label-width="100px">
@@ -60,14 +60,18 @@
             </el-dialog>
             <el-dialog title="道路运输企业实名制认证" :visible.sync="dialogVisbile" :before-close="close">
                 <div>
-                    <el-form ref="officalForm" label-width="100px">
+                    <el-form ref="officalForm" label-width="160px" size="mini" :inline="true">
                         <el-form-item label="道路运输经营许可证号">
                             <el-input v-model="officalForm['roadLicense']"></el-input>
-                            <input type="file" :value="officalForm['roadLicensePic']" />
+                        </el-form-item>
+                        <el-form-item>
+                            <input type="file" @change="processFileRoad($event)" value="拍照上传"/>
                         </el-form-item>
                         <el-form-item label="工商执照号码">
                             <el-input v-model="officalForm['businessLicense']"></el-input>
-                            <input type="file" :value="officalForm['businessLicensePic']" />
+                        </el-form-item>
+                        <el-form-item>
+                            <input type="file" @change="processFileBusiness($event)" name="拍照上传" />
                         </el-form-item>
                         <el-form-item label="法人代表">
                             <el-input v-model="officalForm['legalPerson']"></el-input>
@@ -150,7 +154,15 @@
                     this.queryOperate()
                 })
             },
-            modifyPwd () {
+            processFileRoad(event) {
+                this.officalForm['roadLicensePic'] = event.target.files[0]
+            },
+            processFileBusiness(event) {
+                this.$set(this.officalForm, 'businessLicensePic', event.target.files[0])
+                // this.officalForm['businessLicensePic'] = event.target.files[0];
+                // console.error('event', this.officalForm['businessLicensePic']);
+            },
+            modifyPwd() {
                 if (!this.password.lastPassword) {
                     alert('请输入旧密码');
                     return;
@@ -211,15 +223,39 @@
             },
             // 提交官方认证
             confirmOffical() {
-                console.error('this.officalForm', this.officalConfirm);
-                officalConfirm(this.officalForm)
-                .then(res => {
-                })
+                for (let value of Object.values(this.officalForm)) {
+                    if (!value) {
+                        this.$message({
+                            message: '请完善表单信息~',
+                            type: 'warning'
+                        });
+                        return;
+                    }
+                }
+                let formData = new FormData();
+                for (let [key, value] of Object.entries(this.officalForm)) {
+                    formData.append(key, value);
+                }
+                officalConfirm(formData)
+                    .then(res => {
+                        this.dialogVisbile = false;
+                        this.$message({
+                            message: '认证成功~',
+                            type: 'success'
+                        });
+                        officalConfirmStatus()
+                            .then(res => {
+                                this.officalStatus = res;
+                            })
+                    })
             }
         },
         watch: {
             value(val) {
                 cache.session.set(SESSION_KEY.OPERATOR, val);
+            },
+            officalForm(val) {
+                console.error('val', val);
             }
         },
         mounted() {

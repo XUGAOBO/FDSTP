@@ -1,8 +1,23 @@
 @charset "utf-8";
+@componentWidth: 250px;
 .page-header {
     height: 100%;
     background: #fff;
     color: @color15;
+    .el-dialog__wrapper {
+        overflow: hidden;
+        .el-dialog {
+            width: 800px;
+        }
+    }
+    .el-form .el-form-item .el-form-item__content {
+        .el-input {
+            width: @componentWidth;
+        }
+        .el-input-number .el-input__inner {
+            text-align: left;
+        }
+    }
     .page-title {
         display: inline-block;
         font-size: @fontSize36;
