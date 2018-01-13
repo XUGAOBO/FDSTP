@@ -145,9 +145,8 @@ export default {
         },
         // 确认提交信息
         confirm(data, tableName) {
-            console.error('data', data);
-            for (let value of Object.values(data)) {
-                if (!value) {
+            for (let [key, value] of Object.entries(data)) {
+                if (key.indexOf('date') === 0 && !value) {
                     this.$message({
                         message: '请完善表单信息~',
                         type: 'warning'
