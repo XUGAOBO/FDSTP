@@ -19,3 +19,6 @@ export const EDITOR_TYPE = { // 编辑格式
     showDate: 'showDate', // 时间选择框
     number: 'number' // 数量
 }
+
+// 初始时不执行mounted方法
+export const NOT_INIT = ['truck'];

@@ -11,10 +11,13 @@
                         </el-option>
                     </el-select>
                     <!-- 上传图片 -->
-                    <el-upload class="avatar-uploader" ref="upload" :on-preview="handlePreview" :before-upload="beforeUpload" v-if="item.type === EDITOR_TYPE['photo'] "
+                    <input type="file" @change="processFileBusiness($event)" v-if="item.type === EDITOR_TYPE['photo'] " />
+                    <!--
+                        <el-upload class="avatar-uploader" ref="upload" :on-preview="handlePreview" :before-upload="beforeUpload" 
                         action="/" :file-list="fileList" :auto-upload="false" :multiple="false">
                         <i class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
+                    -->
                     <!-- 时间选择框 -->
                     <el-date-picker v-model="form[item.key]" type="date" placeholder="请选择日期" v-if="item.type === EDITOR_TYPE['showDate']">
                     </el-date-picker>

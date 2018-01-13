@@ -1,16 +1,17 @@
 //  此文件存放接口请求
-import http from 'Utils/request'
+import http from 'Utils/request';
+import querystring from 'querystring';
 const USER_MANAGE = 'userManage';
 const OFFICAL_MANAGE = 'officalManage';
 // 查询表格数据
 export const tableSelect = (params) => {
-    if (params === USER_MANAGE) {
+    if (params.table === USER_MANAGE) {
         return http.get('fdstp/user/userManage')
     }
-    if (params === OFFICAL_MANAGE) {
+    if (params.table === OFFICAL_MANAGE) {
         return http.get('fdstp/user/authenticationList');
     }
-    return http.post(`a/corp/base/selectTableContent?table=${params}`)
+    return http.post(`a/corp/base/selectTableContent?${querystring.encode(params)}`);
 }
 
 // 新增表格行记录
