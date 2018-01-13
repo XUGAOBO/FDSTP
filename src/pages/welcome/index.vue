@@ -18,9 +18,9 @@
         systemSupport
     } from '../../api/user'
     export default {
-        data () {
+        data() {
             return {
-                content: {}      
+                content: {}
             }
         },
         mounted() {
@@ -30,4 +30,5 @@
                 })
         }
     }
+
 </script>

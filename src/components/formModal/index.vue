@@ -11,7 +11,7 @@
                         </el-option>
                     </el-select>
                     <!-- 上传图片 -->
-                    <input type="file" @change="processFileBusiness($event)" v-if="item.type === EDITOR_TYPE['photo'] " />
+                    <input type="file" @change="fileUpload($event)" v-if="item.type === EDITOR_TYPE['photo'] " />
                     <!--
                         <el-upload class="avatar-uploader" ref="upload" :on-preview="handlePreview" :before-upload="beforeUpload" 
                         action="/" :file-list="fileList" :auto-upload="false" :multiple="false">
@@ -121,6 +121,10 @@
                 if (key) {
                     this.form[key] = data;
                 }
+            },
+            // 图片上传
+            fileUpload(event) {
+                this.$set(this.form, 'photo', event.target.files[0])
             }
         },
         watch: {

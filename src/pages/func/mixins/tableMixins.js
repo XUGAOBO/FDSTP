@@ -142,6 +142,16 @@ export default {
         },
         // 确认提交信息
         confirm(data, tableName) {
+            console.error('data', data);
+            for (let value of Object.values(data)) {
+                if (!value) {
+                    this.$message({
+                        message: '请完善表单信息~',
+                        type: 'warning'
+                    });
+                    return;
+                }
+            }
             this.visible = false;
             if (data['endDate']) {
                 data.endDate = format(new Date(data.endDate).getTime(), 'YYYY-MM-DD HH:mm:ss');
