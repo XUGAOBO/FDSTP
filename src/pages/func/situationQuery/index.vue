@@ -1,16 +1,8 @@
 <template>
     <Layout>
         <div slot="operate">
-            <el-date-picker
-                v-model="checkDate"
-                type="datetimerange"
-                @change="changeDate"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                format="yyyy-MM-dd"
-                size="small"
-                align="right">
+            <el-date-picker v-model="checkDate" type="datetimerange" @change="changeDate" range-separator="至" start-placeholder="开始日期"
+                end-placeholder="结束日期" format="yyyy-MM-dd" size="small" align="right">
             </el-date-picker>
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
@@ -76,11 +68,7 @@
                     <template slot-scope="scope">
                         <el-popover ref="popover" placement="top" width="360" :value="getPopoverStatus(scope.row.id)">
                             <p style="marginBottom: 30px">请输入退回原因</p>
-                            <el-input
-                                type="textarea"
-                                :rows="2"
-                                placeholder="请输入内容"
-                                v-model="reason">
+                            <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="reason">
                             </el-input>
                             <div style="text-align: right; margin: 0; marginTop: 30px">
                                 <el-button size="mini" type="text" @click="clearPopoverStatus">取消</el-button>
@@ -101,9 +89,13 @@
     import TableInfo from 'Components/table/index';
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
-    import { busRecheck } from '../../../api/table';
+    import {
+        busRecheck
+    } from '../../../api/table';
     import FormModal from 'Components/formModal/index';
-    import { format as formatDate } from 'Utils/date';
+    import {
+        format as formatDate
+    } from 'Utils/date';
     import cache from 'Utils/cache';
     const TABLE_NAME = 'truckDepartCheckRecord';
     export default {
@@ -124,7 +116,7 @@
             }
         },
         watch: {
-            columns (data) {
+            columns(data) {
                 const photos = data.filter(item => {
                     return item.prop.match(/\d/)
                 });
@@ -142,18 +134,20 @@
                 console.error('data', data);
                 this.busRecheckTable();
             },
-            formatTableParam (dateArr) {
+            formatTableParam(dateArr) {
                 return {
                     table: this.TABLE_NAME,
                     sDate: this.formatDate(dateArr[0]),
                     eDate: this.formatDate(dateArr[1])
                 };
             },
-            changeDate (date) {
+            changeDate(date) {
                 this.queryTable(this.formatTableParam(date));
             },
-            submitBusCheck (confirm, rowId) {
-                const { reason = '' } = this;
+            submitBusCheck(confirm, rowId) {
+                const {
+                    reason = ''
+                } = this;
                 if (!confirm && !reason) {
                     this.$message.error('请输入退回原因');
                     return;
@@ -172,9 +166,9 @@
                     }
                     this.reason = '';
                 });
-                
+
             },
-            formatDate (date) {
+            formatDate(date) {
                 return formatDate(date, 'YYYYMMDD');
             }
         }

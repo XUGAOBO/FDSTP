@@ -109,12 +109,10 @@
             },
             beforeUpload(file) {
                 this.fileList = [file];
-                console.error('file', file);
             },
             // 图片上传
             handlePreview(file) {
                 this.fileList = [file];
-                console.error('aaaa', this.fileList);
             },
             // 获取富文本
             getContent(data, key) {

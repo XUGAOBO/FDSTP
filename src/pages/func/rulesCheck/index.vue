@@ -28,7 +28,7 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="ruleCheck" :tableName="TABLE_NAME"
+        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME"
             :visible="visible" slot="form-modal" />
     </Layout>
 </template>
@@ -37,9 +37,9 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
-    import {
-        upload
-    } from '../../../api/table';
+    // import {
+    //     upload
+    // } from '../../../api/table';
     const TABLE_NAME = 'checkrule';
     export default {
         mixins: [mixin],
@@ -55,18 +55,18 @@
         },
         mounted() {
             this.tableName = TABLE_NAME;
-        },
-        methods: {
-            // 校验规则维护
-            ruleCheck(data, tableName) {
-                this.visible = false;
-                this.queryRepeat(upload(data)
-                    .then(res => {})
-                    .catch(err => {
-                        console.log(err)
-                    }))
-            }
         }
+        // methods: {
+        //     // 校验规则维护
+        //     ruleCheck(data, tableName) {
+        //         this.visible = false;
+        //         this.queryRepeat(upload(data)
+        //             .then(res => {})
+        //             .catch(err => {
+        //                 console.log(err)
+        //             }))
+        //     }
+        // }
     }
 
 </script>

@@ -42,14 +42,14 @@ export const updateTableRow = (map, tableName) => {
     return http.post(`a/corp/base/updateTableRow/${tableName}`, map)
 }
 
-// 图片上传(规则校验模块)
-export const upload = (params) => {
-    return http.post('a/corp/check/addCheckPoint', params)
-}
+// // 图片上传(规则校验模块)
+// export const upload = (params) => {
+//     return http.post('a/corp/check/addCheckPoint', params)
+// }
 
 // 获取车队列表
-export const queryRacingTeam = (param) => {
-    return http.post(`a/corp/base/selectTableContent?table=motorcade${param}`);
+export const queryRacingTeam = () => {
+    return http.post(`a/corp/base/selectTableContent?table=motorcade`);
 }
 
 // 车检复查
