@@ -8,7 +8,10 @@
                 <slot name="content"></slot>
             </div>
         </div>
-        <slot name="form-modal"></slot>
+        <slot name="form-modal">
+        </slot>
+        <slot name="motorcade">
+        </slot>
     </div>
 </template>
 <script>

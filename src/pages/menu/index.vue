@@ -38,8 +38,9 @@
                 <el-menu-item index="offical-certification">官方认证</el-menu-item>
                 <!--
                 <el-menu-item index="func-maintain">功能权限维护</el-menu-item>
-                -->
+                
                 <el-menu-item index="log-query">登录日志查询</el-menu-item>
+                -->
             </el-submenu>
             <!--
             <el-submenu index="7">

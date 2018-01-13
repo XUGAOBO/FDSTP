@@ -22,8 +22,10 @@ export default {
             popoverValue: '', // 确认框状态
             recordId: '', // 当前操作的行记录id
             motorcadeList: [], //  车队列表
+            motorcadeFormData: [],
             signColumns: [], // 签到表格
-            signDataSource: [] // 签到数据
+            signDataSource: [], // 签到数据
+            tempName: ''
         }
     },
     mounted() {
@@ -103,7 +105,7 @@ export default {
             })
         },
         // 添加表格记录
-        createRecord() {
+        createRecord(tableName) {
             this.visible = true;
             this.initValue = {}; // 在新增时,清空数据
         },
@@ -184,6 +186,7 @@ export default {
             queryRacingTeam()
             .then(res => {
                 this.motorcadeList = res.contentList;
+                this.motorcadeFormData = this.adapterForm(res.headList);
             })
         },
         // 查询签到表

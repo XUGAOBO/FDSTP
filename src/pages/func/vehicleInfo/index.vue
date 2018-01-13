@@ -5,7 +5,7 @@
                 <el-option v-for="item in motorcadeList" :key="item.id" :label="item.motorcadeName" :value="item.id">
                 </el-option>
             </el-select>
-            <el-button @click="createRecord('motorcade')" size="small">新增车队</el-button>
+            <el-button @click="createMotorcade" size="small">新增车队</el-button>
             <el-button @click="createRecord" size="small">新增车辆</el-button>
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
@@ -28,6 +28,8 @@
         </TableInfo>
         <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME"
             :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="motorcadeFormData" @closeDialog="formVisible = false" @confirm="confirmMotorcade" tableName="motorcade"
+            :visible="formVisible" slot="motorcade" />
     </Layout>
 </template>
 <script>
@@ -46,7 +48,8 @@
         data() {
             return {
                 TABLE_NAME,
-                motorcadeSelect: ''
+                motorcadeSelect: '',
+                formVisible: false
             }
         },
         mounted() {
@@ -64,6 +67,32 @@
                     table: this.tableName,
                     motorcadeId: val
                 });
+            }
+        },
+        methods: {
+            createMotorcade() {
+                this.formVisible = true;
+                this.initValue = {}; // 在新增时,清空数据
+            },
+            confirmMotorcade(data) {
+                for (let value of Object.values(data)) {
+                    if (!value) {
+                        this.$message({
+                            message: '请完善表单信息~',
+                            type: 'warning'
+                        });
+                        return;
+                    }
+                }
+                this.formVisible = false;
+                this.insertRecord(data, 'motorcade')
+                    .then(res => {
+                        this.$message({
+                            message: '车队添加成功~',
+                            type: 'success'
+                        });
+                        this.getRacingTeam();
+                    })
             }
         }
     }
