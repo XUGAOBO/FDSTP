@@ -5,7 +5,8 @@ import {
     updateTableRow,
     queryRacingTeam,
     querySign,
-    queryletter
+    queryletter,
+    busRecheck
 } from '../../../api/table';
 import { format } from 'Utils/date';
 import { EDITOR_TYPE, NOT_INIT } from 'Utils/constants';
@@ -181,6 +182,13 @@ export default {
         // 查询责任状
         queryLetterTable(id) {
             queryletter(id)
+            .then(res => {
+                this.signColumns = this.adapterColumns(res.headList);
+                this.signDataSource = res.contentList;
+            })
+        },
+        busRecheckTable(param) {
+            busRecheck(param)
             .then(res => {
                 this.signColumns = this.adapterColumns(res.headList);
                 this.signDataSource = res.contentList;
