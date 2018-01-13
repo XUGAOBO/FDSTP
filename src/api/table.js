@@ -38,8 +38,13 @@ export const upload = (params) => {
 }
 
 // 获取车队列表
-export const queryRacingTeam = () => {
-    return http.post('a/corp/base/selectTableContent?table=motorcade');
+export const queryRacingTeam = (param) => {
+    return http.post(`a/corp/base/selectTableContent?table=motorcade${param}`);
+}
+
+// 车检复查
+export const busRecheck = (param) => {
+    return http.post(`a/corp/check/checkTruck?${param}`);
 }
 
 // 下发车队
