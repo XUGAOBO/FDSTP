@@ -68,6 +68,9 @@ export default {
                 if (item.headId === 'photo' || item.headId === 'content' || item.headId === 'sign' || item.headId === 'endDate' || item.headId === 'roadLicensePic' || item.headId === 'businessLicensePic') { // photo 需要图片展示  content 内容展示 sign 签字
                     tempPo.render = true;
                 }
+                if (item.editorType === 'photo') {
+                    tempPo.render = true;
+                }
                 return tempPo;
             });
         },

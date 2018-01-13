@@ -14,9 +14,7 @@
             </header>
             <section class="content">
                 <slot name="content">
-                    <div class="content-wrapper">
-                        <img src="../../assets/images/bg.png" slot="img" />
-                    </div>
+                    <Welcome />
                 </slot>
             </section>
             <footer class="footer">
@@ -26,7 +24,10 @@
     </div>
 </template>
 <script>
+    import Welcome from '../welcome/index';
     export default {
-
+        components: {
+            Welcome
+        }
     }
 </script>

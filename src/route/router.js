@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-// 车队信息
-// const TeamInfo = resolve => {
-//     require.ensure([], () => {
-//         resolve(require('../pages/func/teamInfo/index.vue'))
-//     }, 'team-info')
-// }
+// 欢迎页
+const Welcome = resolve => {
+    require.ensure([], () => {
+        resolve(require('../pages/welcome/index.vue'))
+    }, 'welcome')
+}
 
 // 车辆信息
 const VehicleInfo = resolve => {
@@ -139,6 +139,10 @@ const Index = resolve => {
 }
 
 const routerList = [{
+    title: '首页',
+    routeName: 'welcome',
+    component: Welcome
+},{
     title: '车辆信息',
     routeName: 'vehicle-info',
     component: VehicleInfo

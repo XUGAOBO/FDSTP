@@ -21,3 +21,8 @@ export const officalConfirm = params => {
 export const authOffical = id => {
   return http.get(`fdstp/user/authenticationCheck?id=${id}`);
 };
+
+// 系统支持
+export const systemSupport = () => {
+    return http.get('a/corp/base/queryWelcomeContent');
+}

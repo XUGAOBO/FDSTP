@@ -36,6 +36,12 @@
         height: @headerHeight;
         line-height: @headerHeight;
         box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: @zIndex10;
     }
     .container {
         position: relative;
@@ -52,11 +58,6 @@
         bottom: @footerHeight;
         overflow-y: hidden;
         overflow-x: hidden;
-    }
-    .content-wrapper {
-        height: 100%;
-        width: 100%;
-        background-color: #fff;
     }
     .footer {
         height: @footerHeight;
