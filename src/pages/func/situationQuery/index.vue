@@ -1,7 +1,6 @@
 <template>
     <Layout>
         <div slot="operate">
-            <el-button @click="exportTable" size="small">导出</el-button>
             <el-date-picker
                 v-model="checkDate"
                 type="datetimerange"
@@ -13,27 +12,83 @@
                 size="small"
                 align="right">
             </el-date-picker>
+            <el-button @click="exportTable" size="small">导出</el-button>
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
-            <template slot="photo" slot-scope="props">
-                <el-popover ref="popover1" placement="top" width="450">
+            <!-- <template :slot="column" slot-scope="props" v-for="(column, index) in photoColumn">
+                <el-popover :ref="index" placement="top" width="450">
                     <div>
-                        <img :src="props.data.photo" />
+                        <img :src="props.data[column]" />
                     </div>
                 </el-popover>
-                <img :src="props.data.photo" v-popover:popover1 />
+                <img :src="props.data[column]" :popover="0"/>
+            </template> -->
+            <template :slot="0" slot-scope="props" v-if="0 < photoColumn.length">
+                <el-popover ref="0" placement="top" width="450">
+                    <div>
+                        <img :src="props.data[0]" />
+                    </div>
+                </el-popover>
+                <img :src="props.data[0]" v-popover:0 />
+            </template>
+            <template :slot="1" slot-scope="props" v-if="1 < photoColumn.length">
+                <el-popover ref="1" placement="top" width="450">
+                    <div>
+                        <img :src="props.data[1]" />
+                    </div>
+                </el-popover>
+                <img :src="props.data[1]" v-popover:1 />
+            </template>
+            <template :slot="2" slot-scope="props" v-if="2 < photoColumn.length">
+                <el-popover ref="2" placement="top" width="450">
+                    <div>
+                        <img :src="props.data[2]" />
+                    </div>
+                </el-popover>
+                <img :src="props.data[2]" v-popover:2 />
+            </template>
+            <template :slot="3" slot-scope="props" v-if="3 < photoColumn.length">
+                <el-popover ref="3" placement="top" width="450">
+                    <div>
+                        <img :src="props.data[3]" />
+                    </div>
+                </el-popover>
+                <img :src="props.data[3]" v-popover:3 />
+            </template>
+            <template :slot="4" slot-scope="props" v-if="4 < photoColumn.length">
+                <el-popover ref="4" placement="top" width="450">
+                    <div>
+                        <img :src="props.data[4]" />
+                    </div>
+                </el-popover>
+                <img :src="props.data[4]" v-popover:4 />
+            </template>
+            <template :slot="5" slot-scope="props" v-if="5 < photoColumn.length">
+                <el-popover ref="5" placement="top" width="450">
+                    <div>
+                        <img :src="props.data[5]" />
+                    </div>
+                </el-popover>
+                <img :src="props.data[5]" v-popover:5 />
             </template>
             <p slot="operate">
                 <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
-                        <el-popover ref="popover" placement="top" width="160" :value="getPopoverStatus(scope.row.id)">
-                            <p>您确定删除吗？</p>
-                            <div style="text-align: right; margin: 0">
+                        <el-popover ref="popover" placement="top" width="360" :value="getPopoverStatus(scope.row.id)">
+                            <p style="marginBottom: 30px">请输入退回原因</p>
+                            <el-input
+                                type="textarea"
+                                :rows="2"
+                                placeholder="请输入内容"
+                                v-model="reason">
+                            </el-input>
+                            <div style="text-align: right; margin: 0; marginTop: 30px">
                                 <el-button size="mini" type="text" @click="clearPopoverStatus">取消</el-button>
-                                <el-button type="primary" size="mini" @click="deleteRecord(scope.row, TABLE_NAME)">确定</el-button>
+                                <el-button type="primary" size="mini" @click="submitBusCheck(false, scope.row.id)">确定</el-button>
                             </div>
                         </el-popover>
-                        <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>删除</el-button>
+                        <el-button @click="submitBusCheck(true, scope.row.id)" type="text" size="small">确认</el-button>
+                        <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>退回</el-button>
                     </template>
                 </el-table-column>
             </p>
@@ -46,8 +101,10 @@
     import TableInfo from 'Components/table/index';
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
+    import { busRecheck } from '../../../api/table';
     import FormModal from 'Components/formModal/index';
     import { format as formatDate } from 'Utils/date';
+    import cache from 'Utils/cache';
     const TABLE_NAME = 'truckDepartCheckRecord';
     export default {
         mixins: [mixin],
@@ -61,7 +118,17 @@
             thisDate.setDate(1);
             return {
                 TABLE_NAME,
-                checkDate: [thisDate, new Date()]
+                checkDate: [thisDate, new Date()],
+                photoColumn: [],
+                reason: ''
+            }
+        },
+        watch: {
+            columns (data) {
+                const photos = data.filter(item => {
+                    return item.prop.match(/\d/)
+                });
+                this.photoColumn = photos.map(item => item.prop);
             }
         },
         mounted() {
@@ -85,7 +152,28 @@
             changeDate (date) {
                 this.queryTable(this.formatTableParam(date));
             },
-
+            submitBusCheck (confirm, rowId) {
+                const { reason = '' } = this;
+                if (!confirm && !reason) {
+                    this.$message.error('请输入退回原因');
+                    return;
+                }
+                this.clearPopoverStatus();
+                const operator = cache.session.get('operator');
+                const param = `operator=${operator}&id=${rowId}&checkMsg=${reason}`;
+                busRecheck(param).then(data => {
+                    if (data === 1) {
+                        this.$message({
+                            type: 'success',
+                            message: '操作成功'
+                        })
+                    } else {
+                        this.$message.error('操作失败，请重试');
+                    }
+                    this.reason = '';
+                });
+                
+            },
             formatDate (date) {
                 return formatDate(date, 'YYYYMMDD');
             }

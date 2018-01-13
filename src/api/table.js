@@ -43,8 +43,8 @@ export const queryRacingTeam = (param) => {
 }
 
 // 车检复查
-export const busRecheck = () => {
-    return http.post('a/corp/base/selectTableContent?table=truckDepartCheckRecord');
+export const busRecheck = (param) => {
+    return http.post(`a/corp/check/checkTruck?${param}`);
 }
 
 // 下发车队
