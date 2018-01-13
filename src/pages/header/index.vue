@@ -23,7 +23,7 @@
                     <span class="setting-info">
                         <span class="setting-avatar">
                             <img src="../../assets/images/avatar.jpg" />
-                        </span> admin
+                        </span> {{getName}}
             </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="1">修改密码</el-dropdown-item>
@@ -124,7 +124,13 @@
                     businessLicensePic: '',
                     legalPerson: '',
                     phone: ''
-                }
+                },
+                userInfo: {}
+            }
+        },
+        computed: {
+            getName() {
+                return cache.cookie.get('name') || '';
             }
         },
         methods: {
