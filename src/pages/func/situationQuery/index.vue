@@ -165,6 +165,7 @@
                         this.$message.error('操作失败，请重试');
                     }
                     this.reason = '';
+                    this.queryTable(this.formatTableParam(this.checkDate));
                 });
 
             },
