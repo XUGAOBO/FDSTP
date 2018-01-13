@@ -4,6 +4,7 @@ import querystring from 'querystring';
 const USER_MANAGE = 'userManage';
 const OFFICAL_MANAGE = 'officalManage';
 const CHECK_RULE = 'checkrule';
+const WEATHER = 'weather';
 // 查询表格数据
 export const tableSelect = (params) => {
     if (params.table === USER_MANAGE) {
@@ -58,8 +59,11 @@ export const busRecheck = (param) => {
 }
 
 // 下发车队
-export const dispatch = (id, list) => {
-    return http.post(`a/corp/training/sendWeatherNotice/${id}`, list);
+export const dispatch = (id, list, tableName) => {
+    if (tableName === WEATHER) {
+        return http.post(`a/corp/training/sendWeatherNotice/${id}`, list);
+    }
+    return http.post(`a/corp/training/sendTrainingRecord/${id}`, list);
 }
 
 // 查询签到表

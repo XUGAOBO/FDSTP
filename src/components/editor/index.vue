@@ -39,7 +39,7 @@
             },
             zIndex: {
                 type: Number,
-                default: 99999999
+                default: 9999
             },
             isAppendTo: { // 是否追加内容
                 type: Boolean,

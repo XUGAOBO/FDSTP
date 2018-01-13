@@ -9,7 +9,7 @@
                 <el-button type="text" @click="contentVisible = true">点击查看内容</el-button>
                 <el-dialog title="详细内容" :visible.sync="contentVisible" width="60%" top='50px'>
                     <div class="detail-content__size">
-                        <Editor :id="getId" :content="props.data.content" :readonly="true" />
+                        <Editor id="trainManage" :content="props.data.content" :readonly="true" />
                     </div>
                 </el-dialog>
             </p>
@@ -26,6 +26,7 @@
                         <el-button @click="queryQuestion(scope.row.id)" type="text" size="small">出题</el-button>
                         <el-button @click="updateRecord(scope.row)" type="text" size="small">修改</el-button>
                         <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>删除</el-button>
+                        <Motorcade :dataSource="motorcadeList" :row="scope.row" />
                         <el-dialog title="题目" :visible.sync="topicVisible" width="60%" top='50px'>
                             <div slot="title" class="topic-title">
                                 <span class="el-dialog__title">题目</span>
@@ -97,6 +98,7 @@
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
     import Editor from 'Components/editor/index';
+    import Motorcade from 'Components/motorcade/index';
     import {
         queryTopic,
         addTopic
@@ -116,7 +118,8 @@
             TableInfo,
             FormModal,
             Editor,
-            Layout
+            Layout,
+            Motorcade
         },
         data() {
             return {
@@ -129,13 +132,9 @@
                 rowId: '' // 选中行id
             }
         },
-        computed: {
-          getId() {
-              return 'trainManage';
-          }  
-        },
         mounted() {
             this.tableName = TABLE_NAME;
+            this.getRacingTeam();
         },
         methods: {
             // 查询题目

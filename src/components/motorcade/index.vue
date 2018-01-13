@@ -4,7 +4,7 @@
             <el-table ref="multipleTable" :data="dataSource" style="width: 100%" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55">
                 </el-table-column>
-                <el-table-column label="车队" width="120"  prop="motorcadeName">
+                <el-table-column label="车队" width="120" prop="motorcadeName">
                 </el-table-column>
             </el-table>
             <div class="motorcade-btn">
@@ -31,6 +31,10 @@
                 default () {
                     return {}
                 }
+            },
+            tableName: {
+                type: String,
+                default: ''
             }
         },
         data() {
@@ -56,23 +60,23 @@
                 this.multipleSelection.map(item => {
                     tempData.push(item.motorcadeName);
                 });
-                dispatch(this.row.id, tempData)
-                .then(res => {
-                    this.$message({
-                        message: '下发成功~',
-                        type: 'success'
+                dispatch(this.row.id, tempData, this.tableName)
+                    .then(res => {
+                        this.$message({
+                            message: '下发成功~',
+                            type: 'success'
+                        });
+                        this.visible = false;
+                        this.multipleSelection = []
+                    })
+                    .catch(err => {
+                        this.$message({
+                            message: '下发失败, 请重新下发!',
+                            type: 'waring'
+                        });
+                        this.visible = false;
+                        this.multipleSelection = []
                     });
-                    this.visible = false;
-                    this.multipleSelection = []
-                })
-                .catch(err => {
-                    this.$message({
-                        message: '下发失败, 请重新下发!',
-                        type: 'waring'
-                    });
-                    this.visible = false;
-                    this.multipleSelection = []
-                });
             }
         }
     }

@@ -15,8 +15,8 @@
                 <span slot="title">安全教育</span>
                 <el-menu-item index="train-manage">教育培训</el-menu-item>
                 <el-menu-item index="meeting-manage">安全会议</el-menu-item>
-                <el-menu-item index="weather-notice">恶劣天气通知</el-menu-item>
             </el-submenu>
+            <el-menu-item index="weather-notice">恶劣天气通知</el-menu-item>
             <el-submenu index="4">
                 <span slot="title">车辆安全检查</span>
                 <el-menu-item index="rules-check">设置车检内容</el-menu-item>

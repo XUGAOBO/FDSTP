@@ -14,7 +14,7 @@
                 </el-dialog>
             </p>
             <p slot="operate">
-                <el-table-column label="操作" width="100">
+                <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
                         <el-popover ref="popover" placement="top" width="160" :value="getPopoverStatus(scope.row.id)">
                             <p>您确定删除吗？</p>
@@ -25,6 +25,7 @@
                         </el-popover>
                         <el-button @click="updateRecord(scope.row)" type="text" size="small">修改</el-button>
                         <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>删除</el-button>
+                        <Motorcade :dataSource="motorcadeList" :row="scope.row" />
                     </template>
                 </el-table-column>
             </p>
@@ -38,6 +39,7 @@
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
     import Editor from 'Components/editor/index';
+    import Motorcade from 'Components/motorcade/index';
     const TABLE_NAME = 'letter';
     export default {
         mixins: [mixin],
@@ -45,7 +47,8 @@
             TableInfo,
             FormModal,
             Editor,
-            Layout
+            Layout,
+            Motorcade
         },
         data() {
             return {
@@ -55,6 +58,7 @@
         },
         mounted () {
             this.tableName = TABLE_NAME;
+            this.getRacingTeam();
         }
     }
 
