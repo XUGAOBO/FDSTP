@@ -72,7 +72,9 @@
                             message: '认证成功~',
                             type: 'success'
                         });
-                        this.queryTable(this.tableName);
+                        this.queryTable({
+                            table: this.tableName
+                        });
                     })
                     .catch(err => {
                         this.$message({
@@ -83,7 +85,7 @@
             },
             // 获取认证状态
             getAuthStatus(data) {
-                return data.checkOrNot.indexOf('已') > -1;
+                return data.checkOrNot !== 0;
             }
         }
     }
