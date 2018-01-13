@@ -5,7 +5,7 @@
                 <el-option v-for="item in motorcadeList" :key="item.id" :label="item.motorcadeName" :value="item.id">
                 </el-option>
             </el-select>
-            <el-button @click="createRecord" size="small">新增车队</el-button>
+            <el-button @click="createRecord('motorcade')" size="small">新增车队</el-button>
             <el-button @click="createRecord" size="small">新增车辆</el-button>
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
@@ -52,7 +52,6 @@
         mounted() {
             this.tableName = TABLE_NAME;
             this.getRacingTeam();
-            // console.error('this.motorcadeList', this.motorcadeList);
         },
         watch: {
             motorcadeList(val) {

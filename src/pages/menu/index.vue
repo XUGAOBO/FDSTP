@@ -2,6 +2,7 @@
     <div class="page-menu">
         <el-menu @open="handleOpen" @close="handleClose" :default-openeds="openeds" :router="isRouter" background-color="#001529"
             text-color="#fff" active-text-color="#fff">
+            <el-menu-item index="welcome">首页</el-menu-item>
             <el-menu-item index="vehicle-info">信息录入</el-menu-item>
             <!--
             <el-submenu index="1">
