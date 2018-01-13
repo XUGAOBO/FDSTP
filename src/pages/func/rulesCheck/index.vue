@@ -60,7 +60,6 @@
             // 校验规则维护
             ruleCheck(data, tableName) {
                 this.visible = false;
-                console.error('data', data);
                 this.queryRepeat(upload(data)
                     .then(res => {})
                     .catch(err => {
