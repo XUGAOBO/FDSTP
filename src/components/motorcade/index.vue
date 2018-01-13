@@ -58,7 +58,7 @@
                 }
                 let tempData = [];
                 this.multipleSelection.map(item => {
-                    tempData.push(item.motorcadeName);
+                    tempData.push(item.id);
                 });
                 dispatch(this.row.id, tempData, this.tableName)
                     .then(res => {
