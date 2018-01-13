@@ -65,7 +65,7 @@
                             <el-input v-model="officalForm['roadLicense']"></el-input>
                         </el-form-item>
                         <el-form-item>
-                            <input type="file" @change="processFileRoad($event)" value="拍照上传"/>
+                            <input type="file" @change="processFileRoad($event)" value="拍照上传" />
                         </el-form-item>
                         <el-form-item label="工商执照号码">
                             <el-input v-model="officalForm['businessLicense']"></el-input>
@@ -220,6 +220,14 @@
             // 官方认证
             officialCertification() {
                 this.dialogVisbile = true;
+                this.officalForm = {
+                    roadLicense: '',
+                    businessLicense: '',
+                    roadLicensePic: '',
+                    businessLicensePic: '',
+                    legalPerson: '',
+                    phone: ''
+                }
             },
             // 提交官方认证
             confirmOffical() {

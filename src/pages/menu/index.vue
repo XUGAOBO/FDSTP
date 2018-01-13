@@ -1,12 +1,15 @@
 <template>
     <div class="page-menu">
-        <el-menu @open="handleOpen" @close="handleClose" :default-openeds="openeds" :router="isRouter" 
-        background-color="#001529" text-color="#fff" active-text-color="#fff">
+        <el-menu @open="handleOpen" @close="handleClose" :default-openeds="openeds" :router="isRouter" background-color="#001529"
+            text-color="#fff" active-text-color="#fff">
+            <el-menu-item index="vehicle-info">信息录入</el-menu-item>
+            <!--
             <el-submenu index="1">
                 <span slot="title">车队车辆信息管理</span>
                 <el-menu-item index="team-info" :route="route">车队信息</el-menu-item>
                 <el-menu-item index="vehicle-info">车辆信息</el-menu-item>
             </el-submenu>
+            -->
             <el-submenu index="2">
                 <span slot="title">安全教育</span>
                 <el-menu-item index="train-manage">教育培训</el-menu-item>
@@ -49,20 +52,18 @@
 </template>
 <script>
     export default {
-        data () {
+        data() {
             return {
                 route: {
-                   name: 'team-info'
+                    name: 'team-info'
                 },
                 isRouter: true,
                 openeds: [1, 2, 3, 4, 5, 6, 7]
             }
         },
         methods: {
-            handleOpen(key, keyPath) {
-            },
-            handleClose(key, keyPath) {
-            }
+            handleOpen(key, keyPath) {},
+            handleClose(key, keyPath) {}
         }
     }
 

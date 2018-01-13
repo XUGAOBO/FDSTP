@@ -8,7 +8,7 @@ import {
     queryletter
 } from '../../../api/table';
 import { format } from 'Utils/date';
-import { EDITOR_TYPE } from 'Utils/constants';
+import { EDITOR_TYPE, NOT_INIT } from 'Utils/constants';
 export default {
     data() {
         return {
@@ -27,14 +27,18 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
-            this.tableName && this.queryTable(this.tableName);
+            if (NOT_INIT.indexOf(this.tableName) === -1) {
+                this.tableName && this.queryTable({
+                    table: this.tableName
+                });
+            }
         })
 
     },
     methods: {
         // 查询表格
-        queryTable(tableName) {
-            tableSelect(tableName)
+        queryTable(params) {
+            tableSelect(params)
                 .then(res => {
                     this.columns = this.adapterColumns(res.headList);
                     this.formData = this.adapterForm(res.headList);

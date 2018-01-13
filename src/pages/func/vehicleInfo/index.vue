@@ -1,7 +1,12 @@
 <template>
     <Layout>
         <div slot="operate">
-            <el-button @click="createRecord" size="small">新增</el-button>
+            <el-select v-model="motorcadeSelect" placeholder="请选择" size="small">
+                <el-option v-for="item in motorcadeList" :key="item.id" :label="item.motorcadeName" :value="item.id">
+                </el-option>
+            </el-select>
+            <el-button @click="createRecord" size="small">新增车队</el-button>
+            <el-button @click="createRecord" size="small">新增车辆</el-button>
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
@@ -21,7 +26,8 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME"
+            :visible="visible" slot="form-modal" />
     </Layout>
 </template>
 <script>
@@ -39,11 +45,27 @@
         },
         data() {
             return {
-                TABLE_NAME
+                TABLE_NAME,
+                motorcadeSelect: ''
             }
         },
-        mounted () {
+        mounted() {
             this.tableName = TABLE_NAME;
+            this.getRacingTeam();
+            // console.error('this.motorcadeList', this.motorcadeList);
+        },
+        watch: {
+            motorcadeList(val) {
+                if (!this.motorcadeSelect && val && val.length > 0) {
+                    this.motorcadeSelect = val[0].id;
+                }
+            },
+            motorcadeSelect(val) {
+                this.queryTable({
+                    table: this.tableName,
+                    motorcadeId: val
+                });
+            }
         }
     }
 
