@@ -4,6 +4,9 @@
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
+            <p slot="finishRate" slot-scope="props">
+                <el-progress :text-inside="true" :stroke-width="18" :percentage="props.data.finishRate"></el-progress>
+            </p>
             <p slot="operate">
                 <el-table-column label="操作" width="100">
                     <template slot-scope="scope">

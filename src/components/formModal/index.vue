@@ -1,6 +1,6 @@
 <template>
     <el-dialog :title="title" :visible.sync="visible" :before-close="close" top='50px'>
-        <div class="form-modal">
+        <div class="form-modal" :style="{height: height + 'px'}">
             <el-form :model="form" ref="form" label-width="100px" size="mini" :inline="true">
                 <el-form-item v-for="(item, index) in data" :key="index" :label="item.name">
                     <!-- 单行文本 -->
@@ -26,6 +26,7 @@
                     <!-- 富文本 -->
                     <div v-if="item.type === EDITOR_TYPE['textArea']" class="form-modal__editor">
                         <Editor :id="`editor${index}`" :propKey="item.key" :content="form[item.key]" height=180 :isAppendTo="true" @get-content="getContent"
+                        @get-text="getText"
                         />
                     </div>
                 </el-form-item>
@@ -73,6 +74,10 @@
                 default () {
                     return {};
                 }
+            },
+            plain: { // 是否获取纯文本
+                type: Boolean,
+                default: false
             }
         },
         data() {
@@ -81,7 +86,8 @@
                 COMMON_EUM,
                 EDITOR_TYPE,
                 data: [],
-                fileList: [] // 图片列表
+                fileList: [], // 图片列表
+                height: 500
             }
         },
         computed: {
@@ -116,7 +122,12 @@
             },
             // 获取富文本
             getContent(data, key) {
-                if (key) {
+                if (key && !this.plain) {
+                    this.form[key] = data;
+                }
+            },
+            getText(data, key) {
+                if (key && this.plain) {
                     this.form[key] = data;
                 }
             },
@@ -148,6 +159,9 @@
             fileList(val) {
                 console.error('val', val)
             }
+        },
+        mounted () {
+            this.height = cache.session.get('height') - 230;
         }
     }
 

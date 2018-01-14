@@ -68,7 +68,7 @@ export default {
                     width: item.width * 10,
                     minWidth: 0
                 };
-                if (item.headId === 'photo' || item.headId === 'content' || item.headId === 'sign' || item.headId === 'roadLicensePic' || item.headId === 'businessLicensePic') { // photo 需要图片展示  content 内容展示 sign 签字
+                if (item.headId === 'photo' || item.headId === 'content' || item.headId === 'sign' || item.headId === 'finishRate' || item.headId === 'roadLicensePic' || item.headId === 'businessLicensePic') { // photo 需要图片展示  content 内容展示 sign 签字
                     tempPo.render = true;
                 }
                 if (item.editorType === 'photo') {

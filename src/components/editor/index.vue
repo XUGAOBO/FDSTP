@@ -121,8 +121,7 @@
                     initialFrameHeight: this.height,
                     readonly: this.readonly,          // 是否允许编辑
                     wordCount: this.wordCount, // 字数统计
-                    maximumWords: this.maximumWords, // 允许最大字符
-                    zIndex: this.zIndex
+                    maximumWords: this.maximumWords // 允许最大字符
                 });
                 this.editor = ue;
                 this.editor.ready((ueditor) => {
@@ -133,6 +132,7 @@
                     }
                     this.editor.addListener('contentChange', () => {
                         this.getContent();
+                        this.getPlainTxt();
                     });
                     this.setContent(this.content);
                 })
@@ -149,10 +149,7 @@
             },
             // 获得带格式的纯文本
             getPlainTxt() {
-                if (this.editor) {
-                    return this.editor.getPlainTxt();
-                }
-                return '';
+                this.editor && this.$emit('get-text', this.editor.getPlainTxt(), this.propKey);
             },
             // 判断是否有内容
             hasContent() {

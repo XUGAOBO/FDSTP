@@ -59,28 +59,26 @@
                 </span>
             </el-dialog>
             <el-dialog title="道路运输企业实名制认证" :visible.sync="dialogVisbile" :before-close="close">
-                <div>
-                    <el-form ref="officalForm" label-width="160px" size="mini" :inline="true">
-                        <el-form-item label="道路运输经营许可证号">
-                            <el-input v-model="officalForm['roadLicense']"></el-input>
-                        </el-form-item>
-                        <el-form-item>
-                            <input type="file" @change="processFileRoad($event)" value="拍照上传" />
-                        </el-form-item>
-                        <el-form-item label="工商执照号码">
-                            <el-input v-model="officalForm['businessLicense']"></el-input>
-                        </el-form-item>
-                        <el-form-item>
-                            <input type="file" @change="processFileBusiness($event)" name="拍照上传" />
-                        </el-form-item>
-                        <el-form-item label="法人代表">
-                            <el-input v-model="officalForm['legalPerson']"></el-input>
-                        </el-form-item>
-                        <el-form-item label="联系电话">
-                            <el-input v-model="officalForm['phone']"></el-input>
-                        </el-form-item>
-                    </el-form>
-                </div>
+                <el-form ref="officalForm" label-width="160px" size="mini" :inline="true">
+                    <el-form-item label="道路运输经营许可证号">
+                        <el-input v-model="officalForm['roadLicense']"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <input type="file" @change="processFileRoad($event)" value="拍照上传" />
+                    </el-form-item>
+                    <el-form-item label="工商执照号码">
+                        <el-input v-model="officalForm['businessLicense']"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <input type="file" @change="processFileBusiness($event)" name="拍照上传" />
+                    </el-form-item>
+                    <el-form-item label="法人代表">
+                        <el-input v-model="officalForm['legalPerson']"></el-input>
+                    </el-form-item>
+                    <el-form-item label="联系电话">
+                        <el-input v-model="officalForm['phone']"></el-input>
+                    </el-form-item>
+                </el-form>
                 <span slot="footer" class="dialog-footer">
                     <el-button @click="close">取 消</el-button>
                     <el-button type="primary" @click="confirmOffical">确 定</el-button>

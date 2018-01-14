@@ -6,10 +6,10 @@
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <p slot="content" slot-scope="props">
-                <el-button type="text" @click="contentVisible = true">点击查看内容</el-button>
-                <el-dialog title="详细内容" :visible.sync="contentVisible" width="60%" top='50px'>
+                <el-button type="text" @click="showContent(props.data.id)">点击查看内容</el-button>
+                <el-dialog title="详细内容" :visible="getContentStatus(props.data.id)" width="60%" top='50px' @close="closeContentStatus">
                     <div class="detail-content__size">
-                        <Editor id="trainManage" :content="props.data.content" :readonly="true" />
+                        <Editor :id="props.data.id" :content="props.data.content" :readonly="true" />
                     </div>
                 </el-dialog>
             </p>
@@ -37,19 +37,19 @@
                                 -->
                             </div>
                             <div class="topic-content">
-                                
-                                    <el-carousel :interval="50000000" arrow="always" height="150px">
-                                        <el-carousel-item v-for="(item, index) in topicList" :key="index">
-                                            <div class="topic-carousel">
-                                                <h3>{{ item.question }}</h3>
-                                                <div v-if="item.choiceA">A: {{ item.choiceA }}</div>
-                                                <div v-if="item.choiceB">B: {{ item.choiceB }}</div>
-                                                <div v-if="item.choiceC">C: {{ item.choiceC }}</div>
-                                                <div v-if="item.choiceD">D: {{ item.choiceD }}</div>
-                                                <h3>正确答案: {{ item.rightAnswer }}</h3>           
-                                            </div>
-                                        </el-carousel-item>
-                                    </el-carousel>
+
+                                <el-carousel :interval="5000" arrow="always" height="150px">
+                                    <el-carousel-item v-for="(item, index) in topicList" :key="index">
+                                        <div class="topic-carousel">
+                                            <h3>{{ item.question }}</h3>
+                                            <div v-if="item.choiceA">A: {{ item.choiceA }}</div>
+                                            <div v-if="item.choiceB">B: {{ item.choiceB }}</div>
+                                            <div v-if="item.choiceC">C: {{ item.choiceC }}</div>
+                                            <div v-if="item.choiceD">D: {{ item.choiceD }}</div>
+                                            <h3>正确答案: {{ item.rightAnswer }}</h3>
+                                        </div>
+                                    </el-carousel-item>
+                                </el-carousel>
                                 <div class="topic-add">
                                     <el-form :model="form" ref="form" label-width="100px" size="mini">
                                         <el-form-item label="题目">
@@ -128,6 +128,7 @@
                 contentVisible: false, // 详细内容展示状态
                 topicVisible: false, // 出题面板展示状态
                 TABLE_NAME,
+                contentId: '',
                 topicList: [],
                 rowId: '' // 选中行id
             }
@@ -137,6 +138,17 @@
             this.getRacingTeam();
         },
         methods: {
+            showContent(id) {
+                this.contentVisible = true;
+                this.contentId = id;
+            },
+            getContentStatus(id) {
+                return this.contentVisible && this.contentId === id;
+            },
+            closeContentStatus() {
+                this.contentVisible = false;
+                this.contentId = '';
+            },
             // 查询题目
             queryQuestion(id) {
                 this.rowId = id;

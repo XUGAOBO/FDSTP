@@ -6,10 +6,10 @@
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <p slot="content" slot-scope="props">
-                <el-button type="text" @click="contentVisible = true">点击查看内容</el-button>
-                <el-dialog title="详细内容" :visible.sync="contentVisible" width="60%" top='50px'>
+                <el-button type="text" @click="showContent(props.data.id)">点击查看内容</el-button>
+                <el-dialog title="详细内容" :visible="getContentStatus(props.data.id)" width="60%" top='50px' @close="closeContentStatus">
                     <div class="detail-content__size">
-                        <Editor id="weatherNotice" :content="props.data.content" serverUrl="" :readonly="true" imageUrl="" imageAccess="" />
+                        <Editor :id="props.data.id" :content="props.data.content" :readonly="true" />
                     </div>
                 </el-dialog>
             </p>
@@ -21,7 +21,7 @@
                 </el-table-column>
             </p>
         </TableInfo>
-        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
+        <FormModal :dataSource="formData" :plain="true" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
     </Layout>
 </template>
 <script>
@@ -44,12 +44,26 @@
         data() {
             return {
                 TABLE_NAME,
-                contentVisible: false
+                contentVisible: false,
+                contentId: ''
             }
         },
         mounted () {
             this.tableName = TABLE_NAME;
             this.getRacingTeam();
+        },
+        methods: {
+            showContent(id) {
+                this.contentVisible = true;
+                this.contentId = id;
+            },
+            getContentStatus(id) {
+                return this.contentVisible && this.contentId === id;
+            },
+            closeContentStatus() {
+                this.contentVisible = false;
+                this.contentId = '';
+            }
         }
     }
 
