@@ -11,6 +11,10 @@
                 <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
                         <el-dialog title="学习情况" :visible.sync="dialogVisible" top='50px'>
+                            <div  slot="title" class="operate-table">
+                                <span>学习情况</span>
+                                <el-button @click="exportData(scope.row.id)" size="small">导出</el-button>
+                            </div>
                             <TableInfo :columns="signColumns" :dataSource="signDataSource">
                                 <img slot="sign" slot-scope="props" :src="props.data.sign" width="150" />
                             </TableInfo>

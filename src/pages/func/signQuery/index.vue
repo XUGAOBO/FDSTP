@@ -11,6 +11,11 @@
                 <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
                         <el-dialog title="签订明细" :visible.sync="dialogVisible" top='50px'>
+                            <div  slot="title" class="operate-table">
+                                <span>签订明细</span>
+                                <el-button @click="exportData(scope.row.id)" size="small">导出</el-button>
+                            </div>
+                            
                             <TableInfo :columns="signColumns" :dataSource="signDataSource">
                                 <a slot="sign" slot-scope="props" :href="props.data.sign" download="">
                                     下载责任状

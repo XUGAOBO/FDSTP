@@ -75,3 +75,20 @@ export const querySign = (id) => {
 export const queryletter = (id) => {
     return http.get(`a/corp/base/letterDetailContent?id=${id}`);
 }
+
+// 导出表格
+export const tableExport = (params) => {
+    if (params.table === USER_MANAGE) {
+        return http.get('fdstp/user/userManage')
+    }
+    if (params.table === OFFICAL_MANAGE) {
+        return http.get('fdstp/user/authenticationList');
+    }
+    params.download = true;
+    return http.post(`a/corp/base/selectTableContent?${querystring.encode(params)}`);
+}
+
+// 导出签到表
+export const signTableExport = (id) => {
+    return http.get(`a/corp/base/linkDetailContent?id=${id}&download=true`);
+}

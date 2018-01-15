@@ -6,7 +6,9 @@ import {
     queryRacingTeam,
     querySign,
     queryletter,
-    busRecheck
+    busRecheck,
+    tableExport,
+    signTableExport
 } from '../../../api/table';
 import { format } from 'Utils/date';
 import { EDITOR_TYPE, NOT_INIT } from 'Utils/constants';
@@ -131,7 +133,13 @@ export default {
         },
         // 导出表格
         exportTable() {
-            console.log('export---');
+            tableExport({
+                table: this.tableName
+            });
+        },
+        // 导出签到表
+        exportData(id) {
+            signTableExport(id)
         },
         // 关闭对话框
         closeDialog() {

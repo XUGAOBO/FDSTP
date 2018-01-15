@@ -42,7 +42,7 @@ import cache from 'Utils/cache';
             }
         },
         mounted () {
-            this.height = cache.session.get('height') - 150;
+            this.height = cache.session.get('height') - 180;
         }
     }
 
