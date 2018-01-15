@@ -25,7 +25,8 @@ export default {
             motorcadeFormData: [],
             signColumns: [], // 签到表格
             signDataSource: [], // 签到数据
-            tempName: ''
+            tempName: '',
+            motorcadeSelect: '' // 选中的车队id
         }
     },
     mounted() {
@@ -163,15 +164,22 @@ export default {
                 this.queryRepeat(updateTableRow(data, tableName));
                 return;
             }
+            if (this.motorcadeSelect) { // 用来添加车辆
+                data.motorcadeId = this.motorcadeSelect;
+            }
             this.queryRepeat(this.insertRecord(data, tableName))
         },
         // 操作后再次查询表格
         queryRepeat(func) {
+            let po = {
+                table: this.tableName
+            }
             this.syncMethod(() => (func))
                 .then(res => {
-                    this.queryTable({
-                        table: this.tableName
-                    });
+                    if (this.motorcadeSelect) {
+                        po.motorcadeId = this.motorcadeSelect
+                    }
+                    this.queryTable(po);
                 })
         },
         // 同步请求操作方法

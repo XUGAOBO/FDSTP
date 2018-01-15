@@ -48,7 +48,6 @@
         data() {
             return {
                 TABLE_NAME,
-                motorcadeSelect: '',
                 formVisible: false
             }
         },
