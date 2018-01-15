@@ -159,13 +159,13 @@ export default {
             if (data['endDate']) {
                 data.endDate = format(new Date(data.endDate).getTime(), 'YYYY-MM-DD HH:mm:ss');
             }
+            if (this.motorcadeSelect) { // 用来添加车辆
+                data.motorcadeId = this.motorcadeSelect;
+            }
             if (Object.keys(this.initValue).length > 0) { // 更新数据
                 data.id = this.recordId;
                 this.queryRepeat(updateTableRow(data, tableName));
                 return;
-            }
-            if (this.motorcadeSelect) { // 用来添加车辆
-                data.motorcadeId = this.motorcadeSelect;
             }
             this.queryRepeat(this.insertRecord(data, tableName))
         },
