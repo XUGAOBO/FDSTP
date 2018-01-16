@@ -6,7 +6,7 @@
           <el-form-item label="用户名" prop="username">
             <el-input v-model="formData.username"></el-input>
           </el-form-item>
-          <el-form-item label="姓名" prop="name">
+          <el-form-item label="企业名称" prop="name">
             <el-input v-model="formData.name"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="pass">
@@ -16,11 +16,11 @@
             <el-input type="password" v-model="formData.checkPass" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item prop="email" label="邮箱" :rules="[{ 
-            required: true, message: '请输入邮箱地址', trigger: 'blur' }, {
+            required: false, message: '请输入邮箱地址', trigger: 'blur' }, {
             type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }]">
             <el-input v-model="formData.email"></el-input>
           </el-form-item>
-          <el-form-item label="电话号码" prop="mobile">
+          <el-form-item label="操作员姓名" prop="mobile">
             <el-input v-model.number="formData.mobile"></el-input>
           </el-form-item>
           <el-form-item label="手机号" prop="phone">
@@ -71,18 +71,18 @@ export default {
         }
       }, 1000);
     };
-    const checkMobile = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('电话号码不能为空'));
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error('请输入数字值'));
-        } else {
-          callback();
-        }
-      }, 1000);
-    };
+    // const checkMobile = (rule, value, callback) => {
+    //   if (!value) {
+    //     return callback(new Error('电话号码不能为空'));
+    //   }
+    //   setTimeout(() => {
+    //     if (!Number.isInteger(value)) {
+    //       callback(new Error('请输入数字值'));
+    //     } else {
+    //       callback();
+    //     }
+    //   }, 1000);
+    // };
     const validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
@@ -119,22 +119,19 @@ export default {
       selectedOptions: [],
       rules: {
         username: [
-          { validator: validateText, trigger: 'blur' }
+          { required: true, validator: validateText, trigger: 'blur' }
         ],
         name: [
-          { validator: validateText, trigger: 'blur' }
+          { required: true, validator: validateText, trigger: 'blur' }
         ],
         pass: [
-          { validator: validatePass, trigger: 'blur' }
+          { required: true, validator: validatePass, trigger: 'blur' }
         ],
         checkPass: [
-          { validator: validatePass2, trigger: 'blur' }
+          { required: true, validator: validatePass2, trigger: 'blur' }
         ],
         phone: [
           { validator: checkPhone, trigger: 'blur' }
-        ],
-        mobile: [
-          { validator: checkMobile, trigger: 'blur' }
         ]
       }
     };
@@ -174,7 +171,10 @@ export default {
               this.$message({
                 type: 'success',
                 message: '注册成功'
-              })
+              });
+              setTimeout(() => {
+                this.$router.push('/login')
+              }, 800);
             } else {
               this.$message.error(data.errorMsg);
             }

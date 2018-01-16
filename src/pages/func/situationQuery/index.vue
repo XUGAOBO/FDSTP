@@ -75,8 +75,8 @@
                                 <el-button type="primary" size="mini" @click="submitBusCheck(false, scope.row.id)">确定</el-button>
                             </div>
                         </el-popover>
-                        <el-button @click="submitBusCheck(true, scope.row.id)" type="text" size="small">确认</el-button>
                         <el-button @click="showPopover(scope.row.id)" type="text" size="small" v-popover:popover>退回</el-button>
+                        <el-button @click="submitBusCheck(true, scope.row.id)" type="text" size="small">确认</el-button>
                     </template>
                 </el-table-column>
             </p>
