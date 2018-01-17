@@ -1,7 +1,7 @@
 <template>
     <div class="page-menu">
-        <el-menu @open="handleOpen" @close="handleClose" :default-openeds="openeds" :router="isRouter" background-color="#001529"
-            text-color="#fff" active-text-color="#fff">
+        <el-menu @open="handleOpen" @close="handleClose" :default-openeds="openeds" background-color="#001529"
+            text-color="#fff" active-text-color="#33B5FF" :unique-opened="true" :router="true">
             <el-menu-item index="welcome">首页</el-menu-item>
             <el-menu-item index="vehicle-info">信息录入</el-menu-item>
             <!--
@@ -59,7 +59,6 @@
                 route: {
                     name: 'team-info'
                 },
-                isRouter: true,
                 openeds: [1, 2, 3, 4, 5, 6, 7]
             }
         },

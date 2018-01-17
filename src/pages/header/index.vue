@@ -23,7 +23,10 @@
                     <span class="setting-info">
                         <span class="setting-avatar">
                             <img src="../../assets/images/avatar.png" />
-                        </span> {{getName}}
+                        </span>
+            <el-popover ref="popover" placement="top-start"  trigger="hover" :content="getName">
+            </el-popover>
+            <span class="setting-user" v-popover:popover>{{getName}}</span>
             </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="1">修改密码</el-dropdown-item>
