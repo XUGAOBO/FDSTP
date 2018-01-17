@@ -22,7 +22,7 @@
                 <el-dropdown trigger="click" @command="handleCommand">
                     <span class="setting-info">
                         <span class="setting-avatar">
-                            <img src="../../assets/images/avatar.jpg" />
+                            <img src="../../assets/images/avatar.png" />
                         </span> {{getName}}
             </span>
             <el-dropdown-menu slot="dropdown">
