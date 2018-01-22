@@ -6,6 +6,13 @@ const Welcome = resolve => {
     }, 'welcome')
 }
 
+// 车队信息
+const TeamInfo = resolve => {
+    require.ensure([], () => {
+        resolve(require('../pages/func/teamInfo/index.vue'))
+    }, 'team-info')
+}
+
 // 车辆信息
 const VehicleInfo = resolve => {
     require.ensure([], () => {
@@ -150,6 +157,10 @@ const routerList = [{
     title: '首页',
     routeName: 'welcome',
     component: Welcome
+},{
+    title: '车队信息',
+    routeName: 'team-info',
+    component: TeamInfo
 },{
     title: '车辆信息',
     routeName: 'vehicle-info',
