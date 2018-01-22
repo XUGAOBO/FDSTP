@@ -69,6 +69,14 @@ const SignQuery = resolve => {
     }, 'sign-query')
 }
 
+//恶劣天气通知查询
+
+const WeatherQuery = resolve => {
+    require.ensure([],() => {
+        resolve(require('../pages/func/weatherQuery/index.vue'))
+    }, 'weather-query')
+}
+
 // 用户管理
 const UserManage = resolve => {
     require.ensure([], () => {
@@ -182,6 +190,10 @@ const routerList = [{
     title: '签订状况查询',
     routeName: 'sign-query',
     component: SignQuery
+}, {
+    title: '恶劣天气',
+    routeName: 'weather-query',
+    component: WeatherQuery
 }, {
     title: '用户管理',
     routeName: 'user-manage',
