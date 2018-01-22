@@ -25,8 +25,8 @@
             </el-submenu>
             <el-submenu index="3">
                 <span slot="title">统计</span>
-                <el-menu-item index="study-query-save">安全会议</el-menu-item>
-                <el-menu-item index="study-query">教育培训</el-menu-item>
+                <el-menu-item index="study-query-save">教育培训</el-menu-item>
+                <el-menu-item index="study-query">安全会议</el-menu-item>
                 <el-menu-item index="sign-query">责任状签订</el-menu-item>
                 <el-menu-item index="weather-query">恶劣天气</el-menu-item>
             </el-submenu>

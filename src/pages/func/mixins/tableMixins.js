@@ -226,6 +226,18 @@ export default {
                 this.signColumns = this.adapterColumns(res.headList);
                 this.signDataSource = res.contentList;
             })
+        },
+        // 统计查询
+        changeDate(date) {
+            this.queryTable({
+                table: this.TABLE_NAME,
+                sDate: this.formatDate(date[0]),
+                eDate: this.formatDate(date[1])
+            });
+        },
+        // 格式化时间
+        formatDate(date) {
+            return format(date, 'YYYYMMDD');
         }
     }
 }

@@ -6,6 +6,7 @@
                 </el-option>
             </el-select>
             <el-button @click="createMotorcade" size="small">新增车队</el-button>
+            <el-button @click="deleteMotorcade" size="small">删除车队</el-button>
             <el-button @click="createRecord" size="small">新增车辆</el-button>
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
@@ -92,6 +93,9 @@
                         });
                         this.getRacingTeam();
                     })
+            },
+            deleteMotorcade() {
+                this.$router.push('team-info');
             }
         }
     }
