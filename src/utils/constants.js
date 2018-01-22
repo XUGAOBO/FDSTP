@@ -21,4 +21,4 @@ export const EDITOR_TYPE = { // 编辑格式
 }
 
 // 初始时不执行mounted方法
-export const NOT_INIT = ['truck', 'truckDepartCheckRecord'];
+export const NOT_INIT = ['truck', 'truckDepartCheckRecord', 'meetingRecord', 'trainingRecord', 'letterRecord', 'weatherQuery'];
