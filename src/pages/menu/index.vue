@@ -11,11 +11,12 @@
                 <el-menu-item index="vehicle-info">车辆信息</el-menu-item>
             </el-submenu>
             -->
-            <el-submenu index="2">
+            <el-menu-item index="train-manage">教育培训</el-menu-item>
+            <el-menu-item index="meeting-manage">安全会议</el-menu-item>
+            <el-menu-item index="order-maintain">责任状</el-menu-item>
+            <!-- <el-submenu index="2">
                 <span slot="title">安全教育</span>
-                <el-menu-item index="train-manage">教育培训</el-menu-item>
-                <el-menu-item index="meeting-manage">安全会议</el-menu-item>
-            </el-submenu>
+            </el-submenu> -->
             <el-menu-item index="weather-notice">恶劣天气通知</el-menu-item>
             <el-submenu index="4">
                 <span slot="title">车辆安全检查</span>
@@ -23,15 +24,16 @@
                 <el-menu-item index="situation-query">车检复查</el-menu-item>
             </el-submenu>
             <el-submenu index="3">
-                <span slot="title">学习统计</span>
+                <span slot="title">统计</span>
                 <el-menu-item index="study-query-save">安全会议</el-menu-item>
                 <el-menu-item index="study-query">教育培训</el-menu-item>
+                <el-menu-item index="sign-query">责任状签订</el-menu-item>
+                <el-menu-item index="weather-query">恶劣天气</el-menu-item>
             </el-submenu>
-            <el-submenu index="5">
+            <!-- <el-submenu index="5">
                 <span slot="title">责任状签订</span>
-                <el-menu-item index="order-maintain">责任状维护</el-menu-item>
-                <el-menu-item index="sign-query">签订状况查询</el-menu-item>
-            </el-submenu>
+                
+            </el-submenu> -->
             <el-submenu index="6">
                 <span slot="title">系统设置</span>
                 <el-menu-item index="user-manage">用户管理</el-menu-item>
