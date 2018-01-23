@@ -1,6 +1,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
-var serverPath = '//47.92.112.44:8080/fdstp/pc/';
+var serverPath = '//www.yangjinxing.cn/fdstp/pc/';
 
 module.exports = {
   build: {
