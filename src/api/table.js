@@ -13,7 +13,7 @@ export const tableSelect = (params) => {
     if (params.table === OFFICAL_MANAGE) {
         return http.get('fdstp/user/authenticationList');
     }
-    return http.post(`a/corp/base/selectTableContent?${querystring.encode(params)}`);
+    return http.get(`a/corp/base/selectTableContent?${querystring.encode(params)}`);
 }
 
 // 新增表格行记录
@@ -50,7 +50,7 @@ export const updateTableRow = (map, tableName) => {
 
 // 获取车队列表
 export const queryRacingTeam = () => {
-    return http.post(`a/corp/base/selectTableContent?table=motorcade`);
+    return http.get(`a/corp/base/selectTableContent?table=motorcade`);
 }
 
 // 车检复查
@@ -85,7 +85,7 @@ export const tableExport = (params) => {
         return http.get('fdstp/user/authenticationList');
     }
     params.download = true;
-    return http.post(`a/corp/base/selectTableContent?${querystring.encode(params)}`);
+    return http.get(`a/corp/base/selectTableContent?${querystring.encode(params)}`);
 }
 
 // 导出签到表
