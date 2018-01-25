@@ -39,7 +39,6 @@
             }
         },
         mounted() {
-            debugger
             console.log(this.dataSource)
         },
         methods: {
