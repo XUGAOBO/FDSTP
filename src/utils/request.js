@@ -34,6 +34,11 @@ axios.interceptors.response.use(function (response) {
         location.hash = `#/login?callback=${encodeURIComponent(location.href)}`;
         return;
     }
+    
+    if (response.headers && response.headers['content-type'] === 'application/vnd.ms-excel;charset=UTF-8') {
+        downloadUrl(response.request.responseURL)  
+        return;
+    }
     const data = response.data;
     return data;
 }, function (error) {
@@ -41,6 +46,16 @@ axios.interceptors.response.use(function (response) {
     // TODO 跳转到报错页
     return Promise.reject(error);
 });
+
+const downloadUrl = url => {  
+    let iframe = document.createElement('iframe')  
+    iframe.style.display = 'none'  
+    iframe.src = url  
+    iframe.onload = function () {  
+      document.body.removeChild(iframe)  
+    }  
+    document.body.appendChild(iframe)  
+  }  
 
 export {
     axios as http
