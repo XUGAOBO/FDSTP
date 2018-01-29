@@ -36,7 +36,7 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
-    const TABLE_NAME = 'trainingRecord';
+    const TABLE_NAME = 'meetingRecord';
     export default {
         mixins: [mixin],
         components: {
