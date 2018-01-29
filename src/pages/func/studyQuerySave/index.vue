@@ -16,6 +16,7 @@
                         <el-dialog title="学习情况" :visible.sync="dialogVisible" top='50px'>
                             <div  slot="title" class="operate-table">
                                 <span>学习情况</span>
+                                <!-- <el-button @click="exportData(scope.row.id)" size="small">导出</el-button> -->
                                 <el-button @click="exportData(scope.row.id)" size="small">导出</el-button>
                             </div>
                             <TableInfo :columns="signColumns" :dataSource="signDataSource">
@@ -35,7 +36,7 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
-    const TABLE_NAME = 'meetingRecord';
+    const TABLE_NAME = 'trainingRecord';
     export default {
         mixins: [mixin],
         components: {
@@ -49,7 +50,8 @@
             return {
                 TABLE_NAME,
                 dialogVisible: false,
-                checkDate: [thisDate, new Date()]
+                checkDate: [thisDate, new Date()],
+                selectId: ''
             }
         },
         mounted() {
@@ -64,6 +66,7 @@
             showPopover(id) {
                 this.dialogVisible = true;
                 this.querySignTable(id);
+                this.selectId = id;
             }
         }
     }

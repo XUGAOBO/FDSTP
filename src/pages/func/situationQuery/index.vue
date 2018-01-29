@@ -4,7 +4,7 @@
             <el-date-picker v-model="checkDate" type="datetimerange" @change="changeDate" range-separator="至" start-placeholder="开始日期"
                 end-placeholder="结束日期" format="yyyy-MM-dd" size="small" align="right">
             </el-date-picker>
-            <el-button @click="exportTable" size="small">导出</el-button>
+            <!-- <el-button @click="exportTable" size="small">导出</el-button> -->
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <!-- <template :slot="column" slot-scope="props" v-for="(column, index) in photoColumn">

@@ -29,21 +29,29 @@
                 <el-menu-item index="study-query">安全会议</el-menu-item>
                 <el-menu-item index="sign-query">责任状签订</el-menu-item>
                 <el-menu-item index="weather-query">恶劣天气</el-menu-item>
+                <el-menu-item index="truckcheck-query">车辆检查</el-menu-item>
+                <el-menu-item index="truckcheck-queryDetail">出车记录</el-menu-item>
+
             </el-submenu>
             <!-- <el-submenu index="5">
                 <span slot="title">责任状签订</span>
                 
             </el-submenu> -->
+
+                <!--
             <el-submenu index="6">
                 <span slot="title">系统设置</span>
-                <el-menu-item index="user-manage">用户管理</el-menu-item>
-                <el-menu-item index="offical-certification">官方认证</el-menu-item>
-                <!--
                 <el-menu-item index="func-maintain">功能权限维护</el-menu-item>
                 
                 <el-menu-item index="log-query">登录日志查询</el-menu-item>
-                -->
             </el-submenu>
+                -->
+
+            <el-menu-item index="user-manage">管理员-用户管理</el-menu-item>
+            <el-menu-item index="offical-certification">管理员-官方认证</el-menu-item>
+            <el-menu-item index="govermentcorpList">政府-公司信息</el-menu-item>
+            <el-menu-item index="govermentMeeting">政府-安全会议统计</el-menu-item>
+            <el-menu-item index="govermentTraining">政府-教育培训统计</el-menu-item>
             <!--
             <el-submenu index="7">
                 <span slot="title">系统设置</span>

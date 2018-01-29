@@ -84,6 +84,17 @@ const WeatherQuery = resolve => {
     }, 'weather-query')
 }
 
+const truckDepartCheckRecordStatistic = resolve => {
+    require.ensure([],() => {
+        resolve(require('../pages/func/truckDepart/index.vue'))
+    }, 'truckcheck-query')
+}
+const truckcheckQueryDetail = resolve => {
+    require.ensure([],() => {
+        resolve(require('../pages/func/truckDepartDetail/detail.vue'))
+    }, 'truckcheck-queryDetail')
+}
+
 // 用户管理
 const UserManage = resolve => {
     require.ensure([], () => {
@@ -130,6 +141,22 @@ const LogQuery = resolve => {
 const LearnQuery = resolve => {
     require.ensure([], () => {
         resolve(require('../pages/func/learnQuery/index.vue'))
+    }, 'learn-query')
+}
+
+const govermentcorpList = resolve => {
+    require.ensure([], () => {
+        resolve(require('../pages/func/govermentcorpList/index.vue'))
+    }, 'learn-query')
+}
+const govermentMeeting = resolve => {
+    require.ensure([], () => {
+        resolve(require('../pages/func/govermentMeeting/index.vue'))
+    }, 'learn-query')
+}
+const govermentTraining = resolve => {
+    require.ensure([], () => {
+        resolve(require('../pages/func/govermentTraining/index.vue'))
     }, 'learn-query')
 }
 
@@ -206,6 +233,14 @@ const routerList = [{
     routeName: 'weather-query',
     component: WeatherQuery
 }, {
+    title: '车辆检查',
+    routeName: 'truckcheck-query',
+    component: truckDepartCheckRecordStatistic
+}, {
+    title: '出车记录',
+    routeName: 'truckcheck-queryDetail',
+    component: truckcheckQueryDetail
+}, {
     title: '用户管理',
     routeName: 'user-manage',
     component: UserManage
@@ -229,6 +264,18 @@ const routerList = [{
     title: '企业列表',
     routeName: 'enterprise-list',
     component: EnterpriseList
+}, {
+    title: '政府企业列表',
+    routeName: 'govermentcorpList',
+    component: govermentcorpList
+}, {
+    title: '政府-安全会议',
+    routeName: 'govermentMeeting',
+    component: govermentMeeting
+}, {
+    title: '政府-教育培训',
+    routeName: 'govermentTraining',
+    component: govermentTraining
 }];
 
 

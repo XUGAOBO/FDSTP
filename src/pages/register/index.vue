@@ -15,10 +15,13 @@
           <el-form-item label="确认密码" prop="checkPass">
             <el-input type="password" v-model="formData.checkPass" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item prop="email" label="邮箱" :rules="[{ 
-            required: false, message: '请输入邮箱地址', trigger: 'blur' }, {
-            type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }]">
-            <el-input v-model="formData.email"></el-input>
+          <el-form-item prop="email" label="经营范围">
+            <!-- <el-input v-model="formData.email"></el-input> -->
+            <el-select :style="{width:'500px'}" v-model="formData.email" multiple placeholder="请选择">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            </el-select>
+
+
           </el-form-item>
           <el-form-item label="操作员姓名" prop="mobile">
             <el-input v-model.number="formData.mobile"></el-input>
@@ -110,7 +113,7 @@ export default {
         name: '',
         pass: '',
         checkPass: '',
-        email: '',
+        email: [],
         mobile: '',
         phone: '',
         company: ''
@@ -133,8 +136,24 @@ export default {
         phone: [
           { validator: checkPhone, trigger: 'blur' }
         ]
+    },
+     options: [{
+          value: '普通货物运输',
+          label: '普通货物运输'
+        },{
+          value: '货物专用运输（集装箱、冷藏、罐式）',
+          label: '货物专用运输（集装箱、冷藏、罐式）'
+        },{
+          value: '大型物件运输',
+          label: '大型物件运输'
+        },{
+          value: '道路危险货物运输',
+          label: '道路危险货物运输'
+        },{
+          value: '道路旅客运输',
+          label: '道路旅客运输'
+        }]
       }
-    };
   },
   methods: {
     signup () {
