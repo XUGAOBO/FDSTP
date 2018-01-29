@@ -91,7 +91,7 @@ const truckDepartCheckRecordStatistic = resolve => {
 }
 const truckcheckQueryDetail = resolve => {
     require.ensure([],() => {
-        resolve(require('../pages/func/truckDepartDetail/detail.vue'))
+        resolve(require('../pages/func/truckDepartDetail/index.vue'))
     }, 'truckcheck-queryDetail')
 }
 
