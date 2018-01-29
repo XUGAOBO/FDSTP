@@ -46,15 +46,15 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     host: 'http://localhost:',
-    port: 80, // 与后端服务端口保持一致
+    port: 8080, // 与后端服务端口保持一致
     autoOpenBrowser: true,
     assetsSubStatic: 'static',
     assetsSubDirectory: '',
     assetsPublicPath: '/',
     proxyTable: {
       '/fdstp': {
-        // target: 'http://47.92.112.44:8080',
-        target: 'http://localhost:8080',
+        target: 'http://47.92.112.44:80',
+        // target: 'http://localhost:8080',
         changeOrigin: true
         // pathRewrite: {
         //   '^/api': '/api'
