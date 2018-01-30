@@ -80,7 +80,8 @@
                 dialogVisible: false,
                 checkDate: [thisDate, new Date()],
                 selectId: '',
-                photoColumn: []
+                photoColumn: [],
+                schfilter: ''
             }
         },
         watch: {
@@ -89,6 +90,9 @@
                     return item.prop.match(/\d/)
                 });
                 this.photoColumn = photos.map(item => item.prop);
+            },
+            schfilter: function (val,oldVal) {
+                
             }
         },
         mounted() {

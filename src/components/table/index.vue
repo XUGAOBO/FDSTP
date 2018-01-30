@@ -1,7 +1,10 @@
 <template>
     <div class="table">
+        <el-input placeholder="搜索" icon="search" v-model="schfilter" ></el-input>
         <el-table :data="dataSource" border style="width: 100%" :height="height">
-            <el-table-column v-for="(item, index) in  getColumns" :key="index" :min-width="item.minWidth" :prop="item.prop" :label="item.label" :width="item.width">
+            <el-table-column v-for="(item, index) in  getColumns" :key="index" :min-width="item.minWidth" :prop="item.prop" :label="item.label" :width="item.width"
+            >
+            <!-- :filters="item.filters" :filter-method="filterTag" filter-placement="bottom-end" -->
                 <template slot-scope="scope">
                     <slot :data="scope.row" :name="item.prop" v-if="item.render"></slot>
                     <span v-else-if="!item.render">{{ scope.row[item.prop]}}</span>
@@ -30,10 +33,22 @@ import cache from 'Utils/cache';
                 }
             }
         },
-        methods: {},
+        methods: {
+            filterTag(value, row) {
+                let keys = Object.keys(row)
+                for (let key of keys) {
+                    if (row[key] === value) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        },
         data() {
             return {
-                height: ''
+                height: '',
+                schfilter: '',
+                oldDataSource: []
             }
         },
         computed: {
@@ -43,6 +58,15 @@ import cache from 'Utils/cache';
         },
         mounted () {
             this.height = cache.session.get('height') - 180;
+        },
+        watch: {
+          schfilter: function(val, oldVal) {
+              if (oldVal.length === 0) {
+                this.oldDataSource = this.dataSource
+              } else {
+                  this.dataSource = this.oldDataSource.filter(item => (~item.name.indexOf(val)));
+              }
+            }
         }
     }
 

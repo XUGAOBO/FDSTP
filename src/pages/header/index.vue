@@ -1,7 +1,7 @@
 <template>
     <div class="page-header">
         <span class="page-title">道路运输企业主体责任落实平台 
-            <span class="page-sign__tip" @click="officialCertification" v-if="!officalStatus">未官方认证(官方认证)</span>
+            <span class="page-sign__tip" style="color:red" @click="officialCertification" v-if="!officalStatus">未官方认证</span>
         <span class="page-sign__tip" v-else>官方认证(已认证)</span>
         </span>
         <div class="func-bar clearfix">
@@ -255,7 +255,7 @@
                     .then(res => {
                         this.dialogVisbile = false;
                         this.$message({
-                            message: '认证成功~',
+                            message: '提交成功，请等待管理员审核~',
                             type: 'success'
                         });
                         officalConfirmStatus()
