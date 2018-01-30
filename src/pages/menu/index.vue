@@ -18,12 +18,12 @@
                 <span slot="title">安全教育</span>
             </el-submenu> -->
             <el-menu-item index="weather-notice" v-show="hasShow('weather-notice')">恶劣天气通知</el-menu-item>
-            <el-submenu index="4">
+            <el-submenu index="4" v-show="hasShow('rules-check') || hasShow('situation-query')">
                 <span slot="title">车辆安全检查</span>
                 <el-menu-item index="rules-check" v-show="hasShow('rules-check')">设置车检内容</el-menu-item>
                 <el-menu-item index="situation-query" v-show="hasShow('situation-query')">车检复查</el-menu-item>
             </el-submenu>
-            <el-submenu index="3">
+            <el-submenu index="3" v-show="hasShow('study-query-save') || hasShow('study-query') || hasShow('sign-query') || hasShow('weather-query') || hasShow('truckcheck-query') || hasShow('truckcheck-queryDetail')">
                 <span slot="title">统计</span>
                 <el-menu-item index="study-query-save" v-show="hasShow('study-query-save')">教育培训</el-menu-item>
                 <el-menu-item index="study-query" v-show="hasShow('study-query')">安全会议</el-menu-item>
