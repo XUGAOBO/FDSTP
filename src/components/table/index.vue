@@ -1,10 +1,8 @@
 <template>
     <div class="table">
-        <el-input placeholder="搜索" icon="search" v-model="schfilter" ></el-input>
-        <el-table :data="dataSource" border style="width: 100%" :height="height">
-            <el-table-column v-for="(item, index) in  getColumns" :key="index" :min-width="item.minWidth" :prop="item.prop" :label="item.label" :width="item.width"
-            >
-            <!-- :filters="item.filters" :filter-method="filterTag" filter-placement="bottom-end" -->
+        <el-input placeholder="搜索" v-model="filterInput" clearable></el-input>
+        <el-table :data="filterData" border style="width: 100%" :height="height">
+            <el-table-column v-for="(item, index) in  getColumns" :key="index" :min-width="item.minWidth" :prop="item.prop" :label="item.label" :width="item.width">
                 <template slot-scope="scope">
                     <slot :data="scope.row" :name="item.prop" v-if="item.render"></slot>
                     <span v-else-if="!item.render">{{ scope.row[item.prop]}}</span>
@@ -33,22 +31,31 @@ import cache from 'Utils/cache';
                 }
             }
         },
-        methods: {
-            filterTag(value, row) {
-                let keys = Object.keys(row)
-                for (let key of keys) {
-                    if (row[key] === value) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        },
         data() {
             return {
                 height: '',
-                schfilter: '',
-                oldDataSource: []
+                filterInput: '',
+                filterData: this.dataSource
+            }
+        },
+        watch: {
+            dataSource () {
+                this.filterTableDataSource(this.filterInput);
+            },
+            filterInput (value) {
+                console.log(value, this.dataSource);
+                this.filterTableDataSource(value);
+            }
+        },
+        methods: {
+            filterTableDataSource (value) {
+                const noFilter = ['photo', 'id', 'corpId'];
+                this.filterData = this.dataSource.filter(data => {
+                    if (value !== '') {
+                        return Object.keys(data).some(key => noFilter.indexOf(key) === -1 && String(data[key]).indexOf(value) > -1);
+                    }
+                    return data;
+                })
             }
         },
         computed: {

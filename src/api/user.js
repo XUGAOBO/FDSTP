@@ -26,3 +26,8 @@ export const authOffical = id => {
 export const systemSupport = () => {
     return http.get('a/corp/base/queryWelcomeContent');
 }
+
+// 获取权限列表
+export const getAuth = () => {
+    return http.get('fdstp/user/queryCurrentUser');
+}
