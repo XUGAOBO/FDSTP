@@ -1,7 +1,7 @@
 <template>
     <div class="table">
         <el-input placeholder="搜索" v-model="filterInput" clearable></el-input>
-        <el-table :data="filterData" border style="width: 100%" :height="height">
+        <el-table :data="filterData" border style="width: 100%" :height="height" @row-click="onRowClick">
             <el-table-column v-for="(item, index) in  getColumns" :key="index" :min-width="item.minWidth" :prop="item.prop" :label="item.label" :width="item.width">
                 <template slot-scope="scope">
                     <slot :data="scope.row" :name="item.prop" v-if="item.render"></slot>
@@ -56,6 +56,10 @@ import cache from 'Utils/cache';
                     }
                     return data;
                 })
+            },
+            onRowClick (row, event, column) {
+                debugger
+                console.log(row)
             }
         },
         computed: {
@@ -65,15 +69,6 @@ import cache from 'Utils/cache';
         },
         mounted () {
             this.height = cache.session.get('height') - 180;
-        },
-        watch: {
-          schfilter: function(val, oldVal) {
-              if (oldVal.length === 0) {
-                this.oldDataSource = this.dataSource
-              } else {
-                  this.dataSource = this.oldDataSource.filter(item => (~item.name.indexOf(val)));
-              }
-            }
         }
     }
 

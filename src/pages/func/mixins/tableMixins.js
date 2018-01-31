@@ -19,7 +19,8 @@ export default {
             visible: false, // form表单展示与隐藏状态  true 展示  false 隐藏
             columns: [], // 表格列表
             dataSource: [], // 表格数据列表
-            oldDataSource: [],
+            dataSourceDetail: [],
+            columnsDetail: [],
             formData: [], // 表单数据
             initValue: {}, // 更新表格时的
             popoverValue: '', // 确认框状态
@@ -50,12 +51,20 @@ export default {
                     this.columns = this.adapterColumns(res.headList);
                     this.formData = this.adapterForm(res.headList);
                     this.dataSource = res.contentList;
-                    this.oldDataSource = res.contentList;
-                    console.log(this.oldDataSource)
                 })
                 .catch(err => {
                     console.log(err)
                 });
+        },
+        queryDetailTable(params) {
+            tableSelect(params)
+            .then(res => {
+                this.columnsDetail = this.adapterColumns(res.headList);
+                this.dataSourceDetail = res.contentList;
+            })
+            .catch(err => {
+                console.log(err)
+            });
         },
         // 获取确认框状态
         getPopoverStatus(id) {
