@@ -19,6 +19,8 @@ export default {
             visible: false, // form表单展示与隐藏状态  true 展示  false 隐藏
             columns: [], // 表格列表
             dataSource: [], // 表格数据列表
+            dataSourceDetail: [],
+            columnsDetail: [],
             formData: [], // 表单数据
             initValue: {}, // 更新表格时的
             popoverValue: '', // 确认框状态
@@ -54,6 +56,16 @@ export default {
                     console.log(err)
                 });
         },
+        queryDetailTable(params) {
+            tableSelect(params)
+            .then(res => {
+                this.columnsDetail = this.adapterColumns(res.headList);
+                this.dataSourceDetail = res.contentList;
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        },
         // 获取确认框状态
         getPopoverStatus(id) {
             return this.popoverValue === id;
@@ -69,6 +81,7 @@ export default {
                     prop: item.headId,
                     label: item.headName,
                     width: item.width * 10,
+                    filters: item.colFilters,
                     minWidth: 0
                 };
                 if (item.headId === 'photo' || item.headId === 'content' || item.headId === 'sign' || item.headId === 'signImage' || item.headId === 'finishRate' || item.headId === 'roadLicensePic' || item.headId === 'businessLicensePic') { // photo 需要图片展示  content 内容展示 sign 签字

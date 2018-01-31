@@ -3,6 +3,7 @@
         <div slot="operate">
             <el-button @click="createRecord" size="small">新增</el-button>
             <el-button @click="exportTable" size="small">导出</el-button>
+             <el-button @click="back" size="small">返回</el-button>
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
             <p slot="operate">
@@ -45,6 +46,11 @@
         },
         mounted () {
             this.tableName = TABLE_NAME;
+        },
+        methods: {
+            back() {
+                this.$router.push('vehicle-info');
+            }
         }
     }
 

@@ -8,7 +8,6 @@
         </div>
         <TableInfo :columns="columns" :dataSource="dataSource" slot="content">
         </TableInfo>
-        <FormModal :dataSource="formData" :initValue="initValue" @closeDialog="closeDialog" @confirm="confirm" :tableName="TABLE_NAME" :visible="visible" slot="form-modal" />
     </Layout>
 </template>
 <script>
