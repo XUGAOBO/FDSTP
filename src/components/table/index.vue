@@ -58,8 +58,7 @@ import cache from 'Utils/cache';
                 })
             },
             onRowClick (row, event, column) {
-                debugger
-                console.log(row)
+                this.$emit('row-click', row, event, column);
             }
         },
         computed: {

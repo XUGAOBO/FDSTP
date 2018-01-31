@@ -22,7 +22,6 @@ axios.interceptors.request.use(function (config) {
         config.url = `${url}${url.indexOf('?') === -1 ? '?' : '&'}t=${t}`
 
     }
-    console.log('axios config: ', config)
     return config
 }, function (error) {
     return Promise.reject(error);
