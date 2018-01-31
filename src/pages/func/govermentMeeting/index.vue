@@ -6,14 +6,15 @@
             </el-date-picker>
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
-        <div slot="content" >
-            <TableInfo :columns="columns" :dataSource="dataSource" style="width:20%">
+        <div slot="content" style="">
+            <TableInfo :columns="columns" :dataSource="dataSource" style="width:20%;float:left">
             </TableInfo>
-            <TableInfo :columns="columnsDetail" :dataSource="dataSourceDetail" style="width:80%">
-                <p slot="finishRate" slot-scope="props">
-                    <el-progress :text-inside="true" :stroke-width="18" :percentage="props.data.finishRate"></el-progress>
-                </p>
-            </TableInfo>
+            <div style="width:80%;float:left;">
+                <TableInfo :columns="columnsDetail" :dataSource="dataSourceDetail" style="height:136px" >
+                </TableInfo>
+                <TableInfo :columns="columnsDetail" :dataSource="dataSourceDetail" style="height:300px">
+                </TableInfo>
+            </div>
         </div>
         
     </Layout>
