@@ -1,7 +1,7 @@
 <template>
     <el-dialog :title="title" :visible.sync="visible" :before-close="close" top='50px'>
         <div class="form-modal" :style="{height: height + 'px'}">
-            <el-form :model="form" ref="form" label-width="100px" size="mini" :inline="true">
+            <el-form :model="form" ref="form" label-width="100px" size="mini" :inline="true" v-if="visible">
                 <el-form-item v-for="(item, index) in data" :key="index" :label="item.name">
                     <!-- 单行文本 -->
                     <el-input v-model="form[item.key]" v-if="item.type === EDITOR_TYPE['text']" :disabled="item.disabled"></el-input>
@@ -87,7 +87,8 @@
                 EDITOR_TYPE,
                 data: [],
                 fileList: [], // 图片列表
-                height: 500
+                height: 500,
+                richArray: [] // 富文本字段属性
             }
         },
         computed: {
@@ -138,7 +139,11 @@
         },
         watch: {
             dataSource(val) {
+                let self = this;
                 this.form = this.dataSource.reduce(function (po, item) {
+                    if (item.type === EDITOR_TYPE['textArea']) { // 表示为富文本类型
+                        self.richArray.push(item.key);
+                    }
                     po[item.key] = '';
                     return po;
                 }, {});
@@ -151,8 +156,14 @@
                     for (let key of Object.keys(this.form)) {
                         this.form[key] = this.initValue[key];
                     }
-                    if (Object.keys(val).length === 0 && this.form.hasOwnProperty(COMMON_EUM.OPERATOR)) { // 如果为新增 且有操作员字段
-                        this.form[COMMON_EUM.OPERATOR] = cache.get(SESSION_KEY.OPERATOR)
+                    if (Object.keys(val).length === 0) {
+                        if (this.form.hasOwnProperty(COMMON_EUM.OPERATOR)) {
+                            this.form[COMMON_EUM.OPERATOR] = cache.get(SESSION_KEY.OPERATOR) // 有操作员字段
+                        }
+                        this.richArray.map(item => {
+                            // this.form[item] = '';
+                            this.$set(this.form, item, ''); // 清空富文本信息
+                        })
                     }
                 }
             },

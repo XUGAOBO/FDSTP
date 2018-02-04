@@ -195,6 +195,7 @@ export default {
             let po = {
                 table: this.tableName
             }
+            this.initValue = {}; // 清空表单填写信息
             this.syncMethod(() => (func))
                 .then(res => {
                     if (this.motorcadeSelect) {

@@ -1,6 +1,6 @@
 <template>
     <div class="motorcade">
-        <el-popover ref="popover" placement="bottom" trigger="click" v-model="visible">
+        <el-popover ref="popover" placement="bottom" trigger="click" v-model="visible" @hide="hidePopover">
             <el-table ref="multipleTable" :data="dataSource" style="width: 100%" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55">
                 </el-table-column>
@@ -67,7 +67,8 @@
                             type: 'success'
                         });
                         this.visible = false;
-                        this.multipleSelection = []
+                        this.multipleSelection = [];
+                        this.$refs.multipleTable.clearSelection();
                     })
                     .catch(err => {
                         this.$message({
@@ -75,8 +76,12 @@
                             type: 'waring'
                         });
                         this.visible = false;
-                        this.multipleSelection = []
+                        this.multipleSelection = [];
+                        this.$refs.multipleTable.clearSelection();
                     });
+            },
+            hidePopover() {
+                this.$refs.multipleTable.clearSelection();
             }
         }
     }
