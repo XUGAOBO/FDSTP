@@ -59,7 +59,6 @@
                 this.queryLetterTable(id);
             },
             onRowClick (row, event, column) {
-                debugger
                 console.log(row)
             }
             
