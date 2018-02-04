@@ -1,6 +1,5 @@
 <template>
     <div class="welcome">
-        <img src="../../assets/images/bg.png" />
         <footer>
             <div class="welcome-period">{{content.content}}</div>
             <div class="welcome-support">
