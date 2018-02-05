@@ -11,7 +11,10 @@
                 <el-menu-item index="vehicle-info">车辆信息</el-menu-item>
             </el-submenu>
             -->
-            <el-menu-item index="train-manage" v-show="hasShow('train-manage')">教育培训</el-menu-item>
+            <el-badge :value="12" class="item" v-show="hasShow('train-manage')">
+                <el-menu-item index="train-manage" v-show="hasShow('train-manage')">教育培训</el-menu-item>
+            </el-badge>
+
             <el-menu-item index="meeting-manage" v-show="hasShow('meeting-manage')">安全会议</el-menu-item>
             <el-menu-item index="order-maintain" v-show="hasShow('order-maintain')">责任状</el-menu-item>
             <!-- <el-submenu index="2">

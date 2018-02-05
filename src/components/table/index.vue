@@ -1,6 +1,8 @@
 <template>
     <div class="table">
-        <el-input placeholder="搜索" v-model="filterInput" clearable></el-input>
+        <!-- <el-input placeholder="搜索" v-model="filterInput" clearable v-show="hasShow()"></el-input> -->
+                <el-input placeholder="搜索" v-model="filterInput" clearable v-show="hasShow()" style="width:200px"></el-input>
+
         <el-table :data="filterData" border style="width: 100%" :height="height" @row-click="onRowClick">
             <el-table-column v-for="(item, index) in  getColumns" :key="index" :min-width="item.minWidth" :prop="item.prop" :label="item.label" :width="item.width">
                 <template slot-scope="scope">
@@ -29,7 +31,12 @@ import cache from 'Utils/cache';
                 default: function () {
                     return []
                 }
+            },
+            searchVisible: {
+                type: Boolean,
+                default: true
             }
+
         },
         data() {
             return {
@@ -59,7 +66,11 @@ import cache from 'Utils/cache';
             },
             onRowClick (row, event, column) {
                 this.$emit('row-click', row, event, column);
+            },
+            hasShow () {
+                return this.searchVisible
             }
+
         },
         computed: {
             getColumns() {
