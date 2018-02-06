@@ -22,7 +22,11 @@
                 </div>
             </section>
         </section>
+        <!-- <section slot="footer" class="footer">
+            <p class="footer-title">Copyright &copy;1999-${year} 智慧先齐 版权所有<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37010302000590"> <img src="../../assets/images/beian.png" style="float:left;"/>鲁公网安备 37010302000590号</a></p>
+        </section> -->
     </article>
+    
 </template>
 <script>
     import cache from 'Utils/cache';
@@ -95,7 +99,7 @@
         position: absolute;
         left: 50%;
         margin-left: -290px;
-        top: 50%;
+        top: 65%;
         margin-top: -173px;
         padding: 30px 50px;
     }

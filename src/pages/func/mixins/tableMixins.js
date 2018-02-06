@@ -56,6 +56,19 @@ export default {
                     console.log(err)
                 });
         },
+        // 导出表格
+        exportTable() {
+            tableExport({
+                table: this.tableName
+            });
+        },
+        exportTableWithDate(params) {
+            tableExport({
+                table: this.tableName,
+                sDate: params.sDate,
+                eDate: params.eDate
+            });
+        },
         queryDetailTable(params) {
             tableSelect(params)
             .then(res => {
@@ -144,12 +157,7 @@ export default {
                     console.log(err)
                 }));
         },
-        // 导出表格
-        exportTable() {
-            tableExport({
-                table: this.tableName
-            });
-        },
+        
         // 导出签到表
         exportData(id) {
             signTableExport(id)

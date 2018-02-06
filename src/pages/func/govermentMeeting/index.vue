@@ -80,6 +80,7 @@
                     sDate: this.formatDate(this.checkDate[0]),
                     eDate: this.formatDate(this.checkDate[1])
                 });
+            },
             onRowClick (row, event, column) {
                 console.log(row)
             }
