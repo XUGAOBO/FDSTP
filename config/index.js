@@ -53,8 +53,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/fdstp': {
-        // target: 'http://47.92.112.44:80',
-        target: 'http://localhost:8080',
+        target: 'http://47.92.112.44:80',
+        // target: 'http://localhost:8080',
         changeOrigin: true
         // pathRewrite: {
         //   '^/api': '/api'
