@@ -102,7 +102,7 @@ export default {
                     type: EDITOR_TYPE[item.editorType],
                     enum: this.getEnum(item.selectValue)
                 }
-                if (item.headId === 'operator') { // 操作员不可编辑
+                if (item.headId === 'operator' || item.headId === 'driverWechat' || item.headId === 'driver2Wechart' || item.headId === 'supercargoWechart') { // 操作员不可编辑
                     po.disabled = true;
                 }
                 return po;
@@ -171,6 +171,13 @@ export default {
                 if (key.indexOf('date') === 0 && !value) {
                     this.$message({
                         message: '请完善表单信息~',
+                        type: 'warning'
+                    });
+                    return;
+                }
+                if (key === 'period' && !value) {
+                    this.$message({
+                        message: '请完善学时信息~',
                         type: 'warning'
                     });
                     return;

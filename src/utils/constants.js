@@ -8,7 +8,10 @@ export const SESSION_KEY = {
 export const COMMON_EUM = { // 通用字段
     ID: 'id', // 编号
     OPERATOR: 'operator', // 操作字段
-    CREATEDATE: 'createDate' // 创建时间
+    CREATEDATE: 'createDate', // 创建时间
+    DRIVER_WECHAT: 'driverWechat',
+    DRIVER2_WECHAT: 'driver2Wechart',
+    SUPERCARGO_WECHAT: 'supercargoWechart'
 }
 
 export const EDITOR_TYPE = { // 编辑格式

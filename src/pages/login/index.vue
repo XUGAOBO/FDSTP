@@ -81,6 +81,8 @@
         height: 100%;
         background-color: rgba(34, 43, 56);
         position: relative;
+        background-image: url(bg.jpg);
+        background-size: 100%;
     }
 
     .login-main {
