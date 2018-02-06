@@ -46,7 +46,7 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     host: 'http://localhost:',
-    port: 99, // 与后端服务端口保持一致
+    port: 8089, // 与后端服务端口保持一致
     autoOpenBrowser: true,
     assetsSubStatic: 'static',
     assetsSubDirectory: '',

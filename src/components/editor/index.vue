@@ -57,7 +57,7 @@
                             'customstyle', 'paragraph', 'fontfamily', 'fontSize', '|',
                             'link', 'unlink', 'anchor', '|',
                             'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-                            'simpleupload', '|',
+                            // 'simpleupload', '|',
                             'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
                             'charts', '|',
                             'preview'

@@ -9,7 +9,7 @@
                 </div>
                 <div class="login-input">
                     <img src="../../assets/images/password.png" />
-                    <input type="password" v-model="password" placeholder="请输入密码" />
+                    <input type="password" v-model="password" @keyup.enter="login" placeholder="请输入密码" />
                 </div>
             </section>
             <section class="login-opt clearfix">
@@ -32,6 +32,7 @@
     import {
         getQueryString
     } from 'Utils/qs';
+    import { Loading } from 'element-ui';
     export default {
         data() {
             const username = cache.get('username')
@@ -54,8 +55,10 @@
                     this.$message.error('请输入密码')
                     return;
                 }
+                const loadingInstance = Loading.service();
                 const param = `?username=${this.username}&password=${this.password}&mobileLogin=true`
                 loginAPI(param).then(data => {
+                    loadingInstance.close();
                     if (data.id) {
                         for (let [key, value] of Object.entries(data)) {
                             cache.cookie.set(key, value);
@@ -66,7 +69,7 @@
                     } else {
                         this.$message.error(data.message)
                     }
-                });
+                }).catch(e => loadingInstance.close());
             },
             gotoRegister() {
                 this.$router.push('/register')

@@ -31,3 +31,8 @@ export const systemSupport = () => {
 export const getAuth = () => {
     return http.get('fdstp/user/queryCurrentUser');
 }
+
+// 删除用户
+export const deleteUser = (user) => {
+    return http.get(`a/corp/base/deleteOperator?operator=${user}`)
+}

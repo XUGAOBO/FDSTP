@@ -17,6 +17,16 @@
                 <span class="add-icon" @click="addOperator">
                     <i class="el-icon-circle-plus-outline"></i>
                 </span>
+                <span class="add-icon" @click="popoverStatus = true">
+                    <el-popover ref="popover" placement="top" width="160" :value="popoverStatus">
+                            <p>您确定删除当前操作员吗？</p>
+                            <div style="text-align: right; margin: 0">
+                                <el-button size="mini" type="text" @click="popoverStatus = false">取消</el-button>
+                                <el-button type="primary" size="mini" @click="deleteOperator()">确定</el-button>
+                            </div>
+                        </el-popover>
+                    <i class="el-icon-remove-outline" v-popover:popover></i>
+                </span>
             </span>
             <span class="setting">
                 <el-dropdown trigger="click" @command="handleCommand">
@@ -101,7 +111,8 @@
     } from '../../api/login';
     import {
         officalConfirm,
-        officalConfirmStatus
+        officalConfirmStatus,
+        deleteUser
     } from '../../api/user';
     import cache from 'Utils/cache';
     import {
@@ -126,7 +137,8 @@
                     legalPerson: '',
                     phone: ''
                 },
-                userInfo: {}
+                userInfo: {},
+                popoverStatus: false
             }
         },
         computed: {
@@ -209,7 +221,6 @@
                         type: 'warning'
                     }).then(() => {
                         logoutRequest().then(d => {
-                            console.log(d);
                         }).catch(() => {
                             this.$message.error('退出失败，请重试');
                         });
@@ -221,8 +232,6 @@
                         console.log();
                     });
                 }
-                // console.error('e', e);
-                console.error('e', e);
             },
             // 官方认证
             officialCertification() {
@@ -263,6 +272,21 @@
                                 this.officalStatus = res;
                             })
                     })
+            },
+            // 删除操作员
+            deleteOperator() {
+                this.popoverStatus = false;
+                deleteUser(this.value)
+                .then(res => {
+                    this.queryOperate();
+                    this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                })
+                .catch(() => {
+                    this.$message.error('删除失败');
+                });
             }
         },
         watch: {
