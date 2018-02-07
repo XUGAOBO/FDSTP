@@ -64,6 +64,9 @@
     import Layout from '../layout/index';
     import mixin from '../mixins/tableMixins';
     import FormModal from 'Components/formModal/index';
+    import {
+        format as formatDate
+    } from 'Utils/date';
     const TABLE_NAME = 'truckDepartCheckRecordDetail';
     export default {
         mixins: [mixin],
@@ -104,10 +107,29 @@
                 });
         },
         methods: {
+            formatTableParam(dateArr) {
+                return {
+                    table: this.TABLE_NAME,
+                    sDate: this.formatDate(dateArr[0]),
+                    eDate: this.formatDate(dateArr[1])
+                };
+            },
+            changeDate(date) {
+                this.queryTable(this.formatTableParam(date));
+            },
             showPopover(id) {
                 this.dialogVisible = true;
                 this.querySignTable(id);
                 this.selectId = id;
+            },
+            formatDate(date) {
+                return formatDate(date, 'YYYYMMDD');
+            },
+            exportTable() {
+                let params = {}
+                params.sDate = this.formatDate(this.checkDate[0])
+                params.eDate = this.formatDate(this.checkDate[1])
+                this.exportTableWithDate(params);
             }
         }
     }

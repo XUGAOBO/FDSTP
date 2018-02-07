@@ -6,6 +6,7 @@
         </span>
         <div class="func-bar clearfix">
             <span>
+                操作员：
                 <el-select v-model="value" placeholder="请选择">
                     <el-option
                     v-for="item in options"
@@ -26,6 +27,13 @@
                             </div>
                         </el-popover>
                     <i class="el-icon-remove-outline" v-popover:popover></i>
+                </span>
+            </span>
+            <span>
+                <span class="add-icon" >
+                    <el-badge is-dot>
+                        <i class="el-icon-bell"></i>
+                    </el-badge>
                 </span>
             </span>
             <span class="setting">

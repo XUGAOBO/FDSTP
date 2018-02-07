@@ -6,14 +6,15 @@
             </el-date-picker>
             <el-button @click="exportTable" size="small">导出</el-button>
         </div>
-        <div slot="content" >
-            <TableInfo :columns="columns" :dataSource="dataSource" style="width:20%">
+        <div slot="content" style="">
+            <TableInfo :columns="columns" :dataSource="dataSource"  style="width:20%;float:left" @row-click="linkCompany" >
             </TableInfo>
-            <TableInfo :columns="columnsDetail" :dataSource="dataSourceDetail" style="width:80%">
-                <p slot="finishRate" slot-scope="props">
-                    <el-progress :text-inside="true" :stroke-width="18" :percentage="props.data.finishRate"></el-progress>
-                </p>
-            </TableInfo>
+            <div style="width:79%;float:left;">
+                <TableInfo :columns="columnsDetail" :dataSource="dataSourceDetail" :searchVisible=false style="height:120px" >
+                </TableInfo>
+                <TableInfo :columns="columnsDetail" :dataSource="dataSourceDetail" style="height:300px">
+                </TableInfo>
+            </div>
         </div>
         
     </Layout>
@@ -37,7 +38,8 @@
             return {
                 TABLE_NAME,
                 dialogVisible: false,
-                checkDate: [thisDate, new Date()]
+                checkDate: [thisDate, new Date()],
+                corpId: ''
             }
         },
         mounted () {
@@ -48,7 +50,9 @@
                 eDate: this.formatDate(this.checkDate[1])
             });
             this.queryDetailTable({
-                table: 'govermentTraining',
+                companyId: '',
+                companyName: '',
+                table: 'govermentStatistics',
                 sDate: this.formatDate(this.checkDate[0]),
                 eDate: this.formatDate(this.checkDate[1])
             });
@@ -57,6 +61,25 @@
             showPopover(id) {
                 this.dialogVisible = true;
                 this.queryLetterTable(id);
+            },
+            linkCompany (row, event, column) {
+                this.queryDetailTable({
+                    companyId: row.id,
+                    companyName: row.corpName,
+                    table: 'govermentStatistics',
+                    sDate: this.formatDate(this.checkDate[0]),
+                    eDate: this.formatDate(this.checkDate[1])
+                });
+            },
+            exportTable () {
+                debugger
+                 this.queryDetailTable({
+                    companyId: '',
+                    download: true,
+                    table: 'govermentTraining',
+                    sDate: this.formatDate(this.checkDate[0]),
+                    eDate: this.formatDate(this.checkDate[1])
+                });
             },
             onRowClick (row, event, column) {
                 console.log(row)
