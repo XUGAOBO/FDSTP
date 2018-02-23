@@ -125,7 +125,7 @@
                 <TableInfo :columns="columns" :dataSource="dataSource">
                     <p slot="content" slot-scope="props">
                         <el-button type="text" @click="showContent(props.data.id)">点击查看内容</el-button>
-                        <el-dialog title="详细内容" :visible="getContentStatus(props.data.id)" width="60%" top='50px' @close="closeContentStatus">
+                        <el-dialog title="详细内容" :visible="getContentStatus(props.data.id)" width="50%" top='50px' @close="closeContentStatus">
                             <div class="detail-content__size">
                                 <Editor :id="props.data.id" :content="props.data.content" :readonly="true" />
                             </div>
