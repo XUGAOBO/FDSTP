@@ -29,13 +29,24 @@
                     <i class="el-icon-remove-outline" v-popover:popover></i>
                 </span>
             </span>
-            <span>
-                <span class="add-icon" >
-                    <el-badge is-dot>
+            <el-dropdown trigger="click">
+                <span class="add-icon">
+                    <el-badge :value="notReadCount">
                         <i class="el-icon-bell"></i>
                     </el-badge>
                 </span>
-            </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item v-for="item in noticeList" :key="item.id">
+                        <div class="notice-style" :class="{'notice-blod': !item.isRead}" @click="checkNotice(item)">
+                            {{item.title}}
+                        </div>
+                        <p>{{item.date}}</p>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                        <div class="notice-style" @click="checkNoticeMore()">查看更多</div>
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
             <span class="setting">
                 <el-dropdown trigger="click" @command="handleCommand">
                     <span class="setting-info">
@@ -105,213 +116,283 @@
                     <el-button type="primary" @click="confirmOffical">确 定</el-button>
                 </span>
             </el-dialog>
+            <el-dialog title="详细内容" :visible.sync="noticeVisible" width="60%" top='50px' @close="noticeVisible = false">
+                <div class="detail-content__size">
+                    <Editor id="notice" :content="noticeContent" :readonly="true" />
+                </div>
+            </el-dialog>
+            <el-dialog title="详细内容" :visible.sync="noticeTableVisible" width="60%" top='50px' @close="noticeTableVisible = false">
+                <TableInfo :columns="columns" :dataSource="dataSource">
+                    <p slot="content" slot-scope="props">
+                        <el-button type="text" @click="showContent(props.data.id)">点击查看内容</el-button>
+                        <el-dialog title="详细内容" :visible="getContentStatus(props.data.id)" width="60%" top='50px' @close="closeContentStatus">
+                            <div class="detail-content__size">
+                                <Editor :id="props.data.id" :content="props.data.content" :readonly="true" />
+                            </div>
+                        </el-dialog>
+                    </p>
+                </TableInfo>
+            </el-dialog>
         </div>
     </div>
 </template>
 <script>
-    import {
-        queryOperator,
-        insertOperator
-    } from '../../api/operator';
-    import {
-        modifyPwdRequest,
-        logoutRequest
-    } from '../../api/login';
-    import {
-        officalConfirm,
-        officalConfirmStatus,
-        deleteUser
-    } from '../../api/user';
-    import cache from 'Utils/cache';
-    import {
-        SESSION_KEY
-    } from 'Utils/constants';
-    export default {
-        data() {
-            return {
-                options: [],
-                value: '',
-                visible: false,
-                inputValue: '', // 操作员姓名
-                password: {},
-                changepassword: false,
-                dialogVisbile: false,
-                officalStatus: false, // 是否认证
-                officalForm: {
-                    roadLicense: '',
-                    businessLicense: '',
-                    roadLicensePic: '',
-                    businessLicensePic: '',
-                    legalPerson: '',
-                    phone: ''
-                },
-                userInfo: {},
-                popoverStatus: false
-            }
-        },
-        computed: {
-            getName() {
-                return cache.cookie.get('name') || '';
-            }
-        },
-        methods: {
-            close: function () {
-                this.visible = false;
-                this.dialogVisbile = false;
-            },
-            // 添加操作员
-            addOperator() {
-                this.visible = true;
-                this.inputValue = '';
-            },
-            confirm() {
-                if (!this.inputValue) {
-                    this.$message({
-                        message: '操作员姓名不能为空',
-                        type: 'warning'
-                    });
-                    return;
-                }
-                insertOperator(this.inputValue).then(res => {
-                    this.visible = false;
-                    this.$message({
-                        message: '添加成功',
-                        type: 'success'
-                    });
-                    this.queryOperate()
-                })
-            },
-            processFileRoad(event) {
-                this.officalForm['roadLicensePic'] = event.target.files[0]
-            },
-            processFileBusiness(event) {
-                this.$set(this.officalForm, 'businessLicensePic', event.target.files[0])
-                // this.officalForm['businessLicensePic'] = event.target.files[0];
-                // console.error('event', this.officalForm['businessLicensePic']);
-            },
-            modifyPwd() {
-                if (!this.password.lastPassword) {
-                    alert('请输入旧密码');
-                    return;
-                } else if (!this.password.newPassword) {
-                    alert('请输入新密码');
-                    return;
-                }
-                const param = `?oldPassword=${this.password.lastPassword}&newPassword=${this.password.newPassword}`;
-                return modifyPwdRequest(param).then(res => {
-                    if (res.code === 1) {
-                        this.$message({
-                            message: '修改密码成功',
-                            type: 'success'
-                        });
-                        this.changepassword = false;
-                    } else {
-                        this.$message.error(res.content);
-                    }
-                });
-            },
-            queryOperate() {
-                queryOperator().then(res => {
-                    this.options = res;
-                    if (res.length > 0) {
-                        this.value = res[0].operator;
-                        cache.session.set(SESSION_KEY.OPERATOR, this.value);
-                    }
-                })
-            },
-            handleCommand(e) {
-                if (e === '1') {
-                    this.changepassword = true
-                } else if (e === '2') {
-                    this.$confirm('退出登录将无法进行操作，确定退出?', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        logoutRequest().then(d => {
-                        }).catch(() => {
-                            this.$message.error('退出失败，请重试');
-                        });
-                        this.$message({
-                            type: 'success',
-                            message: '退出成功!'
-                        });
-                    }).catch(() => {
-                        console.log();
-                    });
-                }
-            },
-            // 官方认证
-            officialCertification() {
-                this.dialogVisbile = true;
-                this.officalForm = {
-                    roadLicense: '',
-                    businessLicense: '',
-                    roadLicensePic: '',
-                    businessLicensePic: '',
-                    legalPerson: '',
-                    phone: ''
-                }
-            },
-            // 提交官方认证
-            confirmOffical() {
-                for (let value of Object.values(this.officalForm)) {
-                    if (!value) {
-                        this.$message({
-                            message: '请完善表单信息~',
-                            type: 'warning'
-                        });
-                        return;
-                    }
-                }
-                let formData = new FormData();
-                for (let [key, value] of Object.entries(this.officalForm)) {
-                    formData.append(key, value);
-                }
-                officalConfirm(formData)
-                    .then(res => {
-                        this.dialogVisbile = false;
-                        this.$message({
-                            message: '提交成功，请等待管理员审核~',
-                            type: 'success'
-                        });
-                        officalConfirmStatus()
-                            .then(res => {
-                                this.officalStatus = res;
-                            })
-                    })
-            },
-            // 删除操作员
-            deleteOperator() {
-                this.popoverStatus = false;
-                deleteUser(this.value)
-                .then(res => {
-                    this.queryOperate();
-                    this.$message({
-                            type: 'success',
-                            message: '删除成功!'
-                        });
-                })
-                .catch(() => {
-                    this.$message.error('删除失败');
-                });
-            }
-        },
-        watch: {
-            value(val) {
-                cache.session.set(SESSION_KEY.OPERATOR, val);
-            },
-            officalForm(val) {
-                console.error('val', val);
-            }
-        },
-        mounted() {
-            this.queryOperate();
-            officalConfirmStatus()
-                .then(res => {
-                    this.officalStatus = res;
-                })
-        }
+import { queryOperator, insertOperator } from '../../api/operator';
+import { modifyPwdRequest, logoutRequest } from '../../api/login';
+import {
+  officalConfirm,
+  officalConfirmStatus,
+  deleteUser,
+  queryNoticeList,
+  changeNoticeStatus,
+  queryMoreNotice
+} from '../../api/user';
+import cache from 'Utils/cache';
+import Editor from 'Components/editor/index';
+import TableInfo from 'Components/table/index';
+import { SESSION_KEY } from 'Utils/constants';
+import mixin from '../func/mixins/tableMixins';
+export default {
+  mixins: [mixin],
+  data() {
+    return {
+      options: [],
+      value: '',
+      visible: false,
+      inputValue: '', // 操作员姓名
+      password: {},
+      changepassword: false,
+      dialogVisbile: false,
+      officalStatus: false, // 是否认证
+      officalForm: {
+        roadLicense: '',
+        businessLicense: '',
+        roadLicensePic: '',
+        businessLicensePic: '',
+        legalPerson: '',
+        phone: ''
+      },
+      userInfo: {},
+      popoverStatus: false,
+      noticeList: [],
+      noticeVisible: false,
+      noticeContent: '',
+      noticeTableVisible: false,
+      columns: [],
+      dataSource: [],
+      contentVisible: false,
+      notReadCount: null
+    };
+  },
+  components: {
+    TableInfo,
+    Editor
+  },
+  computed: {
+    getName() {
+      return cache.cookie.get('name') || '';
     }
-
+  },
+  methods: {
+    close: function() {
+      this.visible = false;
+      this.dialogVisbile = false;
+    },
+    // 添加操作员
+    addOperator() {
+      this.visible = true;
+      this.inputValue = '';
+    },
+    confirm() {
+      if (!this.inputValue) {
+        this.$message({
+          message: '操作员姓名不能为空',
+          type: 'warning'
+        });
+        return;
+      }
+      insertOperator(this.inputValue).then(res => {
+        this.visible = false;
+        this.$message({
+          message: '添加成功',
+          type: 'success'
+        });
+        this.queryOperate();
+      });
+    },
+    processFileRoad(event) {
+      this.officalForm['roadLicensePic'] = event.target.files[0];
+    },
+    processFileBusiness(event) {
+      this.$set(this.officalForm, 'businessLicensePic', event.target.files[0]);
+      // this.officalForm['businessLicensePic'] = event.target.files[0];
+      // console.error('event', this.officalForm['businessLicensePic']);
+    },
+    modifyPwd() {
+      if (!this.password.lastPassword) {
+        alert('请输入旧密码');
+        return;
+      } else if (!this.password.newPassword) {
+        alert('请输入新密码');
+        return;
+      }
+      const param = `?oldPassword=${this.password.lastPassword}&newPassword=${
+        this.password.newPassword
+      }`;
+      return modifyPwdRequest(param).then(res => {
+        if (res.code === 1) {
+          this.$message({
+            message: '修改密码成功',
+            type: 'success'
+          });
+          this.changepassword = false;
+        } else {
+          this.$message.error(res.content);
+        }
+      });
+    },
+    queryOperate() {
+      queryOperator().then(res => {
+        this.options = res;
+        if (res.length > 0) {
+          this.value = res[0].operator;
+          cache.session.set(SESSION_KEY.OPERATOR, this.value);
+        }
+      });
+    },
+    handleCommand(e) {
+      if (e === '1') {
+        this.changepassword = true;
+      } else if (e === '2') {
+        this.$confirm('退出登录将无法进行操作，确定退出?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            logoutRequest()
+              .then(d => {})
+              .catch(() => {
+                this.$message.error('退出失败，请重试');
+              });
+            this.$message({
+              type: 'success',
+              message: '退出成功!'
+            });
+          })
+          .catch(() => {
+            console.log();
+          });
+      }
+    },
+    // 官方认证
+    officialCertification() {
+      this.dialogVisbile = true;
+      this.officalForm = {
+        roadLicense: '',
+        businessLicense: '',
+        roadLicensePic: '',
+        businessLicensePic: '',
+        legalPerson: '',
+        phone: ''
+      };
+    },
+    // 提交官方认证
+    confirmOffical() {
+      for (let value of Object.values(this.officalForm)) {
+        if (!value) {
+          this.$message({
+            message: '请完善表单信息~',
+            type: 'warning'
+          });
+          return;
+        }
+      }
+      let formData = new FormData();
+      for (let [key, value] of Object.entries(this.officalForm)) {
+        formData.append(key, value);
+      }
+      officalConfirm(formData).then(res => {
+        this.dialogVisbile = false;
+        this.$message({
+          message: '提交成功，请等待管理员审核~',
+          type: 'success'
+        });
+        officalConfirmStatus().then(res => {
+          this.officalStatus = res;
+        });
+      });
+    },
+    // 删除操作员
+    deleteOperator() {
+      this.popoverStatus = false;
+      deleteUser(this.value)
+        .then(res => {
+          this.queryOperate();
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        })
+        .catch(() => {
+          this.$message.error('删除失败');
+        });
+    },
+    checkNotice(item) {
+      this.noticeVisible = true;
+      this.noticeContent = item.content;
+      changeNoticeStatus(item.id).then(res => {
+        this.getNoticeList();
+      });
+    },
+    // 查看更多
+    checkNoticeMore() {
+      this.noticeTableVisible = true;
+      queryMoreNotice().then(res => {
+        this.columns = this.adapterColumns(res.headList);
+        this.dataSource = res.contentList;
+      });
+    },
+    // 查询通知列表
+    getNoticeList() {
+      queryNoticeList().then(res => {
+          res = res || [];
+          this.notReadCount = res.filter(item => !item.isRead).length;
+          this.noticeList = res;
+      });
+    },
+    showContent(id) {
+      this.contentVisible = true;
+      this.contentId = id;
+      changeNoticeStatus(id).then(res => {
+        queryMoreNotice().then(res => {
+            this.columns = this.adapterColumns(res.headList);
+            this.dataSource = res.contentList;
+        });
+      });
+    },
+    getContentStatus(id) {
+      return this.contentVisible && this.contentId === id;
+    },
+    closeContentStatus() {
+      this.contentVisible = false;
+      this.contentId = '';
+    }
+  },
+  watch: {
+    value(val) {
+      cache.session.set(SESSION_KEY.OPERATOR, val);
+    },
+    officalForm(val) {
+      console.error('val', val);
+    }
+  },
+  mounted() {
+    this.queryOperate();
+    this.getNoticeList();
+    officalConfirmStatus().then(res => {
+      this.officalStatus = res;
+    });
+  }
+};
 </script>

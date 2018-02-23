@@ -36,3 +36,18 @@ export const getAuth = () => {
 export const deleteUser = (user) => {
     return http.get(`a/corp/base/deleteOperator?operator=${user}`)
 }
+
+// 查询通知列表
+export const queryNoticeList = () => {
+    return http.get('a/government/queryCorpNoticeList');
+}
+
+// 更改通知状态
+export const changeNoticeStatus = (id) => {
+    return http.get(`a/government/updateCorpNoticeReadRecord?id=${id}`)
+}
+
+// 查看更多
+export const queryMoreNotice = () => {
+    return http.get('a/corp/base/selectTableContent?table=queryCorpNoticeList');
+}
