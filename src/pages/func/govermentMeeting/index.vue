@@ -72,7 +72,6 @@
                 });
             },
             exportTable () {
-                debugger
                  this.queryDetailTable({
                     companyId: '',
                     download: true,
@@ -84,7 +83,6 @@
             onRowClick (row, event, column) {
                 console.log(row)
             }
-            
         }
     }
 
