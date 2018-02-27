@@ -38,6 +38,10 @@ axios.interceptors.response.use(function (response) {
         downloadUrl(response.request.responseURL)
         return;
     }
+    if (response.headers && (response.headers['content-type'] === 'text/plain' || response.headers['content-type'] === 'application/pdf' || response.headers['content-type'] === 'application/msword')) {
+        downloadUrl(response.request.responseURL)
+        return;
+    }
     const data = response.data;
     return data;
 }, function (error) {

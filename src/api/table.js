@@ -5,6 +5,7 @@ const USER_MANAGE = 'userManage';
 const OFFICAL_MANAGE = 'officalManage';
 const CHECK_RULE = 'checkrule';
 const WEATHER = 'weather';
+const GOVERNMENT_NOTICE = 'queryCorpNoticeList';
 // 查询表格数据
 export const tableSelect = (params) => {
     if (params.table === USER_MANAGE) {
@@ -18,6 +19,15 @@ export const tableSelect = (params) => {
 
 // 新增表格行记录
 export const insertTableRow = (map, tableName) => {
+    if (tableName === GOVERNMENT_NOTICE) {
+        let formData = new FormData();
+        for (let [key, value] of Object.entries(map)) {
+            formData.append(key, value);
+        }
+        return http.post('a/government/addNotice', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+    }
     if (tableName === CHECK_RULE) {
         let formData = new FormData();
         for (let [key, value] of Object.entries(map)) {
@@ -25,7 +35,7 @@ export const insertTableRow = (map, tableName) => {
         }
         return http.post('a/corp/check/addCheckPoint', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
-          })
+        })
     }
     return http.post(`a/corp/base/insertTableRow/${tableName}`, map)
 }

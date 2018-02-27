@@ -347,11 +347,12 @@ export default {
     },
     // 查看更多
     checkNoticeMore() {
-      this.noticeTableVisible = true;
-      queryMoreNotice().then(res => {
-        this.columns = this.adapterColumns(res.headList);
-        this.dataSource = res.contentList;
-      });
+      // this.noticeTableVisible = true;
+      // queryMoreNotice().then(res => {
+      //   this.columns = this.adapterColumns(res.headList);
+      //   this.dataSource = res.contentList;
+      // });
+      this.$router.push('goverment-notice');
     },
     // 查询通知列表
     getNoticeList() {
