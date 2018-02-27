@@ -50,9 +50,9 @@
 
             <el-menu-item index="user-manage" v-show="hasShow('user-manage')">管理员-用户管理</el-menu-item>
             <el-menu-item index="offical-certification" v-show="hasShow('offical-certification')">管理员-官方认证</el-menu-item>
-            <el-menu-item index="govermentcorpList" v-show="hasShow('govermentcorpList')">政府-公司信息</el-menu-item>
-            <el-menu-item index="govermentMeeting" v-show="hasShow('govermentMeeting')">政府-安全会议统计</el-menu-item>
-            <el-menu-item index="govermentTraining" v-show="hasShow('govermentTraining')">政府-教育培训统计</el-menu-item>
+            <el-menu-item index="govermentcorpList" v-show="hasShow('govermentcorpList')">公司信息</el-menu-item>
+            <el-menu-item index="govermentTraining" v-show="hasShow('govermentTraining')">通知列表</el-menu-item>
+            <el-menu-item index="govermentMeeting" v-show="hasShow('govermentMeeting')">会议培训统计</el-menu-item>
             <!--
             <el-submenu index="7">
                 <span slot="title">系统设置</span>

@@ -180,7 +180,17 @@ const Index = resolve => {
     }, 'index')
 }
 
+const GovermentNotice = resolve => {
+    require.ensure([], () => {
+        resolve(require('../pages/header/notice.vue'))
+    }, 'goverment-notice')
+}
+
 const routerList = [{
+    title: '通知信息',
+    routeName: 'goverment-notice',
+    component: GovermentNotice
+},{
     title: '首页',
     routeName: 'welcome',
     component: Welcome
