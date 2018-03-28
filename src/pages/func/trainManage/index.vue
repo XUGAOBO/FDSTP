@@ -40,8 +40,7 @@
                                 -->
                             </div>
                             <div class="topic-content">
-
-                                <el-carousel :interval="5000" arrow="always" height="150px">
+                                <el-carousel :interval="5000" arrow="always" height="150px" autoplay v-show="topicList">
                                     <el-carousel-item v-for="(item, index) in topicList" :key="index">
                                         <div class="topic-carousel">
                                             <h3>{{ item.question }}</h3>
